@@ -1,0 +1,31 @@
+@import '../variables.css';
+
+.SearchBox {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	.crop {
+		max-height: 300px;
+		max-width: 500px;
+		display: inline-block;
+	}
+	.crop-controls {
+		width: 100%;
+	}
+	.drop-zone {
+		border: 1px dashed white;
+		border-radius: 10px;
+		max-width: 300px;
+		padding: 60px;
+		color: rgba(255, 255, 255, .5);
+		font-size: 1.25em;
+		text-align: center;
+		background-color: rgba(50,50,50,.1);
+		box-shadow: inset 0px 0px 20px -3px rgba(0,0,0,0.75);
+		margin: 20px;
+		margin-top: 40px;
+		cursor: crosshair;
+		margin-bottom: 80px;
+	}
+}

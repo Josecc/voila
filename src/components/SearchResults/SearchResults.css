@@ -1,0 +1,8 @@
+@import '../variables.css';
+
+.SearchResults {
+	margin: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}

@@ -1,0 +1,13 @@
+.ProductImage {
+
+	& img {
+		width: 230px;
+		padding: 1px;
+		border: 1px solid white;
+		max-height: 230px;
+	};
+
+	text-align: center;
+	overflow: hidden;
+	padding: 10px 0;
+}

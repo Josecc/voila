@@ -1,0 +1,6 @@
+{
+  "name": "VisualSearch",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./VisualSearch.js"
+}

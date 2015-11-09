@@ -1,0 +1,10 @@
+.edgeFrame {
+	border: none;
+	height: 100%;
+	width: 100%;
+}
+.Tutorial {
+	width: 100%;
+	height: 400px;
+	text-align: center;
+}

@@ -22,6 +22,8 @@ class Navigation extends Component {
         <a className="Navigation-link" href="/login" onClick={Link.handleClick}>Log in</a>
         <span className="Navigation-spacer">or</span>
         <a className="Navigation-link Navigation-link--highlight" href="/register" onClick={Link.handleClick}>Sign up</a>
+        <span className="Navigation-spacer"> | </span>
+        <a className="Navigation-link Navigation-link" href="#" ><i className="fa fa-share"></i></a>
       </div>
     );
   }

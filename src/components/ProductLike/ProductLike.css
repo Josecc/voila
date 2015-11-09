@@ -1,0 +1,15 @@
+.ProductLike {
+	margin: 0 10px;
+	position: relative;
+	&-voila {
+		display: inline-block;
+		color: #783E98;
+		font-weight: 600;
+	};
+
+	&-heart {
+		display: inline-block;
+		right: 0;
+		position: absolute;
+	}
+}

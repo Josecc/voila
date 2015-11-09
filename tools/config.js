@@ -64,7 +64,7 @@ const config = {
   },
 
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin()
   ],
 
   resolve: {
@@ -201,7 +201,7 @@ const serverConfig = merge({}, config, {
     ...config.plugins,
     new webpack.DefinePlugin(GLOBALS),
     new webpack.BannerPlugin('require("source-map-support").install();',
-      { raw: true, entryOnly: false }),
+      { raw: true, entryOnly: false })
   ],
   module: {
     loaders: [

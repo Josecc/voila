@@ -1,0 +1,13 @@
+.ProductInfo {
+	margin: 0 10px;
+	position: relative;
+	&-name {
+		display: inline-block;
+	};
+
+	&-price {
+		display: inline-block;
+		right: 0;
+		position: absolute;
+	}
+}

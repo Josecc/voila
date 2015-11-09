@@ -15,6 +15,7 @@
 	}
 	.drop-zone {
 		border: 1px dashed white;
+		user-select: none;
 		border-radius: 10px;
 		max-width: 300px;
 		padding: 60px;

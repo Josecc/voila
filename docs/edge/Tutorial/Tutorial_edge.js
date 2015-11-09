@@ -114,7 +114,7 @@
                         '${Stage}': {
                             isStage: true,
                             rect: ['null', 'null', '550px', '400px', 'auto', 'auto'],
-                            sizeRange: ['175px','550px','',''],
+                            sizeRange: ['50px','550px','',''],
                             overflow: 'hidden',
                             fill: ["rgba(255,255,255,0.00)"]
                         }
@@ -145,14 +145,14 @@
                             'rgba(255,255,255,1)'
                         ],
                         [
-                            "eid11",
+                            "eid56",
                             "opacity",
-                            4500,
-                            500,
-                            "easeOutExpo",
-                            "${Text3}",
-                            '0',
-                            '1'
+                            14000,
+                            250,
+                            "easeInOutSine",
+                            "${Ellipse}",
+                            '1',
+                            '0'
                         ],
                         [
                             "eid28",
@@ -195,14 +195,14 @@
                             '1'
                         ],
                         [
-                            "eid58",
-                            "boxShadow.blur",
-                            8000,
-                            250,
-                            "linear",
-                            "${Ellipse}",
-                            '46px',
-                            '93px'
+                            "eid27",
+                            "display",
+                            7901,
+                            0,
+                            "easeInOutSine",
+                            "${Text3}",
+                            'block',
+                            'none'
                         ],
                         [
                             "eid23",
@@ -255,14 +255,14 @@
                             '0'
                         ],
                         [
-                            "eid27",
-                            "display",
-                            7901,
-                            0,
-                            "easeInOutSine",
-                            "${Text3}",
-                            'block',
-                            'none'
+                            "eid58",
+                            "boxShadow.blur",
+                            8000,
+                            250,
+                            "linear",
+                            "${Ellipse}",
+                            '46px',
+                            '93px'
                         ],
                         [
                             "eid42",
@@ -275,14 +275,14 @@
                             'none'
                         ],
                         [
-                            "eid56",
+                            "eid11",
                             "opacity",
-                            14000,
-                            250,
-                            "easeInOutSine",
-                            "${Ellipse}",
-                            '1',
-                            '0'
+                            4500,
+                            500,
+                            "easeOutExpo",
+                            "${Text3}",
+                            '0',
+                            '1'
                         ],
                         [
                             "eid32",

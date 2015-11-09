@@ -36,7 +36,7 @@ class Html extends Component {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <title>{this.props.title}</title>
         <meta name="description" content={this.props.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropper/1.0.0/cropper.css" rel="stylesheet"></link>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />

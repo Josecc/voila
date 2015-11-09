@@ -85,12 +85,17 @@ class VisualSearch extends Component {
 			processData: false,
 			contentType: false ,
 			success: function(data) {
-				this.setState({
-					resultsReceived: true,
-					searching: false,
-					productList: data.result
-				});
-				console.log(data);
+				if (data.result.length > 0){
+					this.setState({
+						resultsReceived: true,
+						searching: false,
+						productList: data.result
+					});
+				} else {
+					this.setState({
+						searching: false
+					});
+				}
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.err(this.props.url, status, err.toString());

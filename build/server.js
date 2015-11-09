@@ -1973,7 +1973,7 @@ module.exports =
               this.props.title
             ),
             _react2['default'].createElement('meta', { name: 'description', content: this.props.description }),
-            _react2['default'].createElement('meta', { name: 'viewport', content: 'width=device-width, initial-scale=1' }),
+            _react2['default'].createElement('meta', { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1' }),
             _react2['default'].createElement('link', { rel: 'apple-touch-icon', href: 'apple-touch-icon.png' }),
             _react2['default'].createElement('link', { href: 'https://cdnjs.cloudflare.com/ajax/libs/cropper/1.0.0/cropper.css', rel: 'stylesheet' }),
             _react2['default'].createElement('link', { rel: 'stylesheet', href: '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' }),
@@ -3178,12 +3178,17 @@ module.exports =
   				processData: false,
   				contentType: false,
   				success: (function (data) {
-  					this.setState({
-  						resultsReceived: true,
-  						searching: false,
-  						productList: data.result
-  					});
-  					console.log(data);
+  					if (data.result.length > 0) {
+  						this.setState({
+  							resultsReceived: true,
+  							searching: false,
+  							productList: data.result
+  						});
+  					} else {
+  						this.setState({
+  							searching: false
+  						});
+  					}
   				}).bind(this),
   				error: (function (xhr, status, err) {
   					console.err(this.props.url, status, err.toString());
@@ -3999,7 +4004,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.SearchBox {\n\twidth: 100%;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}\n\n.SearchBox .crop {\n  max-height: 300px;\n  max-width: 500px;\n  display: inline-block;\n\n}\n\n.SearchBox .crop-controls {\n  width: 100%;\n\n}\n\n.SearchBox .drop-zone {\n  border: 1px dashed white;\n  border-radius: 10px;\n  max-width: 300px;\n  padding: 60px;\n  color: #FFFFFF;\n  color: rgba(255, 255, 255, .5);\n  font-size: 1.25em;\n  text-align: center;\n  background-color: #323232;\n  background-color: rgba(50,50,50,.1);\n  box-shadow: inset 0px 0px 20px -3px rgba(0,0,0,0.75);\n  margin: 20px;\n  margin-top: 40px;\n  cursor: crosshair;\n  margin-bottom: 80px;\n\n}", ""]);
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.SearchBox {\n\twidth: 100%;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}\n\n.SearchBox .crop {\n  max-height: 300px;\n  max-width: 500px;\n  display: inline-block;\n\n}\n\n.SearchBox .crop-controls {\n  width: 100%;\n\n}\n\n.SearchBox .drop-zone {\n  border: 1px dashed white;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 10px;\n  max-width: 300px;\n  padding: 60px;\n  color: #FFFFFF;\n  color: rgba(255, 255, 255, .5);\n  font-size: 1.25em;\n  text-align: center;\n  background-color: #323232;\n  background-color: rgba(50,50,50,.1);\n  box-shadow: inset 0px 0px 20px -3px rgba(0,0,0,0.75);\n  margin: 20px;\n  margin-top: 40px;\n  cursor: crosshair;\n  margin-bottom: 80px;\n\n}", ""]);
   
   // exports
 
@@ -4027,7 +4032,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\theight: 100%;\n\twidth: 100%;\n}\n.Tutorial {\n\twidth: 100%;\n\theight: 400px;\n\ttext-align: center;\n}", ""]);
+  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\theight: 100%;\n\twidth: 100vw;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100vw;\n\toverflow: hidden;\n}", ""]);
   
   // exports
 

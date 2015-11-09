@@ -83,7 +83,7 @@ class SearchBox extends Component {
   render() {
     if(this.state.uploadedImage == ""){
       return (
-        <div className="SearchBox" touchStart={this.uploadOnTouch} onClick={this.uploadOnTouch} >
+        <div className="SearchBox" onTouchStart={this.uploadOnTouch} onClick={this.uploadOnTouch} >
           <Dropzone ref="dropzone" onDrop={this.handleFileChange} className="drop-zone" disableClick={true} >
             <div>Touch or drag and drop to upload image.</div>
           </Dropzone>

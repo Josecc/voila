@@ -3020,7 +3020,7 @@ module.exports =
         if (this.state.uploadedImage == "") {
           return _react2['default'].createElement(
             'div',
-            { className: 'SearchBox', onClick: this.uploadOnTouch },
+            { className: 'SearchBox', touchStart: this.uploadOnTouch, onClick: this.uploadOnTouch },
             _react2['default'].createElement(
               _reactDropzone2['default'],
               { ref: 'dropzone', onDrop: this.handleFileChange, className: 'drop-zone', disableClick: true },
@@ -4038,7 +4038,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\theight: 100%;\n\twidth: 100vw;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100vw;\n\toverflow: hidden;\n}", ""]);
+  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\twidth: 100%;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100vw;\n\toverflow: hidden;\n}", ""]);
   
   // exports
 

@@ -3020,7 +3020,7 @@ module.exports =
         if (this.state.uploadedImage == "") {
           return _react2['default'].createElement(
             'div',
-            { className: 'SearchBox', touchStart: this.uploadOnTouch, onClick: this.uploadOnTouch },
+            { className: 'SearchBox', onTouchStart: this.uploadOnTouch, onClick: this.uploadOnTouch },
             _react2['default'].createElement(
               _reactDropzone2['default'],
               { ref: 'dropzone', onDrop: this.handleFileChange, className: 'drop-zone', disableClick: true },

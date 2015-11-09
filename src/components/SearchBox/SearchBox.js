@@ -14,6 +14,7 @@ class SearchBox extends Component {
     this.cropped = this.cropped.bind(this);
     this.rotate = this.rotate.bind(this);
     this.dataURLtoBlob = this.dataURLtoBlob.bind(this);
+    this.uploadOnTouch = this.uploadOnTouch.bind(this);
     this.state = {
       uploadedImage: ""
     };
@@ -36,6 +37,10 @@ class SearchBox extends Component {
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new Blob([u8arr], {type:mime});
+  }
+
+  uploadOnTouch() {
+    this.refs.dropzone.open();
   }
 
   componentDidUpdate() {
@@ -78,9 +83,9 @@ class SearchBox extends Component {
   render() {
     if(this.state.uploadedImage == ""){
       return (
-        <div className="SearchBox">
-          <Dropzone onDrop={this.handleFileChange} className="drop-zone">
-            <div>Touch or darg and drop to upload image.</div>
+        <div className="SearchBox" onClick={this.uploadOnTouch} >
+          <Dropzone ref="dropzone" onDrop={this.handleFileChange} className="drop-zone" disableClick={true} >
+            <div>Touch or drag and drop to upload image.</div>
           </Dropzone>
         </div>
       );

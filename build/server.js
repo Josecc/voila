@@ -2935,6 +2935,7 @@ module.exports =
       this.cropped = this.cropped.bind(this);
       this.rotate = this.rotate.bind(this);
       this.dataURLtoBlob = this.dataURLtoBlob.bind(this);
+      this.uploadOnTouch = this.uploadOnTouch.bind(this);
       this.state = {
         uploadedImage: ""
       };
@@ -2963,6 +2964,11 @@ module.exports =
           u8arr[n] = bstr.charCodeAt(n);
         }
         return new Blob([u8arr], { type: mime });
+      }
+    }, {
+      key: 'uploadOnTouch',
+      value: function uploadOnTouch() {
+        this.refs.dropzone.open();
       }
     }, {
       key: 'componentDidUpdate',
@@ -3014,14 +3020,14 @@ module.exports =
         if (this.state.uploadedImage == "") {
           return _react2['default'].createElement(
             'div',
-            { className: 'SearchBox' },
+            { className: 'SearchBox', onClick: this.uploadOnTouch },
             _react2['default'].createElement(
               _reactDropzone2['default'],
-              { onDrop: this.handleFileChange, className: 'drop-zone' },
+              { ref: 'dropzone', onDrop: this.handleFileChange, className: 'drop-zone', disableClick: true },
               _react2['default'].createElement(
                 'div',
                 null,
-                'Touch or darg and drop to upload image.'
+                'Touch or drag and drop to upload image.'
               )
             )
           );

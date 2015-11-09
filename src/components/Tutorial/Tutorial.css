@@ -1,6 +1,7 @@
 .edgeFrame {
 	border: none;
 	height: 100%;
+	width: 98vw !important;
 }
 .Tutorial {
 	height: 400px;

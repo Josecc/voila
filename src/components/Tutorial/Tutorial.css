@@ -6,6 +6,6 @@
 .Tutorial {
 	height: 400px;
 	text-align: center;
-	width: 100vw;
+	width: 100vw !important;
 	overflow: hidden;
 }

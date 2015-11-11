@@ -12,21 +12,21 @@ class CropControls extends Component {
   render() {
     return (
       <div className="crop-controls">
-        <div className="rotate-button" >
-          <span className="rotate-icon" onClick={this.props.rotateLeftIncrement}><i className="fa fa-undo"></i></span>
+        <div className="rotate-button" onClick={this.props.rotateLeftIncrement}>
+          <span className="rotate-icon"><i className="fa fa-undo"></i></span>
           <p className="rotate-text" >Incremental Rotate</p>
         </div>
-        <div className="rotate-button" >
-          <span className="rotate-icon" onClick={this.props.rotate}><i className="fa fa-level-down"></i></span>
+        <div className="rotate-button" onClick={this.props.rotate}>
+          <span className="rotate-icon"><i className="fa fa-level-down"></i></span>
           <p className="rotate-text" >90&ordm; Rotate</p>
         </div>
-        <div className="rotate-button" >
-          <span className="rotate-icon" onClick={this.props.rotateRightIncrement}><i className="fa fa-repeat"></i></span>
+        <div className="rotate-button" onClick={this.props.rotateRightIncrement}>
+          <span className="rotate-icon"><i className="fa fa-repeat"></i></span>
           <p className="rotate-text" >Incremental Rotate</p>
         </div>
         <div className="search-container" >
-          <div className="search-button" >
-            <span className="search-icon" onClick={this.props.crop}><i className="fa fa-search"></i></span>
+          <div className="search-button" onClick={this.props.crop}>
+            <span className="search-icon"><i className="fa fa-search"></i></span>
             <p className="search-text">Search</p>
           </div>
         </div>

@@ -1666,10 +1666,10 @@ module.exports =
           { className: 'crop-controls' },
           _react2['default'].createElement(
             'div',
-            { className: 'rotate-button' },
+            { className: 'rotate-button', onClick: this.props.rotateLeftIncrement },
             _react2['default'].createElement(
               'span',
-              { className: 'rotate-icon', onClick: this.props.rotateLeftIncrement },
+              { className: 'rotate-icon' },
               _react2['default'].createElement('i', { className: 'fa fa-undo' })
             ),
             _react2['default'].createElement(
@@ -1680,10 +1680,10 @@ module.exports =
           ),
           _react2['default'].createElement(
             'div',
-            { className: 'rotate-button' },
+            { className: 'rotate-button', onClick: this.props.rotate },
             _react2['default'].createElement(
               'span',
-              { className: 'rotate-icon', onClick: this.props.rotate },
+              { className: 'rotate-icon' },
               _react2['default'].createElement('i', { className: 'fa fa-level-down' })
             ),
             _react2['default'].createElement(
@@ -1694,10 +1694,10 @@ module.exports =
           ),
           _react2['default'].createElement(
             'div',
-            { className: 'rotate-button' },
+            { className: 'rotate-button', onClick: this.props.rotateRightIncrement },
             _react2['default'].createElement(
               'span',
-              { className: 'rotate-icon', onClick: this.props.rotateRightIncrement },
+              { className: 'rotate-icon' },
               _react2['default'].createElement('i', { className: 'fa fa-repeat' })
             ),
             _react2['default'].createElement(
@@ -1711,10 +1711,10 @@ module.exports =
             { className: 'search-container' },
             _react2['default'].createElement(
               'div',
-              { className: 'search-button' },
+              { className: 'search-button', onClick: this.props.crop },
               _react2['default'].createElement(
                 'span',
-                { className: 'search-icon', onClick: this.props.crop },
+                { className: 'search-icon' },
                 _react2['default'].createElement('i', { className: 'fa fa-search' })
               ),
               _react2['default'].createElement(

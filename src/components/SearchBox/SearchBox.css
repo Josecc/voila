@@ -5,10 +5,11 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	.crop {
-		max-height: 300px;
-		max-width: 500px;
-		display: inline-block;
+	@media screen and (min-width: 480px) {
+		.cropper-container {
+			margin: 35px 20% 35px 20%;
+			outline: solid 20px rgba(255, 255, 255, .5);
+		}
 	}
 	.crop-controls {
 		width: 100%;

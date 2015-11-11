@@ -188,34 +188,24 @@
                             '0deg'
                         ],
                         [
-                            "eid87",
-                            "opacity",
-                            23000,
-                            500,
+                            "eid51",
+                            "display",
+                            13250,
+                            0,
                             "linear",
-                            "${_1}",
-                            '0',
-                            '1'
+                            "${Text4}",
+                            'block',
+                            'none'
                         ],
                         [
-                            "eid84",
-                            "opacity",
-                            21000,
-                            500,
-                            "linear",
-                            "${_2}",
-                            '0',
-                            '1'
-                        ],
-                        [
-                            "eid88",
-                            "opacity",
-                            23000,
-                            500,
-                            "linear",
-                            "${_2}",
-                            '1',
-                            '0'
+                            "eid3",
+                            "left",
+                            0,
+                            750,
+                            "easeOutExpo",
+                            "${_0}",
+                            '-54px',
+                            '36px'
                         ],
                         [
                             "eid30",
@@ -238,24 +228,24 @@
                             '0'
                         ],
                         [
-                            "eid62",
+                            "eid22",
                             "opacity",
-                            16500,
+                            7000,
                             500,
-                            "easeOutQuint",
-                            "${check}",
-                            '0',
-                            '1'
-                        ],
-                        [
-                            "eid28",
-                            "display",
-                            7500,
-                            0,
                             "linear",
                             "${Text2}",
-                            'block',
-                            'none'
+                            '1',
+                            '0'
+                        ],
+                        [
+                            "eid82",
+                            "opacity",
+                            19000,
+                            500,
+                            "easeInCubic",
+                            "${x}",
+                            '0',
+                            '1'
                         ],
                         [
                             "eid17",
@@ -278,26 +268,6 @@
                             '39px'
                         ],
                         [
-                            "eid51",
-                            "display",
-                            13250,
-                            0,
-                            "linear",
-                            "${Text4}",
-                            'block',
-                            'none'
-                        ],
-                        [
-                            "eid32",
-                            "opacity",
-                            8750,
-                            500,
-                            "linear",
-                            "${Text4}",
-                            '0',
-                            '1'
-                        ],
-                        [
                             "eid49",
                             "display",
                             0,
@@ -318,44 +288,34 @@
                             'block'
                         ],
                         [
-                            "eid18",
-                            "height",
-                            7000,
+                            "eid87",
+                            "opacity",
+                            23000,
                             500,
-                            "easeInCubic",
-                            "${_4}",
-                            '264px',
-                            '372px'
+                            "linear",
+                            "${_1}",
+                            '0',
+                            '1'
                         ],
                         [
-                            "eid43",
-                            "height",
-                            12250,
-                            1000,
-                            "easeInCubic",
-                            "${_4}",
-                            '372px',
-                            '248px'
+                            "eid11",
+                            "display",
+                            3750,
+                            0,
+                            "linear",
+                            "${Text}",
+                            'block',
+                            'none'
                         ],
                         [
-                            "eid57",
-                            "height",
-                            15500,
-                            500,
-                            "easeInCubic",
-                            "${_4}",
-                            '248px',
-                            '353px'
-                        ],
-                        [
-                            "eid67",
-                            "height",
+                            "eid66",
+                            "top",
                             18000,
                             1000,
-                            "easeInCubic",
-                            "${_4}",
-                            '353px',
-                            '247px'
+                            "easeOutQuint",
+                            "${check}",
+                            '158px',
+                            '23px'
                         ],
                         [
                             "eid10",
@@ -368,24 +328,14 @@
                             'none'
                         ],
                         [
-                            "eid80",
+                            "eid62",
                             "opacity",
-                            19000,
+                            16500,
                             500,
-                            "easeInCubic",
-                            "${_3}",
+                            "easeOutQuint",
+                            "${check}",
                             '0',
                             '1'
-                        ],
-                        [
-                            "eid85",
-                            "opacity",
-                            21000,
-                            500,
-                            "linear",
-                            "${_3}",
-                            '1',
-                            '0'
                         ],
                         [
                             "eid7",
@@ -438,6 +388,56 @@
                             '165px'
                         ],
                         [
+                            "eid18",
+                            "height",
+                            7000,
+                            500,
+                            "easeInCubic",
+                            "${_4}",
+                            '264px',
+                            '372px'
+                        ],
+                        [
+                            "eid43",
+                            "height",
+                            12250,
+                            1000,
+                            "easeInCubic",
+                            "${_4}",
+                            '372px',
+                            '248px'
+                        ],
+                        [
+                            "eid57",
+                            "height",
+                            15500,
+                            500,
+                            "easeInCubic",
+                            "${_4}",
+                            '248px',
+                            '353px'
+                        ],
+                        [
+                            "eid67",
+                            "height",
+                            18000,
+                            1000,
+                            "easeInCubic",
+                            "${_4}",
+                            '353px',
+                            '247px'
+                        ],
+                        [
+                            "eid64",
+                            "opacity",
+                            18000,
+                            1000,
+                            "linear",
+                            "${Text6}",
+                            '1',
+                            '0'
+                        ],
+                        [
                             "eid19",
                             "top",
                             7000,
@@ -476,6 +476,26 @@
                             "${_4}",
                             '23px',
                             '129px'
+                        ],
+                        [
+                            "eid34",
+                            "display",
+                            12250,
+                            0,
+                            "linear",
+                            "${Text3}",
+                            'block',
+                            'none'
+                        ],
+                        [
+                            "eid13",
+                            "left",
+                            3620,
+                            880,
+                            "linear",
+                            "${Text2}",
+                            '565px',
+                            '169px'
                         ],
                         [
                             "eid26",
@@ -528,34 +548,24 @@
                             '326px'
                         ],
                         [
-                            "eid54",
-                            "left",
-                            15500,
-                            500,
-                            "linear",
-                            "${Text6}",
-                            '50px',
-                            '308px'
-                        ],
-                        [
-                            "eid34",
-                            "display",
-                            12250,
+                            "eid5",
+                            "opacity",
                             0,
-                            "linear",
-                            "${Text3}",
-                            'block',
-                            'none'
+                            750,
+                            "easeOutExpo",
+                            "${_0}",
+                            '0',
+                            '1'
                         ],
                         [
-                            "eid13",
-                            "left",
-                            3620,
-                            880,
+                            "eid6",
+                            "opacity",
+                            3000,
+                            750,
                             "linear",
-                            "${Text2}",
-                            '565px',
-                            '169px'
+                            "${_0}",
+                            '1',
+                            '0'
                         ],
                         [
                             "eid48",
@@ -578,54 +588,24 @@
                             '0'
                         ],
                         [
-                            "eid5",
-                            "opacity",
-                            0,
-                            750,
-                            "easeOutExpo",
-                            "${_0}",
-                            '0',
-                            '1'
-                        ],
-                        [
-                            "eid6",
-                            "opacity",
-                            3000,
-                            750,
-                            "linear",
-                            "${_0}",
-                            '1',
-                            '0'
-                        ],
-                        [
-                            "eid64",
-                            "opacity",
-                            18000,
-                            1000,
+                            "eid54",
+                            "left",
+                            15500,
+                            500,
                             "linear",
                             "${Text6}",
-                            '1',
-                            '0'
+                            '50px',
+                            '308px'
                         ],
                         [
-                            "eid66",
-                            "top",
-                            18000,
-                            1000,
-                            "easeOutQuint",
-                            "${check}",
-                            '158px',
-                            '23px'
-                        ],
-                        [
-                            "eid11",
-                            "display",
-                            3750,
-                            0,
+                            "eid32",
+                            "opacity",
+                            8750,
+                            500,
                             "linear",
-                            "${Text}",
-                            'block',
-                            'none'
+                            "${Text4}",
+                            '0',
+                            '1'
                         ],
                         [
                             "eid65",
@@ -638,34 +618,54 @@
                             '366px'
                         ],
                         [
-                            "eid82",
+                            "eid84",
                             "opacity",
-                            19000,
+                            21000,
                             500,
-                            "easeInCubic",
-                            "${x}",
+                            "linear",
+                            "${_2}",
                             '0',
                             '1'
                         ],
                         [
-                            "eid22",
+                            "eid88",
                             "opacity",
-                            7000,
+                            23000,
                             500,
                             "linear",
-                            "${Text2}",
+                            "${_2}",
                             '1',
                             '0'
                         ],
                         [
-                            "eid3",
-                            "left",
+                            "eid80",
+                            "opacity",
+                            19000,
+                            500,
+                            "easeInCubic",
+                            "${_3}",
+                            '0',
+                            '1'
+                        ],
+                        [
+                            "eid85",
+                            "opacity",
+                            21000,
+                            500,
+                            "linear",
+                            "${_3}",
+                            '1',
+                            '0'
+                        ],
+                        [
+                            "eid28",
+                            "display",
+                            7500,
                             0,
-                            750,
-                            "easeOutExpo",
-                            "${_0}",
-                            '-54px',
-                            '36px'
+                            "linear",
+                            "${Text2}",
+                            'block',
+                            'none'
                         ],
                         [
                             "eid39",

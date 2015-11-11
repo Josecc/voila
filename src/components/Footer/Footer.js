@@ -33,7 +33,7 @@ class Footer extends Component {
           <span className="Footer-spacer">·</span>
           <a className="Footer-link" href="/#" onClick={Link.handleClick}>Share</a>
           <span className="Footer-spacer"> | </span>
-          <span className="Footer-text Footer-text--muted"><i className="fa fa-globe"></i> v 1.1</span>
+          <span className="Footer-text Footer-text--muted"><i className="fa fa-globe"></i> v 1.2 </span>
         </div>
       </div>
     );

@@ -77,6 +77,14 @@ class SearchBox extends Component {
     cropper.rotate(90);
   }
 
+  rotateRightIncrement(){
+    cropper.rotate(4);
+  }
+
+  rotateLeftIncrement() {
+    cropper.rotate(-4);
+  }
+
   render() {
     if(this.state.uploadedImage == ""){
       return (
@@ -90,7 +98,7 @@ class SearchBox extends Component {
     return (
       <div className="SearchBox" >
         <img src={this.state.uploadedImage} style={{maxHeight: "300px", maxWidth: "500px"}} ></img>
-        <CropControls crop={this.cropped} rotate={this.rotate}/>
+        <CropControls crop={this.cropped} rotate={this.rotate} rotateRightIncrement={this.rotateRightIncrement} rotateLeftIncrement={this.rotateLeftIncrement}/>
       </div>
 		);
   }

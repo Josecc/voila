@@ -7,17 +7,29 @@
 	color: white;
 	user-select: none;
 	margin-bottom: 80px;
+	.search-container {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 	.search-button {
 		cursor: pointer;
-		display: inline-block;
+		display: block;
 		text-align: center;
+		width: 420px;
 		padding-top: 5px;
-		margin-right: 2%;
+		transition: all .1s;
+		transition-timing-function: ease-in;
 		.search-icon {
 			padding: 10px;
 		}
 		.search-text {
 			margin: 5px;
+		}
+		&:hover {
+			color: #783E98;
+			background-color: rgba(255,255,255,0.5);
 		}
 	}
 	.rotate-button {
@@ -25,12 +37,18 @@
 		display: inline-block;
 		text-align: center;
 		padding-top: 5px;
-		margin-left: 2%;
+		padding: 0 1%;
+		transition: all .1s;
+		transition-timing-function: ease-in;
 		.rotate-icon {
 			padding: 10px;
 		}
 		.rotate-text {
 			margin: 5px;
+		}
+		&:hover {
+			color: #783E98;
+			background-color: rgba(255,255,255,0.5);
 		}
 	}
 }

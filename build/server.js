@@ -56,11 +56,11 @@ module.exports =
   
   __webpack_require__(67);
   
-  var _path = __webpack_require__(9);
+  var _path = __webpack_require__(10);
   
   var _path2 = _interopRequireDefault(_path);
   
-  var _express = __webpack_require__(8);
+  var _express = __webpack_require__(9);
   
   var _express2 = _interopRequireDefault(_express);
   
@@ -76,7 +76,7 @@ module.exports =
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _componentsHtml = __webpack_require__(22);
+  var _componentsHtml = __webpack_require__(23);
   
   var _componentsHtml2 = _interopRequireDefault(_componentsHtml);
   
@@ -88,7 +88,7 @@ module.exports =
   //
   // Register API middleware
   // -----------------------------------------------------------------------------
-  server.use('/api/content', __webpack_require__(13));
+  server.use('/api/content', __webpack_require__(14));
   
   //
   // Register server-side rendering middleware
@@ -542,6 +542,182 @@ module.exports =
   'use strict';
   
   Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+  
+  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+  
+  var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+  
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+  
+  function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+  
+  var _react = __webpack_require__(1);
+  
+  var _react2 = _interopRequireDefault(_react);
+  
+  var _SearchBoxCss = __webpack_require__(60);
+  
+  var _SearchBoxCss2 = _interopRequireDefault(_SearchBoxCss);
+  
+  var _decoratorsWithStyles = __webpack_require__(2);
+  
+  var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
+  
+  var _reactDropzone = __webpack_require__(81);
+  
+  var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
+  
+  var _SearchResults = __webpack_require__(8);
+  
+  var _SearchResults2 = _interopRequireDefault(_SearchResults);
+  
+  var _CropControls = __webpack_require__(18);
+  
+  var _CropControls2 = _interopRequireDefault(_CropControls);
+  
+  var SearchBox = (function (_Component) {
+    _inherits(SearchBox, _Component);
+  
+    function SearchBox() {
+      _classCallCheck(this, _SearchBox);
+  
+      _get(Object.getPrototypeOf(_SearchBox.prototype), 'constructor', this).call(this);
+      this.handleFileChange = this.handleFileChange.bind(this);
+      this.cropped = this.cropped.bind(this);
+      this.rotate = this.rotate.bind(this);
+      this.dataURLtoBlob = this.dataURLtoBlob.bind(this);
+      this.uploadOnTouch = this.uploadOnTouch.bind(this);
+      this.state = {
+        uploadedImage: ""
+      };
+      this.imageStyle = {
+        maxWidth: '80px'
+      };
+    }
+  
+    _createClass(SearchBox, [{
+      key: 'handleFileChange',
+      value: function handleFileChange(dataURI) {
+        this.setState({
+          uploadedImage: dataURI[0].preview
+        });
+        this.props.setCropped(); //it just says cropping is ready so tutorial for cropping appears
+      }
+    }, {
+      key: 'dataURLtoBlob',
+      value: function dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], { type: mime });
+      }
+    }, {
+      key: 'uploadOnTouch',
+      value: function uploadOnTouch() {
+        this.refs.dropzone.open();
+      }
+    }, {
+      key: 'componentDidUpdate',
+      value: function componentDidUpdate() {
+        var image = document.querySelector('.SearchBox > img');
+        global.cropper = new Cropper(image, {
+          checkImageOrigin: false,
+          toggleDragModeOnDblclick: false,
+          dragMode: 'move',
+          crop: function crop(data) {
+            // console.log(data.x);
+            // console.log(data.y);
+            // console.log(data.width);
+            // console.log(data.height);
+            // console.log(data.rotate);
+            // console.log(data.scaleX);
+            // console.log(data.scaleY);
+          }
+        });
+      }
+    }, {
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        global.Cropper = __webpack_require__(69);
+      }
+    }, {
+      key: 'cropped',
+      value: function cropped() {
+        var _this = this;
+  
+        new Promise(function (resolve, reject) {
+          _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
+          resolve("image blob updated.");
+        }).then(function () {
+          return _this.props.fetchProducts();
+        });
+      }
+    }, {
+      key: 'rotate',
+      value: function rotate() {
+        cropper.rotate(90);
+      }
+    }, {
+      key: 'rotateRightIncrement',
+      value: function rotateRightIncrement() {
+        cropper.rotate(4);
+      }
+    }, {
+      key: 'rotateLeftIncrement',
+      value: function rotateLeftIncrement() {
+        cropper.rotate(-4);
+      }
+    }, {
+      key: 'render',
+      value: function render() {
+        if (this.state.uploadedImage == "") {
+          return _react2['default'].createElement(
+            'div',
+            { className: 'SearchBox', onTouchStart: this.uploadOnTouch, onClick: this.uploadOnTouch },
+            _react2['default'].createElement(
+              _reactDropzone2['default'],
+              { ref: 'dropzone', onDrop: this.handleFileChange, className: 'drop-zone', disableClick: true },
+              _react2['default'].createElement(
+                'div',
+                null,
+                'Touch or drag and drop to upload image.'
+              )
+            )
+          );
+        }
+        return _react2['default'].createElement(
+          'div',
+          { className: 'SearchBox' },
+          _react2['default'].createElement('img', { src: this.state.uploadedImage, style: { maxHeight: "300px", maxWidth: "500px" } }),
+          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate, rotateRightIncrement: this.rotateRightIncrement, rotateLeftIncrement: this.rotateLeftIncrement })
+        );
+      }
+    }]);
+  
+    var _SearchBox = SearchBox;
+    SearchBox = (0, _decoratorsWithStyles2['default'])(_SearchBoxCss2['default'])(SearchBox) || SearchBox;
+    return SearchBox;
+  })(_react.Component);
+  
+  exports['default'] = SearchBox;
+  module.exports = exports['default'];
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, '__esModule', {
   	value: true
   });
   
@@ -567,13 +743,17 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Product = __webpack_require__(26);
+  var _Product = __webpack_require__(27);
   
   var _Product2 = _interopRequireDefault(_Product);
   
-  var _ResultNavigator = __webpack_require__(32);
+  var _ResultNavigator = __webpack_require__(33);
   
   var _ResultNavigator2 = _interopRequireDefault(_ResultNavigator);
+  
+  var _SearchBox = __webpack_require__(7);
+  
+  var _SearchBox2 = _interopRequireDefault(_SearchBox);
   
   var SearchResults = (function (_Component) {
   	_inherits(SearchResults, _Component);
@@ -595,6 +775,7 @@ module.exports =
   			return _react2['default'].createElement(
   				'div',
   				null,
+  				_react2['default'].createElement(_SearchBox2['default'], { setCropped: this.props.setCropped, setImageBlob: this.props.setImageBlob, fetchProducts: this.props.fetchProducts }),
   				_react2['default'].createElement(_ResultNavigator2['default'], { fetchPage: this.props.fetchPage, page: this.props.page, setPage: this.props.setPage }),
   				_react2['default'].createElement(
   					'div',
@@ -626,19 +807,19 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
   module.exports = require("express");
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
   module.exports = require("path");
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
   /**
@@ -683,7 +864,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -707,7 +888,7 @@ module.exports =
   
   var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
   
-  var _Match = __webpack_require__(10);
+  var _Match = __webpack_require__(11);
   
   var _Match2 = _interopRequireDefault(_Match);
   
@@ -735,7 +916,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -757,7 +938,7 @@ module.exports =
   
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
   
-  var _Route = __webpack_require__(11);
+  var _Route = __webpack_require__(12);
   
   var _Route2 = _interopRequireDefault(_Route);
   
@@ -1062,7 +1243,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1077,9 +1258,9 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _path = __webpack_require__(9);
+  var _path = __webpack_require__(10);
   
-  var _express = __webpack_require__(8);
+  var _express = __webpack_require__(9);
   
   var _jade = __webpack_require__(78);
   
@@ -1179,7 +1360,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1216,15 +1397,15 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Header = __webpack_require__(21);
+  var _Header = __webpack_require__(22);
   
   var _Header2 = _interopRequireDefault(_Header);
   
-  var _Feedback = __webpack_require__(19);
+  var _Feedback = __webpack_require__(20);
   
   var _Feedback2 = _interopRequireDefault(_Feedback);
   
-  var _Footer = __webpack_require__(20);
+  var _Footer = __webpack_require__(21);
   
   var _Footer2 = _interopRequireDefault(_Footer);
   
@@ -1268,7 +1449,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1351,7 +1532,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1437,7 +1618,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1485,16 +1666,16 @@ module.exports =
           { className: 'crop-controls' },
           _react2['default'].createElement(
             'div',
-            { className: 'search-button' },
+            { className: 'rotate-button' },
             _react2['default'].createElement(
               'span',
-              { className: 'search-icon', onClick: this.props.crop },
-              _react2['default'].createElement('i', { className: 'fa fa-search' })
+              { className: 'rotate-icon', onClick: this.props.rotateLeftIncrement },
+              _react2['default'].createElement('i', { className: 'fa fa-undo' })
             ),
             _react2['default'].createElement(
               'p',
-              { className: 'search-text' },
-              'Search'
+              { className: 'rotate-text' },
+              'Incremental Rotate'
             )
           ),
           _react2['default'].createElement(
@@ -1503,12 +1684,44 @@ module.exports =
             _react2['default'].createElement(
               'span',
               { className: 'rotate-icon', onClick: this.props.rotate },
+              _react2['default'].createElement('i', { className: 'fa fa-level-down' })
+            ),
+            _react2['default'].createElement(
+              'p',
+              { className: 'rotate-text' },
+              '90º Rotate'
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'rotate-button' },
+            _react2['default'].createElement(
+              'span',
+              { className: 'rotate-icon', onClick: this.props.rotateRightIncrement },
               _react2['default'].createElement('i', { className: 'fa fa-repeat' })
             ),
             _react2['default'].createElement(
               'p',
               { className: 'rotate-text' },
-              'Rotate'
+              'Incremental Rotate'
+            )
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'search-container' },
+            _react2['default'].createElement(
+              'div',
+              { className: 'search-button' },
+              _react2['default'].createElement(
+                'span',
+                { className: 'search-icon', onClick: this.props.crop },
+                _react2['default'].createElement('i', { className: 'fa fa-search' })
+              ),
+              _react2['default'].createElement(
+                'p',
+                { className: 'search-text' },
+                'Search'
+              )
             )
           )
         );
@@ -1524,7 +1737,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1604,7 +1817,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1684,7 +1897,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1799,7 +2012,7 @@ module.exports =
               'span',
               { className: 'Footer-text Footer-text--muted' },
               _react2['default'].createElement('i', { className: 'fa fa-globe' }),
-              ' v 1.1'
+              ' v 1.2 '
             )
           )
         );
@@ -1816,7 +2029,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1853,7 +2066,7 @@ module.exports =
   
   var _Link2 = _interopRequireDefault(_Link);
   
-  var _Navigation = __webpack_require__(24);
+  var _Navigation = __webpack_require__(25);
   
   var _Navigation2 = _interopRequireDefault(_Navigation);
   
@@ -1909,7 +2122,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2008,7 +2221,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2091,7 +2304,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2206,7 +2419,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2302,7 +2515,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2333,11 +2546,11 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _ProductImage = __webpack_require__(28);
+  var _ProductImage = __webpack_require__(29);
   
   var _ProductImage2 = _interopRequireDefault(_ProductImage);
   
-  var _ProductDescription = __webpack_require__(27);
+  var _ProductDescription = __webpack_require__(28);
   
   var _ProductDescription2 = _interopRequireDefault(_ProductDescription);
   
@@ -2381,7 +2594,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2416,11 +2629,11 @@ module.exports =
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
-  var _ProductInfo = __webpack_require__(29);
+  var _ProductInfo = __webpack_require__(30);
   
   var _ProductInfo2 = _interopRequireDefault(_ProductInfo);
   
-  var _ProductLike = __webpack_require__(30);
+  var _ProductLike = __webpack_require__(31);
   
   var _ProductLike2 = _interopRequireDefault(_ProductLike);
   
@@ -2454,7 +2667,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2520,7 +2733,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2612,7 +2825,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2685,7 +2898,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2768,7 +2981,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2884,172 +3097,6 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, '__esModule', {
-    value: true
-  });
-  
-  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-  
-  var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-  
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-  
-  function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-  
-  var _react = __webpack_require__(1);
-  
-  var _react2 = _interopRequireDefault(_react);
-  
-  var _SearchBoxCss = __webpack_require__(60);
-  
-  var _SearchBoxCss2 = _interopRequireDefault(_SearchBoxCss);
-  
-  var _decoratorsWithStyles = __webpack_require__(2);
-  
-  var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
-  
-  var _reactDropzone = __webpack_require__(81);
-  
-  var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
-  
-  var _SearchResults = __webpack_require__(7);
-  
-  var _SearchResults2 = _interopRequireDefault(_SearchResults);
-  
-  var _CropControls = __webpack_require__(17);
-  
-  var _CropControls2 = _interopRequireDefault(_CropControls);
-  
-  var SearchBox = (function (_Component) {
-    _inherits(SearchBox, _Component);
-  
-    function SearchBox() {
-      _classCallCheck(this, _SearchBox);
-  
-      _get(Object.getPrototypeOf(_SearchBox.prototype), 'constructor', this).call(this);
-      this.handleFileChange = this.handleFileChange.bind(this);
-      this.cropped = this.cropped.bind(this);
-      this.rotate = this.rotate.bind(this);
-      this.dataURLtoBlob = this.dataURLtoBlob.bind(this);
-      this.uploadOnTouch = this.uploadOnTouch.bind(this);
-      this.state = {
-        uploadedImage: ""
-      };
-      this.imageStyle = {
-        maxWidth: '80px'
-      };
-    }
-  
-    _createClass(SearchBox, [{
-      key: 'handleFileChange',
-      value: function handleFileChange(dataURI) {
-        this.setState({
-          uploadedImage: dataURI[0].preview
-        });
-        this.props.setCropped(); //it just says cropping is ready so tutorial for cropping appears
-      }
-    }, {
-      key: 'dataURLtoBlob',
-      value: function dataURLtoBlob(dataurl) {
-        var arr = dataurl.split(','),
-            mime = arr[0].match(/:(.*?);/)[1],
-            bstr = atob(arr[1]),
-            n = bstr.length,
-            u8arr = new Uint8Array(n);
-        while (n--) {
-          u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new Blob([u8arr], { type: mime });
-      }
-    }, {
-      key: 'uploadOnTouch',
-      value: function uploadOnTouch() {
-        this.refs.dropzone.open();
-      }
-    }, {
-      key: 'componentDidUpdate',
-      value: function componentDidUpdate() {
-        var image = document.querySelector('.SearchBox > img');
-        global.cropper = new Cropper(image, {
-          checkImageOrigin: false,
-          toggleDragModeOnDblclick: false,
-          dragMode: 'move',
-          crop: function crop(data) {
-            // console.log(data.x);
-            // console.log(data.y);
-            // console.log(data.width);
-            // console.log(data.height);
-            // console.log(data.rotate);
-            // console.log(data.scaleX);
-            // console.log(data.scaleY);
-          }
-        });
-      }
-    }, {
-      key: 'componentDidMount',
-      value: function componentDidMount() {
-        global.Cropper = __webpack_require__(69);
-      }
-    }, {
-      key: 'cropped',
-      value: function cropped() {
-        var _this = this;
-  
-        new Promise(function (resolve, reject) {
-          _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
-          resolve("image blob updated.");
-        }).then(function () {
-          return _this.props.fetchProducts();
-        });
-      }
-    }, {
-      key: 'rotate',
-      value: function rotate() {
-        cropper.rotate(90);
-      }
-    }, {
-      key: 'render',
-      value: function render() {
-        if (this.state.uploadedImage == "") {
-          return _react2['default'].createElement(
-            'div',
-            { className: 'SearchBox', onTouchStart: this.uploadOnTouch, onClick: this.uploadOnTouch },
-            _react2['default'].createElement(
-              _reactDropzone2['default'],
-              { ref: 'dropzone', onDrop: this.handleFileChange, className: 'drop-zone', disableClick: true },
-              _react2['default'].createElement(
-                'div',
-                null,
-                'Touch or drag and drop to upload image.'
-              )
-            )
-          );
-        }
-        return _react2['default'].createElement(
-          'div',
-          { className: 'SearchBox' },
-          _react2['default'].createElement('img', { src: this.state.uploadedImage, style: { maxHeight: "300px", maxWidth: "500px" } }),
-          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate })
-        );
-      }
-    }]);
-  
-    var _SearchBox = SearchBox;
-    SearchBox = (0, _decoratorsWithStyles2['default'])(_SearchBoxCss2['default'])(SearchBox) || SearchBox;
-    return SearchBox;
-  })(_react.Component);
-  
-  exports['default'] = SearchBox;
-  module.exports = exports['default'];
-
-/***/ },
 /* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -3085,11 +3132,11 @@ module.exports =
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
-  var _SearchBox = __webpack_require__(33);
+  var _SearchBox = __webpack_require__(7);
   
   var _SearchBox2 = _interopRequireDefault(_SearchBox);
   
-  var _SearchResults = __webpack_require__(7);
+  var _SearchResults = __webpack_require__(8);
   
   var _SearchResults2 = _interopRequireDefault(_SearchResults);
   
@@ -3265,7 +3312,7 @@ module.exports =
   				return _react2['default'].createElement(
   					'div',
   					{ className: 'VisualSearch container' },
-  					_react2['default'].createElement(_SearchResults2['default'], { fetchVoila: this.fetchVoila, products: this.state.productList, fetchPage: this.fetchProducts, setPage: this.setPage, page: this.state.page })
+  					_react2['default'].createElement(_SearchResults2['default'], { setCropped: this.setCropped, setImageBlob: this.setImageBlob, fetchProducts: this.fetchProducts, fetchVoila: this.fetchVoila, products: this.state.productList, fetchPage: this.fetchProducts, setPage: this.setPage, page: this.state.page })
   				);
   			} else if (this.state.searching) {
   				return _react2['default'].createElement(
@@ -3612,7 +3659,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _reactRoutingSrcRouter = __webpack_require__(12);
+  var _reactRoutingSrcRouter = __webpack_require__(13);
   
   var _reactRoutingSrcRouter2 = _interopRequireDefault(_reactRoutingSrcRouter);
   
@@ -3620,31 +3667,31 @@ module.exports =
   
   var _coreHttpClient2 = _interopRequireDefault(_coreHttpClient);
   
-  var _componentsApp = __webpack_require__(14);
+  var _componentsApp = __webpack_require__(15);
   
   var _componentsApp2 = _interopRequireDefault(_componentsApp);
   
-  var _componentsContentPage = __webpack_require__(16);
+  var _componentsContentPage = __webpack_require__(17);
   
   var _componentsContentPage2 = _interopRequireDefault(_componentsContentPage);
   
-  var _componentsContactPage = __webpack_require__(15);
+  var _componentsContactPage = __webpack_require__(16);
   
   var _componentsContactPage2 = _interopRequireDefault(_componentsContactPage);
   
-  var _componentsLoginPage = __webpack_require__(23);
+  var _componentsLoginPage = __webpack_require__(24);
   
   var _componentsLoginPage2 = _interopRequireDefault(_componentsLoginPage);
   
-  var _componentsRegisterPage = __webpack_require__(31);
+  var _componentsRegisterPage = __webpack_require__(32);
   
   var _componentsRegisterPage2 = _interopRequireDefault(_componentsRegisterPage);
   
-  var _componentsNotFoundPage = __webpack_require__(25);
+  var _componentsNotFoundPage = __webpack_require__(26);
   
   var _componentsNotFoundPage2 = _interopRequireDefault(_componentsNotFoundPage);
   
-  var _componentsErrorPage = __webpack_require__(18);
+  var _componentsErrorPage = __webpack_require__(19);
   
   var _componentsErrorPage2 = _interopRequireDefault(_componentsErrorPage);
   
@@ -3853,7 +3900,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.crop-controls {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\tcolor: white;\n\t-webkit-user-select: none;\n\t   -moz-user-select: none;\n\t    -ms-user-select: none;\n\t        user-select: none;\n\tmargin-bottom: 80px;\n}\n\n.crop-controls .search-button {\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n  padding-top: 5px;\n  margin-right: 2%;\n\n}\n\n.crop-controls .search-button .search-icon {\n  padding: 10px;\n\n}\n\n.crop-controls .search-button .search-text {\n  margin: 5px;\n\n}\n\n.crop-controls .rotate-button {\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n  padding-top: 5px;\n  margin-left: 2%;\n\n}\n\n.crop-controls .rotate-button .rotate-icon {\n  padding: 10px;\n\n}\n\n.crop-controls .rotate-button .rotate-text {\n  margin: 5px;\n\n}", ""]);
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.crop-controls {\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\tcolor: white;\n\t-webkit-user-select: none;\n\t   -moz-user-select: none;\n\t    -ms-user-select: none;\n\t        user-select: none;\n\tmargin-bottom: 80px;\n}\n\n.crop-controls .search-container {\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.crop-controls .search-button {\n  cursor: pointer;\n  display: block;\n  text-align: center;\n  width: 420px;\n  padding-top: 5px;\n  -webkit-transition: all .1s;\n          transition: all .1s;\n  -webkit-transition-timing-function: ease-in;\n          transition-timing-function: ease-in;\n\n}\n\n.crop-controls .search-button .search-icon {\n  padding: 10px;\n\n}\n\n.crop-controls .search-button .search-text {\n  margin: 5px;\n\n}\n\n.crop-controls .search-button:hover {\n  color: #783E98;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,0.5);\n\n}\n\n.crop-controls .rotate-button {\n  cursor: pointer;\n  display: inline-block;\n  text-align: center;\n  padding-top: 5px;\n  padding: 0 1%;\n  -webkit-transition: all .1s;\n          transition: all .1s;\n  -webkit-transition-timing-function: ease-in;\n          transition-timing-function: ease-in;\n\n}\n\n.crop-controls .rotate-button .rotate-icon {\n  padding: 10px;\n\n}\n\n.crop-controls .rotate-button .rotate-text {\n  margin: 5px;\n\n}\n\n.crop-controls .rotate-button:hover {\n  color: #783E98;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,0.5);\n\n}", ""]);
   
   // exports
 
@@ -3881,7 +3928,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.Feedback {\n  background: #FFFFFF;\n  background: rgba(255,255,255,.80);\n  color: #333;\n}\n\n.Feedback-container {\n  margin: 0 auto;\n  padding: 8px;\n  max-width: 1000px;\n  text-align: center;\n  font-size: 3em; /* ~24px */\n}\n\n.Feedback-link,\n.Feedback-link:active,\n.Feedback-link:hover,\n.Feedback-link:visited {\n  margin: auto 5%;\n  color: #DD2476;\n  text-decoration: none;\n}\n\n.Feedback-link:hover {\n  text-decoration: underline;\n}\n\n.Feedback-spacer {\n  padding-right: 15px;\n  padding-left: 15px;\n}\n", ""]);
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.Feedback {\n  background: #FFFFFF;\n  background: rgba(255,255,255,.80);\n  color: #333;\n}\n\n.Feedback-container {\n  margin: 0 auto;\n  padding: 8px;\n  max-width: 1000px;\n  text-align: center;\n  font-size: 3em; /* ~24px */\n}\n\n.Feedback-link{\n  -webkit-transition-timing-function: ease-in;\n          transition-timing-function: ease-in;\n  -webkit-transition: all .1s;\n          transition: all .1s;\n  margin: auto 5%;\n  color: #DD2476;\n  text-decoration: none;\n}\n.Feedback-link:active,\n.Feedback-link:visited {\n  margin: auto 5%;\n  color: #DD2476;\n  text-decoration: none;\n}\n\n.Feedback-link:hover {\n  text-decoration: underline;\n}\n\n.Feedback-spacer {\n  padding-right: 15px;\n  padding-left: 15px;\n}\n.Feedback-link:hover{\n  margin: auto 5%;\n  color: #783E98;\n  text-decoration: none;\n}\n", ""]);
   
   // exports
 

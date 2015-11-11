@@ -162,7 +162,7 @@ class VisualSearch extends Component {
 		if(this.state.resultsReceived){
 			return (
 				<div className="VisualSearch container">
-					<SearchResults fetchVoila={this.fetchVoila} products={this.state.productList} fetchPage={this.fetchProducts} setPage={this.setPage} page={this.state.page}/>
+					<SearchResults setCropped={this.setCropped} setImageBlob={this.setImageBlob} fetchProducts={this.fetchProducts} fetchVoila={this.fetchVoila} products={this.state.productList} fetchPage={this.fetchProducts} setPage={this.setPage} page={this.state.page}/>
 				</div>
 			);
 		} else if(this.state.searching) {

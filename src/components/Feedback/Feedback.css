@@ -15,9 +15,14 @@
   font-size: 3em; /* ~24px */
 }
 
-.Feedback-link,
+.Feedback-link{
+  transition-timing-function: ease-in;
+  transition: all .1s;
+  margin: auto 5%;
+  color: #DD2476;
+  text-decoration: none;
+}
 .Feedback-link:active,
-.Feedback-link:hover,
 .Feedback-link:visited {
   margin: auto 5%;
   color: #DD2476;
@@ -31,4 +36,9 @@
 .Feedback-spacer {
   padding-right: 15px;
   padding-left: 15px;
+}
+.Feedback-link:hover{
+  margin: auto 5%;
+  color: #783E98;
+  text-decoration: none;
 }

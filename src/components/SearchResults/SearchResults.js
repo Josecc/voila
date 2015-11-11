@@ -3,6 +3,7 @@ import styles from './SearchResults.css';
 import withStyles from '../../decorators/withStyles';
 import Product from '../Product';
 import ResultNavigator from '../ResultNavigator';
+import SearchBox from '../SearchBox';
 
 @withStyles(styles)
 class SearchResults extends Component {
@@ -17,6 +18,7 @@ class SearchResults extends Component {
 	render() {
 		return (
 			<div>
+				<SearchBox setCropped={this.props.setCropped} setImageBlob={this.props.setImageBlob} fetchProducts={this.props.fetchProducts}/>
 				<ResultNavigator fetchPage={this.props.fetchPage} page={this.props.page} setPage={this.props.setPage}/>
 				<div className="SearchResults">
 					{this.state.products.map((product) => {

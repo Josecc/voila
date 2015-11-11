@@ -12,7 +12,7 @@ class ProductDescription extends Component {
     return (
       <div className="ProductDescription">
         <ProductInfo name={this.props.name} price={this.props.price} />
-        <ProductLike />
+        <ProductLike fetchVoila={this.props.fetchVoila} />
       </div>
     );
   }

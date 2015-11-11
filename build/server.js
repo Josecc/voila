@@ -582,7 +582,6 @@ module.exports =
   		_classCallCheck(this, _SearchResults);
   
   		_get(Object.getPrototypeOf(_SearchResults.prototype), 'constructor', this).call(this, props);
-  
   		this.state = {
   			products: this.props.products
   		};
@@ -591,6 +590,8 @@ module.exports =
   	_createClass(SearchResults, [{
   		key: 'render',
   		value: function render() {
+  			var _this = this;
+  
   			return _react2['default'].createElement(
   				'div',
   				null,
@@ -599,11 +600,15 @@ module.exports =
   					'div',
   					{ className: 'SearchResults' },
   					this.state.products.map(function (product) {
-  						var name = product.value_map.product_name;
-  						var price = product.value_map.price;
-  						var image = product.value_map.sm_im_url;
   						var product_url = product.value_map.product_url;
-  						return _react2['default'].createElement(_Product2['default'], { key: image, name: name, price: price, image: image, product_url: product_url });
+  						if (product_url.indexOf("http://") > -1) {
+  							var _name = product.value_map.product_name;
+  							var price = product.value_map.price;
+  							var image = product.value_map.sm_im_url;
+  							return _react2['default'].createElement(_Product2['default'], { key: product_url + Math.random(), name: _name, price: price, image: image, product_url: product_url, fetchVoila: _this.props.fetchVoila });
+  						} else {
+  							return null;
+  						}
   					})
   				),
   				_react2['default'].createElement(_ResultNavigator2['default'], { fetchPage: this.props.fetchPage, page: this.props.page, setPage: this.props.setPage }),
@@ -1794,7 +1799,7 @@ module.exports =
               'span',
               { className: 'Footer-text Footer-text--muted' },
               _react2['default'].createElement('i', { className: 'fa fa-globe' }),
-              ' v 1.0'
+              ' v 1.1'
             )
           )
         );
@@ -2339,13 +2344,19 @@ module.exports =
   var Product = (function (_Component) {
     _inherits(Product, _Component);
   
-    function Product() {
+    function Product(props) {
       _classCallCheck(this, _Product);
   
-      _get(Object.getPrototypeOf(_Product.prototype), 'constructor', this).apply(this, arguments);
+      _get(Object.getPrototypeOf(_Product.prototype), 'constructor', this).call(this, props);
+      this.fetchVoila = this.fetchVoila.bind(this);
     }
   
     _createClass(Product, [{
+      key: 'fetchVoila',
+      value: function fetchVoila() {
+        this.props.fetchVoila(this.props.image);
+      }
+    }, {
       key: 'render',
       value: function render() {
         return _react2['default'].createElement(
@@ -2354,9 +2365,9 @@ module.exports =
           _react2['default'].createElement(
             'a',
             { href: this.props.product_url, target: '_blank' },
-            _react2['default'].createElement(_ProductImage2['default'], { imageUrl: this.props.image }),
-            _react2['default'].createElement(_ProductDescription2['default'], { name: this.props.name, price: this.props.price })
-          )
+            _react2['default'].createElement(_ProductImage2['default'], { imageUrl: this.props.image })
+          ),
+          _react2['default'].createElement(_ProductDescription2['default'], { name: this.props.name, price: this.props.price, fetchVoila: this.fetchVoila })
         );
       }
     }]);
@@ -2429,7 +2440,7 @@ module.exports =
           'div',
           { className: 'ProductDescription' },
           _react2['default'].createElement(_ProductInfo2['default'], { name: this.props.name, price: this.props.price }),
-          _react2['default'].createElement(_ProductLike2['default'], null)
+          _react2['default'].createElement(_ProductLike2['default'], { fetchVoila: this.props.fetchVoila })
         );
       }
     }]);
@@ -2649,7 +2660,7 @@ module.exports =
           { className: 'ProductLike' },
           _react2['default'].createElement(
             'div',
-            { className: 'ProductLike-voila' },
+            { className: 'ProductLike-voila', onClick: this.props.fetchVoila },
             'Voilà!'
           ),
           _react2['default'].createElement(
@@ -2968,11 +2979,8 @@ module.exports =
         var image = document.querySelector('.SearchBox > img');
         global.cropper = new Cropper(image, {
           checkImageOrigin: false,
-          zoomOnWheel: false,
-          zoomOnTouch: false,
           toggleDragModeOnDblclick: false,
           dragMode: 'move',
-          viewMode: 3,
           crop: function crop(data) {
             // console.log(data.x);
             // console.log(data.y);
@@ -3107,6 +3115,7 @@ module.exports =
   		_classCallCheck(this, _VisualSearch);
   
   		_get(Object.getPrototypeOf(_VisualSearch.prototype), 'constructor', this).call(this);
+  		this.fetchVoila = this.fetchVoila.bind(this);
   		this.fetchProducts = this.fetchProducts.bind(this);
   		this.setImageBlob = this.setImageBlob.bind(this);
   		this.setPage = this.setPage.bind(this);
@@ -3144,23 +3153,18 @@ module.exports =
   		}
   
   		/*
-    * Connects to Visenze and fetches the products that compare to the image that was sent. 
-    * PARAMS: 
-    	imageURI - Image to upload to ViSenze for comparison.
-    	start - Index of results to start searching from.
-    	limit - the limit to results you want.
-    * MANIPULATES STATES:
-    	resultsReceived - Default is false, after results are received or changed it becomes true.
-    	productList - The list of products that are returned by the ViSenze API.
+    * Get image by URL
+    * PARAMS:
+    	imageURL - The url of the image to search for. 
+    * MANIPULTES STATES:
+    	resultsRecieved
+    	productList
     */
   	}, {
-  		key: 'fetchProducts',
-  		value: function fetchProducts() {
-  			if (this.state.imageBlob == "") {
-  				console.err("Image Blob must be set.");
-  			}
+  		key: 'fetchVoila',
+  		value: function fetchVoila(imageURL) {
   			var formData = new FormData();
-  			formData.append('image', this.state.imageBlob, 'upload.jpg');
+  			formData.append('im_url', imageURL);
   			formData.append('limit', '12');
   			formData.append('page', this.state.page);
   			formData.append('fl', 'product_name');
@@ -3198,6 +3202,62 @@ module.exports =
   				resultsReceived: false
   			});
   		}
+  
+  		/*
+    * Connects to Visenze and fetches the products that compare to the image that was sent. 
+    * PARAMS: 
+    	imageURI - Image to upload to ViSenze for comparison.
+    	start - Index of results to start searching from.
+    	limit - the limit to results you want.
+    * MANIPULATES STATES:
+    	resultsReceived - Default is false, after results are received or changed it becomes true.
+    	productList - The list of products that are returned by the ViSenze API.
+    */
+  	}, {
+  		key: 'fetchProducts',
+  		value: function fetchProducts() {
+  			if (this.state.imageBlob == "") {
+  				console.err("Image Blob must be set.");
+  			}
+  			var formData = new FormData();
+  			formData.append('image', this.state.imageBlob, 'upload.jpg');
+  			formData.append('limit', '12');
+  			formData.append('page', this.state.page);
+  			formData.append('fl', 'product_name');
+  			formData.append('fl', 'price');
+  			formData.append('fl', 'sm_im_url');
+  			formData.append('fl', 'product_url');
+  			_jquery2['default'].ajax({
+  				url: "http://visearch.visenze.com/uploadsearch",
+  				type: 'POST',
+  				beforeSend: function beforeSend(req) {
+  					req.setRequestHeader('Authorization', 'Basic ' + btoa('c020d19b9872438002393de4d68b141b:4b7182bf60c3f6870361db3add002523'));
+  				},
+  				data: formData,
+  				processData: false,
+  				contentType: false,
+  				success: (function (data) {
+  					if (data.result !== undefined) {
+  						this.setState({
+  							resultsReceived: true,
+  							searching: false,
+  							productList: data.result
+  						});
+  					} else {
+  						this.setState({
+  							searching: false
+  						});
+  					}
+  				}).bind(this),
+  				error: (function (xhr, status, err) {
+  					console.err(this.props.url, status, err.toString());
+  				}).bind(this)
+  			});
+  			this.setState({
+  				searching: true,
+  				resultsReceived: false
+  			});
+  		}
   	}, {
   		key: 'render',
   		value: function render() {
@@ -3205,7 +3265,7 @@ module.exports =
   				return _react2['default'].createElement(
   					'div',
   					{ className: 'VisualSearch container' },
-  					_react2['default'].createElement(_SearchResults2['default'], { products: this.state.productList, fetchPage: this.fetchProducts, setPage: this.setPage, page: this.state.page })
+  					_react2['default'].createElement(_SearchResults2['default'], { fetchVoila: this.fetchVoila, products: this.state.productList, fetchPage: this.fetchProducts, setPage: this.setPage, page: this.state.page })
   				);
   			} else if (this.state.searching) {
   				return _react2['default'].createElement(

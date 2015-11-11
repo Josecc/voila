@@ -47,11 +47,8 @@ class SearchBox extends Component {
     var image = document.querySelector('.SearchBox > img');
     global.cropper = new Cropper(image, {
       checkImageOrigin: false,
-      zoomOnWheel: false,
-      zoomOnTouch: false,
       toggleDragModeOnDblclick: false,
       dragMode: 'move',
-      viewMode: 3,
       crop: function(data) {
         // console.log(data.x);
         // console.log(data.y);

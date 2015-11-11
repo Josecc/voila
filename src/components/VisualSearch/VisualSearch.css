@@ -3,8 +3,10 @@
 	width: 100%;
 	min-height: 300px;
 	text-align: center;
+	overflow: hidden;
 	.loadingImage {
 		margin-top: 30px;
+		max-width: 99%;
 	}
 	p {
 		color: white;

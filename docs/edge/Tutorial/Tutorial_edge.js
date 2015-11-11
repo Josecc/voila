@@ -121,13 +121,13 @@
                     }
                 },
                 timeline: {
-                    duration: 14500,
+                    duration: 17000,
                     autoPlay: true,
                     data: [
                         [
                             "eid25",
                             "background-color",
-                            7750,
+                            10250,
                             50,
                             "easeInOutSine",
                             "${Ellipse}",
@@ -137,7 +137,7 @@
                         [
                             "eid26",
                             "background-color",
-                            7800,
+                            10300,
                             200,
                             "easeInOutSine",
                             "${Ellipse}",
@@ -145,19 +145,19 @@
                             'rgba(255,255,255,1)'
                         ],
                         [
-                            "eid56",
+                            "eid11",
                             "opacity",
-                            14000,
-                            250,
-                            "easeInOutSine",
-                            "${Ellipse}",
-                            '1',
-                            '0'
+                            5987,
+                            500,
+                            "easeOutExpo",
+                            "${Text3}",
+                            '0',
+                            '1'
                         ],
                         [
                             "eid28",
                             "display",
-                            7901,
+                            10401,
                             0,
                             "easeInOutSine",
                             "${_5}",
@@ -177,7 +177,7 @@
                         [
                             "eid5",
                             "opacity",
-                            2500,
+                            3987,
                             500,
                             "easeOutExpo",
                             "${Text}",
@@ -187,7 +187,7 @@
                         [
                             "eid7",
                             "opacity",
-                            2750,
+                            4237,
                             500,
                             "easeOutExpo",
                             "${Text2}",
@@ -195,19 +195,19 @@
                             '1'
                         ],
                         [
-                            "eid27",
-                            "display",
-                            7901,
-                            0,
-                            "easeInOutSine",
-                            "${Text3}",
-                            'block',
-                            'none'
+                            "eid58",
+                            "boxShadow.blur",
+                            10500,
+                            250,
+                            "linear",
+                            "${Ellipse}",
+                            '46px',
+                            '93px'
                         ],
                         [
                             "eid23",
                             "boxShadow.spread",
-                            7750,
+                            10250,
                             250,
                             "easeInOutSine",
                             "${Ellipse}",
@@ -217,7 +217,7 @@
                         [
                             "eid54",
                             "boxShadow.spread",
-                            13500,
+                            16000,
                             750,
                             "easeOutSine",
                             "${Ellipse}",
@@ -227,7 +227,7 @@
                         [
                             "eid9",
                             "left",
-                            3250,
+                            4737,
                             500,
                             "easeOutExpo",
                             "${_5}",
@@ -237,7 +237,7 @@
                         [
                             "eid50",
                             "opacity",
-                            11000,
+                            13500,
                             750,
                             "easeInOutSine",
                             "${Text6}",
@@ -247,7 +247,7 @@
                         [
                             "eid52",
                             "opacity",
-                            13250,
+                            15750,
                             500,
                             "easeOutSine",
                             "${Text6}",
@@ -255,19 +255,19 @@
                             '0'
                         ],
                         [
-                            "eid58",
-                            "boxShadow.blur",
-                            8000,
-                            250,
-                            "linear",
-                            "${Ellipse}",
-                            '46px',
-                            '93px'
+                            "eid27",
+                            "display",
+                            10401,
+                            0,
+                            "easeInOutSine",
+                            "${Text3}",
+                            'block',
+                            'none'
                         ],
                         [
                             "eid42",
                             "display",
-                            3000,
+                            4487,
                             0,
                             "easeOutExpo",
                             "${Text}",
@@ -275,19 +275,19 @@
                             'none'
                         ],
                         [
-                            "eid11",
+                            "eid56",
                             "opacity",
-                            4500,
-                            500,
-                            "easeOutExpo",
-                            "${Text3}",
-                            '0',
-                            '1'
+                            16500,
+                            250,
+                            "easeInOutSine",
+                            "${Ellipse}",
+                            '1',
+                            '0'
                         ],
                         [
                             "eid32",
                             "opacity",
-                            7901,
+                            10401,
                             349,
                             "easeInOutSine",
                             "${Text4}",
@@ -297,7 +297,7 @@
                         [
                             "eid46",
                             "opacity",
-                            10500,
+                            13000,
                             750,
                             "easeOutSine",
                             "${Text4}",
@@ -307,7 +307,7 @@
                         [
                             "eid29",
                             "display",
-                            7901,
+                            10401,
                             0,
                             "easeInOutSine",
                             "${_6}",
@@ -317,7 +317,7 @@
                         [
                             "eid30",
                             "display",
-                            7901,
+                            10401,
                             0,
                             "easeInOutSine",
                             "${Text2}",
@@ -327,7 +327,7 @@
                         [
                             "eid39",
                             "left",
-                            2263,
+                            3750,
                             1487,
                             "linear",
                             "${_6}",
@@ -337,7 +337,7 @@
                         [
                             "eid21",
                             "left",
-                            3750,
+                            5237,
                             500,
                             "easeOutExpo",
                             "${_6}",

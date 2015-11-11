@@ -11,11 +11,9 @@ class Feedback extends Component {
     return (
       <div className="Feedback">
         <div className="Feedback-container">
-          <a className="Feedback-link" href="/contact">Ask a question</a>
-          <span className="Feedback-spacer">|</span>
-          <a className="Feedback-link" href="/contact">Report an issue</a>
-          <span className="Feedback-spacer">|</span>
-          <a className="Feedback-link" href="/contact">Share with a friend</a>
+          <a className="Feedback-link" target="__blank" href="https://www.facebook.com/TheVoilaApp"><i className="fa fa-facebook-square"></i></a>
+          <a className="Feedback-link" target="__blank" href="https://twitter.com/Voila_App"><i className="fa fa-twitter-square"></i></a>
+          <a className="Feedback-link" target="__blank" href="https://instagram.com/voila.app/"><i className="fa fa-instagram"></i></a>
         </div>
       </div>
     );

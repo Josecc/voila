@@ -19,7 +19,7 @@ class Header extends Component {
           <Navigation className="Header-nav" />
           <div className="Header-banner">
             <h1 className="Header-bannerTitle">Visual Search</h1>
-            <p className="Header-bannerDesc">The first visual search app made for shopping</p>
+            <p className="Header-bannerDesc">The best visual search app for shoe shopping</p>
           </div>
         </div>
       </div>

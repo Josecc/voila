@@ -70,6 +70,7 @@ class VisualSearch extends Component {
 		}
 		let formData = new FormData();
 		formData.append('image', this.state.imageBlob, 'upload.jpg');
+		formData.append('limit','12');
 		formData.append('page', this.state.page);
 		formData.append('fl', 'product_name');
 		formData.append('fl', 'price');

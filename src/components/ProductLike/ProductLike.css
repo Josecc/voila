@@ -5,9 +5,11 @@
 		display: inline-block;
 		color: #783E98;
 		font-weight: 600;
+		cursor: pointer;
 	};
 
 	&-heart {
+		color: rgba(0,0,0,.3);
 		display: inline-block;
 		right: 0;
 		position: absolute;

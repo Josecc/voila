@@ -49,8 +49,8 @@
 
 .member {
   display: inline-block;
-  width: 150px;
-  height: 225px;
+  width: 200px;
+  height: 215px;
   overflow: hidden;
   background-color: rgba(255,255,255,.5);
   padding: 20px;
@@ -58,30 +58,29 @@
   box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);
 
   img{
-    width: 80px;
-    height: 80px;
-    border-radius: 80px;
+    width: 120px;
+    height: 120px;
+    border-radius: 110px;
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
   }
 
   .name {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 0px;
   }
 
   .position {
     color: #783E98;
-    font-size: 24px;
+    font-size: 20px;
     margin: 0;
-    display: table-cell;
-    vertical-align: middle;
   }
 
   .positionContainer {
     display: table;
     height: 100px;
     width: 100%;
-    display: table;
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }

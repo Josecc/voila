@@ -10,11 +10,13 @@ class ProductInfo extends Component {
 
     //getting price
     let price = props.price;
-    if (!(price.indexOf("$") > -1)){
-      price = "$" + price;
-    }
-    if (!(price.indexOf(".") > -1)){
-      price = price + ".00";
+    if(price !== undefined){
+      if (!(price.indexOf("$") > -1)){
+        price = "$" + price;
+      }
+      if (!(price.indexOf(".") > -1)){
+        price = price + ".00";
+      }
     }
 
     //getting name

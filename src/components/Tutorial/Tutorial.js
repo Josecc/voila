@@ -19,7 +19,7 @@ class Tutorial extends Component {
 	}
 	return (
 		<div className="Tutorial">
-	      	<iframe className="edgeFrame" src="/edge/crop/Crop.html" />
+	      	<iframe width="100%" className="edgeFrame" src="/edge/crop/Crop.html" />
 	     </div>
 	);
   }

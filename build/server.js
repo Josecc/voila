@@ -522,7 +522,7 @@ module.exports =
   			return _react2['default'].createElement(
   				'div',
   				{ className: 'Tutorial' },
-  				_react2['default'].createElement('iframe', { className: 'edgeFrame', src: '/edge/crop/Crop.html' })
+  				_react2['default'].createElement('iframe', { width: '100%', className: 'edgeFrame', src: '/edge/crop/Crop.html' })
   			);
   		}
   	}]);
@@ -4138,7 +4138,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, ".edgeFrame {\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\twidth: 100%;\n\theight: 100%;\n}\n.Tutorial {\n\tposition: relative;\n\theight: 0px;\n\tpadding-bottom: 100%;\n\tpadding-top: 30px;\n\toverflow: hidden;\n}", ""]);
+  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\theight: 100%;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100% !important;\n\toverflow: hidden;\n}", ""]);
   
   // exports
 

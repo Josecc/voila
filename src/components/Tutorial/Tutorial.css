@@ -1,14 +1,10 @@
 .edgeFrame {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
+	border: none;
 	height: 100%;
 }
 .Tutorial {
-	position: relative;
-	height: 0px;
-	padding-bottom: 100%;
-	padding-top: 30px;
+	height: 400px;
+	text-align: center;
+	width: 100% !important;
 	overflow: hidden;
 }

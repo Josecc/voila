@@ -13,13 +13,13 @@ class Tutorial extends Component {
   	if(this.props.uploadTutorial){
 	    return (
 	    	<div className="Tutorial">
-	      		<iframe className="edgeFrame" src="/edge/upload/Tutorial.html" />
+	      		<iframe width="100%" height="400px" className="edgeFrame" src="/edge/upload/Tutorial.html" />
 	      	</div>
     	);
 	}
 	return (
 		<div className="Tutorial">
-	      	<iframe width="100%" className="edgeFrame" src="/edge/crop/Crop.html" />
+	      	<iframe width="100%" height="400px" className="edgeFrame" src="/edge/crop/Crop.html" />
 	     </div>
 	);
   }

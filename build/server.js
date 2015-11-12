@@ -516,13 +516,13 @@ module.exports =
   				return _react2['default'].createElement(
   					'div',
   					{ className: 'Tutorial' },
-  					_react2['default'].createElement('iframe', { className: 'edgeFrame', src: '/edge/upload/Tutorial.html' })
+  					_react2['default'].createElement('iframe', { width: '100%', height: '400px', className: 'edgeFrame', src: '/edge/upload/Tutorial.html' })
   				);
   			}
   			return _react2['default'].createElement(
   				'div',
   				{ className: 'Tutorial' },
-  				_react2['default'].createElement('iframe', { width: '100%', className: 'edgeFrame', src: '/edge/crop/Crop.html' })
+  				_react2['default'].createElement('iframe', { width: '100%', height: '400px', className: 'edgeFrame', src: '/edge/crop/Crop.html' })
   			);
   		}
   	}]);
@@ -4138,7 +4138,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\theight: 100%;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100% !important;\n\toverflow: hidden;\n}", ""]);
+  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100% !important;\n\toverflow: hidden;\n}", ""]);
   
   // exports
 

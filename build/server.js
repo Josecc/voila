@@ -4138,7 +4138,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\theight: 100%;\n\twidth: 98% !important;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100% !important;\n\toverflow: hidden;\n}", ""]);
+  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n\theight: 100%;\n\twidth: 100% !important;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100% !important;\n\toverflow: hidden;\n}", ""]);
   
   // exports
 

@@ -23,7 +23,7 @@ class Navigation extends Component {
         <span className="Navigation-spacer">or</span>
         <a className="Navigation-link Navigation-link--highlight" href="/register" onClick={Link.handleClick}>Sign up</a>
         <span className="Navigation-spacer"> | </span>
-        <a className="Navigation-link Navigation-link" href="#" ><i className="fa fa-share"></i></a>
+        <a className="Navigation-link Navigation-link muted" href="#" ><i className="fa fa-share"></i></a>
       </div>
     );
   }

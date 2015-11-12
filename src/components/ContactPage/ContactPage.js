@@ -18,7 +18,7 @@ class ContactPage extends Component {
       <div className="ContactPage">
         <div className="ContactPage-container">
           <h1>{title}</h1>
-          <p>...</p>
+          <p>We appreciate all types fo feedback! You can express any <i>questions</i>, <i>suggestions</i>, or <i>requests</i> through social media, or email us at <a href="mailto:contact@voila.love">contact@voila.love</a>.</p>
         </div>
       </div>
     );

@@ -32,3 +32,10 @@
 .Navigation-spacer {
   color: rgba(255, 255, 255, .3);
 }
+.muted {
+  color: rgba(255, 255, 255, .1);
+  cursor: pointer;
+  &:hover{
+    color: rgba(255, 255, 255, .1);
+  }
+}

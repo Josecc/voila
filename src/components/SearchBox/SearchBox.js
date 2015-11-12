@@ -49,6 +49,7 @@ class SearchBox extends Component {
       checkImageOrigin: false,
       toggleDragModeOnDblclick: false,
       dragMode: 'move',
+      ViewMode: 1,
       crop: function(data) {
         // console.log(data.x);
         // console.log(data.y);

@@ -64,6 +64,10 @@ class VisualSearch extends Component {
 		productList
 	*/
 	fetchVoila(imageURL){
+		mixpanel.track(
+		"Voila!",
+			{"Searched URL": imageURL}
+		);
 		let formData = new FormData();
 		formData.append('im_url', imageURL);
 		formData.append('limit','12');
@@ -142,6 +146,10 @@ class VisualSearch extends Component {
 						searching: false,
 						productList: data.result
 					});
+					mixpanel.track(
+					"Searched Images",
+						{"Result Set": data.result}
+					);
 				} else {
 					this.setState({
 						searching: false

@@ -8,6 +8,9 @@ import Navigation from '../Navigation';
 
 @withStyles(styles)
 class Header extends Component {
+  componentDidMount(){
+    window.mixpanel.track("Webapp Visited");
+  }
 
   render() {
     return (

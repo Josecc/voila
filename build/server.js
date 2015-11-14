@@ -2105,6 +2105,11 @@ module.exports =
     }
   
     _createClass(Header, [{
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        window.mixpanel.track("Webapp Visited");
+      }
+    }, {
       key: 'render',
       value: function render() {
         return _react2['default'].createElement(
@@ -2190,6 +2195,12 @@ module.exports =
         };
       }
     }, {
+      key: 'mixinPanel',
+      value: function mixinPanel() {
+        return { __html: '<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");' + '2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};' + 'c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");' + 'for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";' + 'f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);' + 'mixpanel.init("662c895728a788556d9d39886bf1a3a9");</script><!-- end Mixpanel -->'
+        };
+      }
+    }, {
       key: 'render',
       value: function render() {
         return _react2['default'].createElement(
@@ -2215,6 +2226,7 @@ module.exports =
           _react2['default'].createElement(
             'body',
             null,
+            _react2['default'].createElement('div', { dangerouslySetInnerHTML: this.mixinPanel() }),
             _react2['default'].createElement('div', { id: 'app', dangerouslySetInnerHTML: { __html: this.props.body } }),
             _react2['default'].createElement('script', { src: '/app.js' }),
             _react2['default'].createElement('script', { dangerouslySetInnerHTML: this.trackingCode() })
@@ -3240,6 +3252,7 @@ module.exports =
   	}, {
   		key: 'fetchVoila',
   		value: function fetchVoila(imageURL) {
+  			mixpanel.track("Voila!", { "Searched URL": imageURL });
   			var formData = new FormData();
   			formData.append('im_url', imageURL);
   			formData.append('limit', '12');
@@ -3320,6 +3333,7 @@ module.exports =
   							searching: false,
   							productList: data.result
   						});
+  						mixpanel.track("Searched Images", { "Result Set": data.result });
   					} else {
   						this.setState({
   							searching: false

@@ -17,6 +17,7 @@
     "history": "1.12.5",
     "jade": "1.11.0",
     "jquery": "^2.1.4",
+    "mongoose": "^4.2.5",
     "normalize.css": "3.0.3",
     "react": "0.14.0",
     "react-cropper": "^0.5.1",

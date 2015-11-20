@@ -54,13 +54,13 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  __webpack_require__(67);
+  __webpack_require__(71);
   
-  var _path = __webpack_require__(10);
+  var _path = __webpack_require__(11);
   
   var _path2 = _interopRequireDefault(_path);
   
-  var _express = __webpack_require__(9);
+  var _express = __webpack_require__(7);
   
   var _express2 = _interopRequireDefault(_express);
   
@@ -68,17 +68,21 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _reactDomServer = __webpack_require__(80);
+  var _reactDomServer = __webpack_require__(85);
   
   var _reactDomServer2 = _interopRequireDefault(_reactDomServer);
   
-  var _routes = __webpack_require__(40);
+  var _routes = __webpack_require__(44);
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _componentsHtml = __webpack_require__(23);
+  var _componentsHtml = __webpack_require__(27);
   
   var _componentsHtml2 = _interopRequireDefault(_componentsHtml);
+  
+  var _mongoose = __webpack_require__(10);
+  
+  var _mongoose2 = _interopRequireDefault(_mongoose);
   
   var server = global.server = (0, _express2['default'])();
   
@@ -88,7 +92,8 @@ module.exports =
   //
   // Register API middleware
   // -----------------------------------------------------------------------------
-  server.use('/api/content', __webpack_require__(14));
+  server.use('/api/content', __webpack_require__(15));
+  server.use('/api/wishlist', __webpack_require__(16));
   
   //
   // Register server-side rendering middleware
@@ -204,7 +209,7 @@ module.exports =
   
   // eslint-disable-line no-unused-vars
   
-  var _fbjsLibInvariant = __webpack_require__(72);
+  var _fbjsLibInvariant = __webpack_require__(76);
   
   var _fbjsLibInvariant2 = _interopRequireDefault(_fbjsLibInvariant);
   
@@ -388,7 +393,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _coreLocation = __webpack_require__(37);
+  var _coreLocation = __webpack_require__(41);
   
   var _coreLocation2 = _interopRequireDefault(_coreLocation);
   
@@ -492,7 +497,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _TutorialCss = __webpack_require__(62);
+  var _TutorialCss = __webpack_require__(66);
   
   var _TutorialCss2 = _interopRequireDefault(_TutorialCss);
   
@@ -516,7 +521,7 @@ module.exports =
   				return _react2['default'].createElement(
   					'div',
   					{ className: 'Tutorial' },
-  					_react2['default'].createElement('iframe', { width: '100%', height: '400px', className: 'edgeFrame', src: '/edge/upload/Tutorial.html' })
+  					_react2['default'].createElement('iframe', { width: '100%', height: '400px', className: 'edgeFrame', src: '/edge/crop/Crop.html' })
   				);
   			}
   			return _react2['default'].createElement(
@@ -537,6 +542,12 @@ module.exports =
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+  module.exports = require("express");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -559,7 +570,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _SearchBoxCss = __webpack_require__(60);
+  var _SearchBoxCss = __webpack_require__(64);
   
   var _SearchBoxCss2 = _interopRequireDefault(_SearchBoxCss);
   
@@ -567,15 +578,15 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _reactDropzone = __webpack_require__(81);
+  var _reactDropzone = __webpack_require__(86);
   
   var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
   
-  var _SearchResults = __webpack_require__(8);
+  var _SearchResults = __webpack_require__(9);
   
   var _SearchResults2 = _interopRequireDefault(_SearchResults);
   
-  var _CropControls = __webpack_require__(18);
+  var _CropControls = __webpack_require__(22);
   
   var _CropControls2 = _interopRequireDefault(_CropControls);
   
@@ -648,7 +659,7 @@ module.exports =
     }, {
       key: 'componentDidMount',
       value: function componentDidMount() {
-        global.Cropper = __webpack_require__(69);
+        global.Cropper = __webpack_require__(73);
       }
     }, {
       key: 'cropped',
@@ -690,7 +701,7 @@ module.exports =
               _react2['default'].createElement(
                 'div',
                 null,
-                'Touch or drag and drop to upload image.'
+                'Touch or drag and drop to upload image. The best view is the side view.'
               )
             )
           );
@@ -713,7 +724,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -736,7 +747,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _SearchResultsCss = __webpack_require__(61);
+  var _SearchResultsCss = __webpack_require__(65);
   
   var _SearchResultsCss2 = _interopRequireDefault(_SearchResultsCss);
   
@@ -744,15 +755,15 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Product = __webpack_require__(27);
+  var _Product = __webpack_require__(31);
   
   var _Product2 = _interopRequireDefault(_Product);
   
-  var _ResultNavigator = __webpack_require__(33);
+  var _ResultNavigator = __webpack_require__(37);
   
   var _ResultNavigator2 = _interopRequireDefault(_ResultNavigator);
   
-  var _SearchBox = __webpack_require__(7);
+  var _SearchBox = __webpack_require__(8);
   
   var _SearchBox2 = _interopRequireDefault(_SearchBox);
   
@@ -808,19 +819,19 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
-  module.exports = require("express");
+  module.exports = require("mongoose");
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
   module.exports = require("path");
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
   /**
@@ -865,7 +876,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -885,11 +896,11 @@ module.exports =
   
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
   
-  var _pathToRegexp = __webpack_require__(64);
+  var _pathToRegexp = __webpack_require__(68);
   
   var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
   
-  var _Match = __webpack_require__(11);
+  var _Match = __webpack_require__(12);
   
   var _Match2 = _interopRequireDefault(_Match);
   
@@ -917,7 +928,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -939,7 +950,7 @@ module.exports =
   
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
   
-  var _Route = __webpack_require__(12);
+  var _Route = __webpack_require__(13);
   
   var _Route2 = _interopRequireDefault(_Route);
   
@@ -1244,7 +1255,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1259,19 +1270,19 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _path = __webpack_require__(10);
+  var _path = __webpack_require__(11);
   
-  var _express = __webpack_require__(9);
+  var _express = __webpack_require__(7);
   
-  var _jade = __webpack_require__(78);
+  var _jade = __webpack_require__(82);
   
   var _jade2 = _interopRequireDefault(_jade);
   
-  var _frontMatter = __webpack_require__(73);
+  var _frontMatter = __webpack_require__(77);
   
   var _frontMatter2 = _interopRequireDefault(_frontMatter);
   
-  var _utilsFs = __webpack_require__(41);
+  var _utilsFs = __webpack_require__(45);
   
   var _utilsFs2 = _interopRequireDefault(_utilsFs);
   
@@ -1361,7 +1372,130 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 15 */
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  var express = __webpack_require__(7);
+  var controller = __webpack_require__(17);
+  
+  var router = express.Router();
+  
+  router.get('/', controller.index);
+  router.get('/:id', controller.show);
+  router.post('/', controller.create);
+  router.put('/:deviceId', controller.update);
+  router.patch('/:deviceId', controller.update);
+  router['delete']('/:id', controller.destroy);
+  
+  module.exports = router;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  var _ = __webpack_require__(84);
+  var Wishlist = __webpack_require__(18);
+  
+  // Get list of wishlists
+  exports.index = function (req, res) {
+    Wishlist.find(function (err, wishlists) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.json(200, wishlists);
+    });
+  };
+  
+  // Get a single wishlist
+  exports.show = function (req, res) {
+    Wishlist.findById(req.params.id, function (err, wishlist) {
+      if (err) {
+        return handleError(res, err);
+      }
+      if (!wishlist) {
+        return res.send(404);
+      }
+      return res.json(wishlist);
+    });
+  };
+  
+  // Creates a new wishlist in the DB.
+  exports.create = function (req, res) {
+    Wishlist.create(req.body, function (err, wishlist) {
+      if (err) {
+        return handleError(res, err);
+      }
+      return res.json(201, wishlist);
+    });
+  };
+  
+  // Updates an existing wishlist in the DB.
+  exports.update = function (req, res) {
+    if (req.body._id) {
+      delete req.body._id;
+    }
+    Wishlist.find(req.params.deviceId, function (err, wishlist) {
+      if (err) {
+        return handleError(res, err);
+      }
+      if (!wishlist) {
+        return res.send(404);
+      }
+      var updated = _.merge(wishlist, req.body);
+      updated.save(function (err) {
+        if (err) {
+          return handleError(res, err);
+        }
+        return res.json(200, wishlist);
+      });
+    });
+  };
+  
+  // Deletes a wishlist from the DB.
+  exports.destroy = function (req, res) {
+    Wishlist.findById(req.params.id, function (err, wishlist) {
+      if (err) {
+        return handleError(res, err);
+      }
+      if (!wishlist) {
+        return res.send(404);
+      }
+      wishlist.remove(function (err) {
+        if (err) {
+          return handleError(res, err);
+        }
+        return res.send(204);
+      });
+    });
+  };
+  
+  function handleError(res, err) {
+    return res.send(500, err);
+  }
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  var mongoose = __webpack_require__(10),
+      Schema = mongoose.Schema;
+  
+  var WishlistSchema = new Schema({
+    deviceId: String,
+    email: String,
+    im_names: [String]
+  });
+  
+  module.exports = mongoose.model('Wishlist', WishlistSchema);
+
+/***/ },
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1386,11 +1520,11 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _AppCss = __webpack_require__(42);
+  var _AppCss = __webpack_require__(46);
   
   var _AppCss2 = _interopRequireDefault(_AppCss);
   
-  var _decoratorsWithContext = __webpack_require__(38);
+  var _decoratorsWithContext = __webpack_require__(42);
   
   var _decoratorsWithContext2 = _interopRequireDefault(_decoratorsWithContext);
   
@@ -1398,15 +1532,15 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Header = __webpack_require__(22);
+  var _Header = __webpack_require__(26);
   
   var _Header2 = _interopRequireDefault(_Header);
   
-  var _Feedback = __webpack_require__(20);
+  var _Feedback = __webpack_require__(24);
   
   var _Feedback2 = _interopRequireDefault(_Feedback);
   
-  var _Footer = __webpack_require__(21);
+  var _Footer = __webpack_require__(25);
   
   var _Footer2 = _interopRequireDefault(_Footer);
   
@@ -1450,7 +1584,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 16 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1475,7 +1609,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ContactPageCss = __webpack_require__(43);
+  var _ContactPageCss = __webpack_require__(47);
   
   var _ContactPageCss2 = _interopRequireDefault(_ContactPageCss);
   
@@ -1557,7 +1691,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 17 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1582,7 +1716,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ContentPageCss = __webpack_require__(44);
+  var _ContentPageCss = __webpack_require__(48);
   
   var _ContentPageCss2 = _interopRequireDefault(_ContentPageCss);
   
@@ -1643,7 +1777,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 18 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1666,7 +1800,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _CropControlsCss = __webpack_require__(45);
+  var _CropControlsCss = __webpack_require__(49);
   
   var _CropControlsCss2 = _interopRequireDefault(_CropControlsCss);
   
@@ -1762,7 +1896,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1791,7 +1925,7 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _ErrorPageCss = __webpack_require__(46);
+  var _ErrorPageCss = __webpack_require__(50);
   
   var _ErrorPageCss2 = _interopRequireDefault(_ErrorPageCss);
   
@@ -1842,7 +1976,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 20 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1867,7 +2001,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _FeedbackCss = __webpack_require__(47);
+  var _FeedbackCss = __webpack_require__(51);
   
   var _FeedbackCss2 = _interopRequireDefault(_FeedbackCss);
   
@@ -1922,7 +2056,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1947,11 +2081,11 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _FooterCss = __webpack_require__(48);
+  var _FooterCss = __webpack_require__(52);
   
   var _FooterCss2 = _interopRequireDefault(_FooterCss);
   
-  var _decoratorsWithViewport = __webpack_require__(39);
+  var _decoratorsWithViewport = __webpack_require__(43);
   
   var _decoratorsWithViewport2 = _interopRequireDefault(_decoratorsWithViewport);
   
@@ -2054,7 +2188,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2079,7 +2213,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _HeaderCss = __webpack_require__(49);
+  var _HeaderCss = __webpack_require__(53);
   
   var _HeaderCss2 = _interopRequireDefault(_HeaderCss);
   
@@ -2091,7 +2225,7 @@ module.exports =
   
   var _Link2 = _interopRequireDefault(_Link);
   
-  var _Navigation = __webpack_require__(25);
+  var _Navigation = __webpack_require__(29);
   
   var _Navigation2 = _interopRequireDefault(_Navigation);
   
@@ -2121,7 +2255,7 @@ module.exports =
             _react2['default'].createElement(
               'a',
               { className: 'Header-brand', href: '/', onClick: _Link2['default'].handleClick },
-              _react2['default'].createElement('img', { className: 'Header-brandImg', src: __webpack_require__(66), width: '224', height: '75', alt: 'React' })
+              _react2['default'].createElement('img', { className: 'Header-brandImg', src: __webpack_require__(70), width: '224', height: '75', alt: 'React' })
             ),
             _react2['default'].createElement(_Navigation2['default'], { className: 'Header-nav' }),
             _react2['default'].createElement(
@@ -2152,7 +2286,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 23 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2177,7 +2311,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _config = __webpack_require__(35);
+  var _config = __webpack_require__(39);
   
   var Html = (function (_Component) {
     _inherits(Html, _Component);
@@ -2258,7 +2392,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 24 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2283,7 +2417,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _LoginPageCss = __webpack_require__(50);
+  var _LoginPageCss = __webpack_require__(54);
   
   var _LoginPageCss2 = _interopRequireDefault(_LoginPageCss);
   
@@ -2341,7 +2475,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 25 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2366,11 +2500,11 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _classnames = __webpack_require__(68);
+  var _classnames = __webpack_require__(72);
   
   var _classnames2 = _interopRequireDefault(_classnames);
   
-  var _NavigationCss = __webpack_require__(51);
+  var _NavigationCss = __webpack_require__(55);
   
   var _NavigationCss2 = _interopRequireDefault(_NavigationCss);
   
@@ -2456,7 +2590,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 26 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2485,7 +2619,7 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _NotFoundPageCss = __webpack_require__(52);
+  var _NotFoundPageCss = __webpack_require__(56);
   
   var _NotFoundPageCss2 = _interopRequireDefault(_NotFoundPageCss);
   
@@ -2552,7 +2686,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 27 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2575,7 +2709,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ProductCss = __webpack_require__(53);
+  var _ProductCss = __webpack_require__(57);
   
   var _ProductCss2 = _interopRequireDefault(_ProductCss);
   
@@ -2583,11 +2717,11 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _ProductImage = __webpack_require__(29);
+  var _ProductImage = __webpack_require__(33);
   
   var _ProductImage2 = _interopRequireDefault(_ProductImage);
   
-  var _ProductDescription = __webpack_require__(28);
+  var _ProductDescription = __webpack_require__(32);
   
   var _ProductDescription2 = _interopRequireDefault(_ProductDescription);
   
@@ -2631,7 +2765,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 28 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2654,7 +2788,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ProductDescriptionCss = __webpack_require__(54);
+  var _ProductDescriptionCss = __webpack_require__(58);
   
   var _ProductDescriptionCss2 = _interopRequireDefault(_ProductDescriptionCss);
   
@@ -2666,11 +2800,11 @@ module.exports =
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
-  var _ProductInfo = __webpack_require__(30);
+  var _ProductInfo = __webpack_require__(34);
   
   var _ProductInfo2 = _interopRequireDefault(_ProductInfo);
   
-  var _ProductLike = __webpack_require__(31);
+  var _ProductLike = __webpack_require__(35);
   
   var _ProductLike2 = _interopRequireDefault(_ProductLike);
   
@@ -2704,7 +2838,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 29 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2727,7 +2861,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ProductImageCss = __webpack_require__(55);
+  var _ProductImageCss = __webpack_require__(59);
   
   var _ProductImageCss2 = _interopRequireDefault(_ProductImageCss);
   
@@ -2770,7 +2904,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 30 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2793,7 +2927,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ProductInfoCss = __webpack_require__(56);
+  var _ProductInfoCss = __webpack_require__(60);
   
   var _ProductInfoCss2 = _interopRequireDefault(_ProductInfoCss);
   
@@ -2862,7 +2996,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 31 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2885,7 +3019,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ProductLikeCss = __webpack_require__(57);
+  var _ProductLikeCss = __webpack_require__(61);
   
   var _ProductLikeCss2 = _interopRequireDefault(_ProductLikeCss);
   
@@ -2935,7 +3069,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 32 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2964,7 +3098,7 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _RegisterPageCss = __webpack_require__(58);
+  var _RegisterPageCss = __webpack_require__(62);
   
   var _RegisterPageCss2 = _interopRequireDefault(_RegisterPageCss);
   
@@ -3023,7 +3157,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 33 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3046,7 +3180,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _ResultNavigatorCss = __webpack_require__(59);
+  var _ResultNavigatorCss = __webpack_require__(63);
   
   var _ResultNavigatorCss2 = _interopRequireDefault(_ResultNavigatorCss);
   
@@ -3139,7 +3273,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 34 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3162,7 +3296,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _VisualSearchCss = __webpack_require__(63);
+  var _VisualSearchCss = __webpack_require__(67);
   
   var _VisualSearchCss2 = _interopRequireDefault(_VisualSearchCss);
   
@@ -3174,15 +3308,15 @@ module.exports =
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
-  var _SearchBox = __webpack_require__(7);
+  var _SearchBox = __webpack_require__(8);
   
   var _SearchBox2 = _interopRequireDefault(_SearchBox);
   
-  var _SearchResults = __webpack_require__(8);
+  var _SearchResults = __webpack_require__(9);
   
   var _SearchResults2 = _interopRequireDefault(_SearchResults);
   
-  var _jquery = __webpack_require__(79);
+  var _jquery = __webpack_require__(83);
   
   var _jquery2 = _interopRequireDefault(_jquery);
   
@@ -3388,7 +3522,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 35 */
+/* 39 */
 /***/ function(module, exports) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3404,7 +3538,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 36 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3417,7 +3551,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _superagent = __webpack_require__(82);
+  var _superagent = __webpack_require__(87);
   
   var _superagent2 = _interopRequireDefault(_superagent);
   
@@ -3455,7 +3589,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3470,15 +3604,15 @@ module.exports =
   
   var _fbjsLibExecutionEnvironment = __webpack_require__(5);
   
-  var _historyLibCreateBrowserHistory = __webpack_require__(75);
+  var _historyLibCreateBrowserHistory = __webpack_require__(79);
   
   var _historyLibCreateBrowserHistory2 = _interopRequireDefault(_historyLibCreateBrowserHistory);
   
-  var _historyLibCreateMemoryHistory = __webpack_require__(76);
+  var _historyLibCreateMemoryHistory = __webpack_require__(80);
   
   var _historyLibCreateMemoryHistory2 = _interopRequireDefault(_historyLibCreateMemoryHistory);
   
-  var _historyLibUseQueries = __webpack_require__(77);
+  var _historyLibUseQueries = __webpack_require__(81);
   
   var _historyLibUseQueries2 = _interopRequireDefault(_historyLibUseQueries);
   
@@ -3488,7 +3622,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3517,7 +3651,7 @@ module.exports =
   
   // eslint-disable-line no-unused-vars
   
-  var _fbjsLibEmptyFunction = __webpack_require__(71);
+  var _fbjsLibEmptyFunction = __webpack_require__(75);
   
   var _fbjsLibEmptyFunction2 = _interopRequireDefault(_fbjsLibEmptyFunction);
   
@@ -3583,7 +3717,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3612,7 +3746,7 @@ module.exports =
   
   // eslint-disable-line no-unused-vars
   
-  var _eventemitter3 = __webpack_require__(70);
+  var _eventemitter3 = __webpack_require__(74);
   
   var _eventemitter32 = _interopRequireDefault(_eventemitter3);
   
@@ -3684,7 +3818,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3703,43 +3837,43 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _reactRoutingSrcRouter = __webpack_require__(13);
+  var _reactRoutingSrcRouter = __webpack_require__(14);
   
   var _reactRoutingSrcRouter2 = _interopRequireDefault(_reactRoutingSrcRouter);
   
-  var _coreHttpClient = __webpack_require__(36);
+  var _coreHttpClient = __webpack_require__(40);
   
   var _coreHttpClient2 = _interopRequireDefault(_coreHttpClient);
   
-  var _componentsApp = __webpack_require__(15);
+  var _componentsApp = __webpack_require__(19);
   
   var _componentsApp2 = _interopRequireDefault(_componentsApp);
   
-  var _componentsContentPage = __webpack_require__(17);
+  var _componentsContentPage = __webpack_require__(21);
   
   var _componentsContentPage2 = _interopRequireDefault(_componentsContentPage);
   
-  var _componentsContactPage = __webpack_require__(16);
+  var _componentsContactPage = __webpack_require__(20);
   
   var _componentsContactPage2 = _interopRequireDefault(_componentsContactPage);
   
-  var _componentsLoginPage = __webpack_require__(24);
+  var _componentsLoginPage = __webpack_require__(28);
   
   var _componentsLoginPage2 = _interopRequireDefault(_componentsLoginPage);
   
-  var _componentsRegisterPage = __webpack_require__(32);
+  var _componentsRegisterPage = __webpack_require__(36);
   
   var _componentsRegisterPage2 = _interopRequireDefault(_componentsRegisterPage);
   
-  var _componentsNotFoundPage = __webpack_require__(26);
+  var _componentsNotFoundPage = __webpack_require__(30);
   
   var _componentsNotFoundPage2 = _interopRequireDefault(_componentsNotFoundPage);
   
-  var _componentsErrorPage = __webpack_require__(19);
+  var _componentsErrorPage = __webpack_require__(23);
   
   var _componentsErrorPage2 = _interopRequireDefault(_componentsErrorPage);
   
-  var _componentsVisualSearch = __webpack_require__(34);
+  var _componentsVisualSearch = __webpack_require__(38);
   
   var _componentsVisualSearch2 = _interopRequireDefault(_componentsVisualSearch);
   
@@ -3855,7 +3989,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3868,7 +4002,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _fs = __webpack_require__(74);
+  var _fs = __webpack_require__(78);
   
   var _fs2 = _interopRequireDefault(_fs);
   
@@ -3894,7 +4028,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -3908,7 +4042,7 @@ module.exports =
 
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -3922,7 +4056,7 @@ module.exports =
 
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -3936,7 +4070,7 @@ module.exports =
 
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -3950,7 +4084,7 @@ module.exports =
 
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -3964,7 +4098,7 @@ module.exports =
 
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -3978,7 +4112,7 @@ module.exports =
 
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -3992,7 +4126,7 @@ module.exports =
 
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4006,7 +4140,7 @@ module.exports =
 
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4020,7 +4154,7 @@ module.exports =
 
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4034,7 +4168,7 @@ module.exports =
 
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4048,7 +4182,7 @@ module.exports =
 
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4062,7 +4196,7 @@ module.exports =
 
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4076,7 +4210,7 @@ module.exports =
 
 
 /***/ },
-/* 55 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4090,7 +4224,7 @@ module.exports =
 
 
 /***/ },
-/* 56 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4104,7 +4238,7 @@ module.exports =
 
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
   exports = module.exports = __webpack_require__(3)();
@@ -4118,62 +4252,6 @@ module.exports =
 
 
 /***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-  exports = module.exports = __webpack_require__(3)();
-  // imports
-  
-  
-  // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.RegisterPage-container {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: 1000px;\n  color: white;\n}\n\n.RegisterPage-container h1 {\n  font-weight: normal;\n\n}\n.registerContainer {\n\tmargin-bottom: 40px;\n\toverflow: hidden;\n\twidth: 100%;\n  \tmax-height: 650px;\n  \tbox-shadow: 0px 0px 10px 2px rgba(0,0,0,0.3);\n }\n .registerFrame {\n\tmargin-top: -50px;\n\theight: 830px;\n\twidth: 100%;\n}\n", ""]);
-  
-  // exports
-
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-  exports = module.exports = __webpack_require__(3)();
-  // imports
-  
-  
-  // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.ResultNavigator {\n\tpadding: 5px;\n\ttext-align: center;\n\tfont-size: 20px;\n\tcolor: white;\n\t-webkit-user-select: none;\n\t   -moz-user-select: none;\n\t    -ms-user-select: none;\n\t        user-select: none;\n\tcursor: default;\n}\n\n.ResultNavigator .arrowButton {\n  padding: 5px;\n  margin: 0 5%;\n  cursor: pointer;\n\n}\n\n.ResultNavigator .disabled {\n  color: #FFFFFF;\n  color: rgba(255, 255, 255, .5);\n  cursor: default;\n\n}", ""]);
-  
-  // exports
-
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-  exports = module.exports = __webpack_require__(3)();
-  // imports
-  
-  
-  // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.SearchBox {\n\twidth: 100%;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}\n\n@media screen and (min-width: 480px) {\n\n  .SearchBox .cropper-container {\n    margin: 35px 20% 35px 20%;\n    outline: solid 20px #FFFFFF;\n    outline: solid 20px rgba(255, 255, 255, .5);\n\n  }\n\n}\n\n.SearchBox .crop-controls {\n  width: 100%;\n\n}\n\n.SearchBox .drop-zone {\n  border: 1px dashed white;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 10px;\n  max-width: 300px;\n  padding: 60px;\n  color: #FFFFFF;\n  color: rgba(255, 255, 255, .5);\n  font-size: 1.25em;\n  text-align: center;\n  background-color: #323232;\n  background-color: rgba(50,50,50,.1);\n  box-shadow: inset 0px 0px 20px -3px rgba(0,0,0,0.75);\n  margin: 20px;\n  margin-top: 40px;\n  cursor: crosshair;\n  margin-bottom: 80px;\n\n}", ""]);
-  
-  // exports
-
-
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
-
-  exports = module.exports = __webpack_require__(3)();
-  // imports
-  
-  
-  // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.SearchResults {\n\tmargin: 10px;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}", ""]);
-  
-  // exports
-
-
-/***/ },
 /* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4182,7 +4260,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100% !important;\n\toverflow: hidden;\n}", ""]);
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.RegisterPage-container {\n  margin: 0 auto;\n  padding: 0 0 40px;\n  max-width: 1000px;\n  color: white;\n}\n\n.RegisterPage-container h1 {\n  font-weight: normal;\n\n}\n.registerContainer {\n\tmargin-bottom: 40px;\n\toverflow: scroll;\n\twidth: 100%;\n  \tmax-height: 650px;\n  \tbox-shadow: 0px 0px 10px 2px rgba(0,0,0,0.3);\n }\n .registerFrame {\n\tmargin-top: -50px;\n\theight: 830px;\n\twidth: 100%;\n}\n", ""]);
   
   // exports
 
@@ -4196,7 +4274,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n.loadingGif {\n\twidth: 100vw;\n\tmin-height: 300px;\n\ttext-align: center;\n\toverflow: hidden;\n}\n.loadingGif .loadingImage {\n  margin-top: 30px;\n  max-width: 99%;\n\n}\n.loadingGif p {\n  color: white;\n  font-size: 1.25em;\n  margin-bottom: 50px;\n  line-height: 20px;\n\n}", ""]);
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.ResultNavigator {\n\tpadding: 5px;\n\ttext-align: center;\n\tfont-size: 20px;\n\tcolor: white;\n\t-webkit-user-select: none;\n\t   -moz-user-select: none;\n\t    -ms-user-select: none;\n\t        user-select: none;\n\tcursor: default;\n}\n\n.ResultNavigator .arrowButton {\n  padding: 5px;\n  margin: 0 5%;\n  cursor: pointer;\n\n}\n\n.ResultNavigator .disabled {\n  color: #FFFFFF;\n  color: rgba(255, 255, 255, .5);\n  cursor: default;\n\n}", ""]);
   
   // exports
 
@@ -4205,7 +4283,63 @@ module.exports =
 /* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-  var isarray = __webpack_require__(65)
+  exports = module.exports = __webpack_require__(3)();
+  // imports
+  
+  
+  // module
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.SearchBox {\n\twidth: 100%;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}\n\n@media screen and (min-width: 480px) {\n\n  .SearchBox .cropper-container {\n    margin: 35px 20% 35px 20%;\n    outline: solid 20px #FFFFFF;\n    outline: solid 20px rgba(255, 255, 255, .5);\n\n  }\n\n}\n\n.SearchBox .crop-controls {\n  width: 100%;\n\n}\n\n.SearchBox .drop-zone {\n  border: 1px dashed white;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  border-radius: 10px;\n  max-width: 300px;\n  padding: 60px;\n  color: #FFFFFF;\n  color: rgba(255, 255, 255, .5);\n  font-size: 1.25em;\n  text-align: center;\n  background-color: #323232;\n  background-color: rgba(50,50,50,.1);\n  box-shadow: inset 0px 0px 20px -3px rgba(0,0,0,0.75);\n  margin: 20px;\n  margin-top: 40px;\n  cursor: crosshair;\n  margin-bottom: 80px;\n\n}", ""]);
+  
+  // exports
+
+
+/***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(3)();
+  // imports
+  
+  
+  // module
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n.SearchResults {\n\tmargin: 10px;\n\tdisplay: -webkit-box;\n\tdisplay: -webkit-flex;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-flex-wrap: wrap;\n\t    -ms-flex-wrap: wrap;\n\t        flex-wrap: wrap;\n\t-webkit-box-pack: center;\n\t-webkit-justify-content: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}", ""]);
+  
+  // exports
+
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(3)();
+  // imports
+  
+  
+  // module
+  exports.push([module.id, ".edgeFrame {\n\tborder: none;\n}\n.Tutorial {\n\theight: 400px;\n\ttext-align: center;\n\twidth: 100% !important;\n\toverflow: hidden;\n}", ""]);
+  
+  // exports
+
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+  exports = module.exports = __webpack_require__(3)();
+  // imports
+  
+  
+  // module
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n.loadingGif {\n\twidth: 100vw;\n\tmin-height: 300px;\n\ttext-align: center;\n\toverflow: hidden;\n}\n.loadingGif .loadingImage {\n  margin-top: 30px;\n  max-width: 99%;\n\n}\n.loadingGif p {\n  color: white;\n  font-size: 1.25em;\n  margin-bottom: 50px;\n  line-height: 20px;\n\n}", ""]);
+  
+  // exports
+
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+  var isarray = __webpack_require__(69)
   
   /**
    * Expose `pathToRegexp`.
@@ -4598,7 +4732,7 @@ module.exports =
 
 
 /***/ },
-/* 65 */
+/* 69 */
 /***/ function(module, exports) {
 
   module.exports = Array.isArray || function (arr) {
@@ -4607,103 +4741,109 @@ module.exports =
 
 
 /***/ },
-/* 66 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
   module.exports = __webpack_require__.p + "5d10c6a6cf72d6ffbad2b6851c4fe8e6.png"
 
 /***/ },
-/* 67 */
+/* 71 */
 /***/ function(module, exports) {
 
   module.exports = require("babel-core/polyfill");
 
 /***/ },
-/* 68 */
+/* 72 */
 /***/ function(module, exports) {
 
   module.exports = require("classnames");
 
 /***/ },
-/* 69 */
+/* 73 */
 /***/ function(module, exports) {
 
   module.exports = require("cropperjs");
 
 /***/ },
-/* 70 */
+/* 74 */
 /***/ function(module, exports) {
 
   module.exports = require("eventemitter3");
 
 /***/ },
-/* 71 */
+/* 75 */
 /***/ function(module, exports) {
 
   module.exports = require("fbjs/lib/emptyFunction");
 
 /***/ },
-/* 72 */
+/* 76 */
 /***/ function(module, exports) {
 
   module.exports = require("fbjs/lib/invariant");
 
 /***/ },
-/* 73 */
+/* 77 */
 /***/ function(module, exports) {
 
   module.exports = require("front-matter");
 
 /***/ },
-/* 74 */
+/* 78 */
 /***/ function(module, exports) {
 
   module.exports = require("fs");
 
 /***/ },
-/* 75 */
+/* 79 */
 /***/ function(module, exports) {
 
   module.exports = require("history/lib/createBrowserHistory");
 
 /***/ },
-/* 76 */
+/* 80 */
 /***/ function(module, exports) {
 
   module.exports = require("history/lib/createMemoryHistory");
 
 /***/ },
-/* 77 */
+/* 81 */
 /***/ function(module, exports) {
 
   module.exports = require("history/lib/useQueries");
 
 /***/ },
-/* 78 */
+/* 82 */
 /***/ function(module, exports) {
 
   module.exports = require("jade");
 
 /***/ },
-/* 79 */
+/* 83 */
 /***/ function(module, exports) {
 
   module.exports = require("jquery");
 
 /***/ },
-/* 80 */
+/* 84 */
+/***/ function(module, exports) {
+
+  module.exports = require("lodash");
+
+/***/ },
+/* 85 */
 /***/ function(module, exports) {
 
   module.exports = require("react-dom/server");
 
 /***/ },
-/* 81 */
+/* 86 */
 /***/ function(module, exports) {
 
   module.exports = require("react-dropzone");
 
 /***/ },
-/* 82 */
+/* 87 */
 /***/ function(module, exports) {
 
   module.exports = require("superagent");

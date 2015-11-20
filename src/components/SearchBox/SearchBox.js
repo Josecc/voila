@@ -91,7 +91,7 @@ class SearchBox extends Component {
       return (
         <div className="SearchBox" onTouchStart={this.uploadOnTouch} onClick={this.uploadOnTouch} >
           <Dropzone ref="dropzone" onDrop={this.handleFileChange} className="drop-zone" disableClick={true} >
-            <div>Touch or drag and drop to upload image.</div>
+            <div>Touch or drag and drop to upload image. The best view is the side view.</div>
           </Dropzone>
         </div>
       );

@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Router from './routes';
 import Html from './components/Html';
-import mongoose from 'mongoose';
+//import mongoose from 'mongoose';
 
 const server = global.server = express();
 

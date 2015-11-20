@@ -68,7 +68,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _reactDomServer = __webpack_require__(82);
+  var _reactDomServer = __webpack_require__(81);
   
   var _reactDomServer2 = _interopRequireDefault(_reactDomServer);
   
@@ -80,9 +80,7 @@ module.exports =
   
   var _componentsHtml2 = _interopRequireDefault(_componentsHtml);
   
-  var _mongoose = __webpack_require__(81);
-  
-  var _mongoose2 = _interopRequireDefault(_mongoose);
+  //import mongoose from 'mongoose';
   
   var server = global.server = (0, _express2['default'])();
   
@@ -572,7 +570,7 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _reactDropzone = __webpack_require__(83);
+  var _reactDropzone = __webpack_require__(82);
   
   var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
   
@@ -3442,7 +3440,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _superagent = __webpack_require__(84);
+  var _superagent = __webpack_require__(83);
   
   var _superagent2 = _interopRequireDefault(_superagent);
   
@@ -4719,22 +4717,16 @@ module.exports =
 /* 81 */
 /***/ function(module, exports) {
 
-  module.exports = require("mongoose");
+  module.exports = require("react-dom/server");
 
 /***/ },
 /* 82 */
 /***/ function(module, exports) {
 
-  module.exports = require("react-dom/server");
-
-/***/ },
-/* 83 */
-/***/ function(module, exports) {
-
   module.exports = require("react-dropzone");
 
 /***/ },
-/* 84 */
+/* 83 */
 /***/ function(module, exports) {
 
   module.exports = require("superagent");

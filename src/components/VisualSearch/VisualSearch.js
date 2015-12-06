@@ -6,7 +6,6 @@ import Tutorial from '../Tutorial';
 import SearchBox from '../SearchBox';
 import SearchResults from '../SearchResults';
 import jQuery from 'jquery';
-import LoginStore from '../../stores/LoginStore';
 
 /*
 	Search Box <<

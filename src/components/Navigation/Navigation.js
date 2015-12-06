@@ -17,7 +17,13 @@ class Navigation extends Component {
   };
 
   render() {
-    var loginOut = this.props.userLoggedIn ? <a className="Navigation-link" href="/" onClick={LoginActions.logoutUser}>Log out</a> : 
+    var loginOut = this.props.userLoggedIn ? 
+      <span>
+        <a className="Navigation-link" href="/" onClick={LoginActions.logoutUser}>Log out</a>
+        <span className="Navigation-spacer">or</span>
+        <a className="Navigation-link Navigation-link" href="/settings" onClick={Link.handleClick}>Change settings</a>
+      </span>
+       : 
       <span>
         <a className="Navigation-link" href="/login" onClick={Link.handleClick}>Log in</a> 
         <span className="Navigation-spacer">or</span>

@@ -3123,7 +3123,7 @@ module.exports =
               'span',
               { className: 'Footer-text Footer-text--muted' },
               _react2['default'].createElement('i', { className: 'fa fa-globe' }),
-              ' v 1.2 '
+              ' v 1.5 '
             )
           )
         );

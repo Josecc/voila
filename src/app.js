@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
 import Router from './routes';
 import Location from './core/Location';
+import LoginActions from './actions/LoginActions';
 import { addEventListener, removeEventListener } from './utils/DOMUtils';
 
 let cssContainer = document.getElementById('css');
@@ -26,6 +27,11 @@ const context = {
     document.getElementsByTagName('head')[0].appendChild(meta);
   },
 };
+
+let jwt = localStorage.getItem('jwt');
+if (jwt) {
+  LoginActions.loginUser(jwt);
+}
 
 function render(state) {
   Router.dispatch(state, (newState, component) => {

@@ -1,12 +1,12 @@
-// 'use strict';
+'use strict';
 
-// var mongoose = require('mongoose'),
-//     Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
-// var WishlistSchema = new Schema({
-//   deviceId: String,
-//   email: String,
-//   im_names: [String]
-// });
+var WishlistSchema = new Schema({
+  deviceId: String,
+  email: String,
+  im_names: [String]
+});
 
-// module.exports = mongoose.model('Wishlist', WishlistSchema);
+module.exports = mongoose.model('Wishlist', WishlistSchema);

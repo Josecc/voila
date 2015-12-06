@@ -10,4 +10,8 @@
   h1 {
   	font-weight: normal;
   }
+
+  input {
+  	margin-bottom: 10px;
+  }
 }

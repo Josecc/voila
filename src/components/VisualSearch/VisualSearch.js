@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './VisualSearch.css';
+import withAuthentication from '../../decorators/withAuthentication';
 import withStyles from '../../decorators/withStyles';
 import Tutorial from '../Tutorial';
 import SearchBox from '../SearchBox';
@@ -18,6 +19,7 @@ import jQuery from 'jquery';
 */
 
 @withStyles(styles)
+@withAuthentication
 class VisualSearch extends Component {
 
 	constructor() {
@@ -183,6 +185,7 @@ class VisualSearch extends Component {
 		} 
 		return (
 			<div className="VisualSearch container">
+				{this.props.user}
 				<Tutorial uploadTutorial={this.state.uploadTutorial}/>
 				<SearchBox setCropped={this.setCropped} setImageBlob={this.setImageBlob} fetchProducts={this.fetchProducts}/>
 			</div>

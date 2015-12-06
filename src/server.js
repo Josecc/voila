@@ -7,18 +7,36 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Router from './routes';
 import Html from './components/Html';
-//import mongoose from 'mongoose';
+import mongoose from 'mongoose';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
+import methodOverride from 'method-override';
+import bodyParser from 'body-parser';
 
 const server = global.server = express();
+mongoose.connect('mongodb://localhost/shoes');
 
 server.set('port', (process.env.PORT || 5000));
 server.use(express.static(path.join(__dirname, 'public')));
+
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json());
+server.use(methodOverride());
+server.use(cookieParser());
+server.use(passport.initialize());
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 server.use('/api/content', require('./api/content'));
-//server.use('/api/wishlist', require('./api/wishlist'));
+server.use('/api/wishlist', require('./api/wishlist'));
+server.use('/api/users', require('./api/user'));
+server.use('/auth', require('./auth'));
+server.use(function (err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('<b>Invalid token</b>! Please log in again. ');
+  }
+});
 
 //
 // Register server-side rendering middleware

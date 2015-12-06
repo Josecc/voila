@@ -56,7 +56,7 @@ module.exports =
   
   __webpack_require__(89);
   
-  var _path = __webpack_require__(20);
+  var _path = __webpack_require__(21);
   
   var _path2 = _interopRequireDefault(_path);
   
@@ -72,11 +72,11 @@ module.exports =
   
   var _reactDomServer2 = _interopRequireDefault(_reactDomServer);
   
-  var _routes = __webpack_require__(60);
+  var _routes = __webpack_require__(61);
   
   var _routes2 = _interopRequireDefault(_routes);
   
-  var _componentsHtml = __webpack_require__(44);
+  var _componentsHtml = __webpack_require__(45);
   
   var _componentsHtml2 = _interopRequireDefault(_componentsHtml);
   
@@ -115,10 +115,10 @@ module.exports =
   //
   // Register API middleware
   // -----------------------------------------------------------------------------
-  server.use('/api/content', __webpack_require__(25));
-  server.use('/api/wishlist', __webpack_require__(28));
-  server.use('/api/users', __webpack_require__(26));
-  server.use('/auth', __webpack_require__(33));
+  server.use('/api/content', __webpack_require__(26));
+  server.use('/api/wishlist', __webpack_require__(29));
+  server.use('/api/users', __webpack_require__(27));
+  server.use('/auth', __webpack_require__(34));
   server.use(function (err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
       res.status(401).send('<b>Invalid token</b>! Please log in again. ');
@@ -435,7 +435,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _coreLocation = __webpack_require__(17);
+  var _coreLocation = __webpack_require__(18);
   
   var _coreLocation2 = _interopRequireDefault(_coreLocation);
   
@@ -539,7 +539,7 @@ module.exports =
   
   // eslint-disable-line no-unused-vars
   
-  var _storesLoginStore = __webpack_require__(62);
+  var _storesLoginStore = __webpack_require__(14);
   
   var _storesLoginStore2 = _interopRequireDefault(_storesLoginStore);
   
@@ -568,7 +568,10 @@ module.exports =
         value: function _getLoginState() {
           return {
             userLoggedIn: _storesLoginStore2['default'].isLoggedIn(),
-            user: _storesLoginStore2['default'].user,
+            user: _storesLoginStore2['default'].name,
+            email: _storesLoginStore2['default'].email,
+            id: _storesLoginStore2['default'].id,
+            role: _storesLoginStore2['default'].role,
             jwt: _storesLoginStore2['default'].jwt
           };
         }
@@ -591,7 +594,7 @@ module.exports =
       }, {
         key: 'render',
         value: function render() {
-          return _react2['default'].createElement(ComposedComponent, _extends({}, this.props, { jwt: this.state.jwt, userLoggedIn: this.state.userLoggedIn }));
+          return _react2['default'].createElement(ComposedComponent, _extends({}, this.props, { jwt: this.state.jwt, userLoggedIn: this.state.userLoggedIn, userName: this.state.user, userEmail: this.state.email, userId: this.state.id, userRole: this.state.role }));
         }
       }]);
   
@@ -616,6 +619,76 @@ module.exports =
 
 /***/ },
 /* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+  
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+  
+  var _coreDispatcherJs = __webpack_require__(17);
+  
+  var _coreDispatcherJs2 = _interopRequireDefault(_coreDispatcherJs);
+  
+  var _coreLocation = __webpack_require__(18);
+  
+  var _coreLocation2 = _interopRequireDefault(_coreLocation);
+  
+  var _reqwest = __webpack_require__(22);
+  
+  var _reqwest2 = _interopRequireDefault(_reqwest);
+  
+  var _storesLoginStoreJs = __webpack_require__(14);
+  
+  var _storesLoginStoreJs2 = _interopRequireDefault(_storesLoginStoreJs);
+  
+  exports['default'] = {
+    loginUser: function loginUser(jwt) {
+      var savedJwt = localStorage.getItem('jwt');
+  
+      _coreDispatcherJs2['default'].dispatch({
+        actionType: 'LOGIN_USER',
+        jwt: jwt
+      });
+  
+      if (savedJwt !== jwt) {
+        _coreLocation2['default'].pushState({}, '/');
+        localStorage.setItem('jwt', jwt);
+      }
+    },
+    getUserInfo: function getUserInfo(jwt) {
+      (0, _reqwest2['default'])({
+        url: '/api/users/me/',
+        method: 'GET',
+        crossOrigin: true,
+        headers: {
+          'Authorization': 'Bearer ' + _storesLoginStoreJs2['default'].jwt
+        }
+      }).then(function (res) {
+        _coreDispatcherJs2['default'].dispatch({
+          actionType: 'USER_INFO_RECEIVED',
+          name: res.name,
+          email: res.email,
+          role: res.role,
+          id: res._id
+        });
+      });
+    },
+    logoutUser: function logoutUser() {
+      localStorage.removeItem('jwt');
+      _coreDispatcherJs2['default'].dispatch({
+        actionType: 'LOGOUT_USER'
+      });
+      _coreLocation2['default'].pushState({}, '/');
+    }
+  };
+  module.exports = exports['default'];
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -674,7 +747,7 @@ module.exports =
   UserSchema.path('name').validate(function (name) {
     if (authTypes.indexOf(this.provider) !== -1) return true;
     return name.length;
-  }, 'Email cannot be blank');
+  }, 'Name cannot be blank');
   
   // Validate empty email
   UserSchema.path('email').validate(function (email) {
@@ -756,17 +829,17 @@ module.exports =
   module.exports = mongoose.model('User', UserSchema);
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
   
   var mongoose = __webpack_require__(9);
   var passport = __webpack_require__(4);
-  var jwt = __webpack_require__(19);
+  var jwt = __webpack_require__(20);
   var expressJwt = __webpack_require__(98);
   var compose = __webpack_require__(92);
-  var User = __webpack_require__(10);
+  var User = __webpack_require__(11);
   var validateJwt = expressJwt({ secret: 'GetmeAllTHEshoesVoilahaha' });
   var roles = ['guest', 'user', 'admin'];
   
@@ -836,7 +909,7 @@ module.exports =
   exports.setTokenCookie = setTokenCookie;
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -903,7 +976,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -912,42 +985,111 @@ module.exports =
     value: true
   });
   
+  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+  
+  var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+  
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _coreDispatcherJs = __webpack_require__(16);
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
   
-  var _coreDispatcherJs2 = _interopRequireDefault(_coreDispatcherJs);
+  function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
   
-  var _coreLocation = __webpack_require__(17);
+  var _BaseStore2 = __webpack_require__(62);
   
-  var _coreLocation2 = _interopRequireDefault(_coreLocation);
+  var _BaseStore3 = _interopRequireDefault(_BaseStore2);
   
-  exports['default'] = {
-    loginUser: function loginUser(jwt) {
-      var savedJwt = localStorage.getItem('jwt');
+  var _jwtDecode = __webpack_require__(109);
   
-      _coreDispatcherJs2['default'].dispatch({
-        actionType: 'LOGIN_USER',
-        jwt: jwt
+  var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
+  
+  var _actionsLoginActions = __webpack_require__(10);
+  
+  var _actionsLoginActions2 = _interopRequireDefault(_actionsLoginActions);
+  
+  var LoginStore = (function (_BaseStore) {
+    _inherits(LoginStore, _BaseStore);
+  
+    function LoginStore() {
+      var _this = this;
+  
+      _classCallCheck(this, LoginStore);
+  
+      _get(Object.getPrototypeOf(LoginStore.prototype), 'constructor', this).call(this);
+      this.subscribe(function () {
+        return _this._registerToActions.bind(_this);
       });
-  
-      if (savedJwt !== jwt) {
-        _coreLocation2['default'].pushState({}, '/');
-        localStorage.setItem('jwt', jwt);
-      }
-    },
-    logoutUser: function logoutUser() {
-      localStorage.removeItem('jwt');
-      _coreDispatcherJs2['default'].dispatch({
-        actionType: 'LOGOUT_USER'
-      });
-      _coreLocation2['default'].pushState({}, '/');
+      this._jwt = null;
+      this._userName = null;
+      this._userEmail = null;
+      this._userRole = null;
+      this._userId = null;
     }
-  };
+  
+    _createClass(LoginStore, [{
+      key: '_registerToActions',
+      value: function _registerToActions(action) {
+        switch (action.actionType) {
+          case 'LOGIN_USER':
+            this._jwt = action.jwt;
+            _actionsLoginActions2['default'].getUserInfo(this._jwt);
+            this.emitChange();
+            break;
+          case 'LOGOUT_USER':
+            this._jwt = null;
+            this.emitChange();
+            break;
+          case 'USER_INFO_RECEIVED':
+            this._userName = action.name;
+            this._userEmail = action.email;
+            this._userRole = action.role;
+            this._userId = action.id;
+            this.emitChange();
+            break;
+          default:
+            break;
+        };
+      }
+    }, {
+      key: 'isLoggedIn',
+      value: function isLoggedIn() {
+        return !!this._jwt;
+      }
+    }, {
+      key: 'jwt',
+      get: function get() {
+        return this._jwt;
+      }
+    }, {
+      key: 'name',
+      get: function get() {
+        return this._userName;
+      }
+    }, {
+      key: 'email',
+      get: function get() {
+        return this._userEmail;
+      }
+    }, {
+      key: 'role',
+      get: function get() {
+        return this._userRole;
+      }
+    }, {
+      key: 'id',
+      get: function get() {
+        return this._userId;
+      }
+    }]);
+  
+    return LoginStore;
+  })(_BaseStore3['default']);
+  
+  exports['default'] = new LoginStore();
   module.exports = exports['default'];
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -982,11 +1124,11 @@ module.exports =
   
   var _reactDropzone2 = _interopRequireDefault(_reactDropzone);
   
-  var _SearchResults = __webpack_require__(15);
+  var _SearchResults = __webpack_require__(16);
   
   var _SearchResults2 = _interopRequireDefault(_SearchResults);
   
-  var _CropControls = __webpack_require__(39);
+  var _CropControls = __webpack_require__(40);
   
   var _CropControls2 = _interopRequireDefault(_CropControls);
   
@@ -1124,7 +1266,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1155,15 +1297,15 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Product = __webpack_require__(48);
+  var _Product = __webpack_require__(49);
   
   var _Product2 = _interopRequireDefault(_Product);
   
-  var _ResultNavigator = __webpack_require__(54);
+  var _ResultNavigator = __webpack_require__(55);
   
   var _ResultNavigator2 = _interopRequireDefault(_ResultNavigator);
   
-  var _SearchBox = __webpack_require__(14);
+  var _SearchBox = __webpack_require__(15);
   
   var _SearchBox2 = _interopRequireDefault(_SearchBox);
   
@@ -1219,7 +1361,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1238,7 +1380,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1271,7 +1413,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -1286,7 +1428,7 @@ module.exports =
   
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
   
-  var _reqwest = __webpack_require__(21);
+  var _reqwest = __webpack_require__(22);
   
   var _reqwest2 = _interopRequireDefault(_reqwest);
   
@@ -1294,7 +1436,7 @@ module.exports =
   
   var _when2 = _interopRequireDefault(_when);
   
-  var _actionsLoginActions = __webpack_require__(13);
+  var _actionsLoginActions = __webpack_require__(10);
   
   var _actionsLoginActions2 = _interopRequireDefault(_actionsLoginActions);
   
@@ -1351,25 +1493,25 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
   module.exports = require("jsonwebtoken");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
   module.exports = require("path");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
   module.exports = require("reqwest");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
   /**
@@ -1414,7 +1556,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -1438,7 +1580,7 @@ module.exports =
   
   var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
   
-  var _Match = __webpack_require__(22);
+  var _Match = __webpack_require__(23);
   
   var _Match2 = _interopRequireDefault(_Match);
   
@@ -1466,7 +1608,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
   /**
@@ -1488,7 +1630,7 @@ module.exports =
   
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
   
-  var _Route = __webpack_require__(23);
+  var _Route = __webpack_require__(24);
   
   var _Route2 = _interopRequireDefault(_Route);
   
@@ -1793,7 +1935,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -1808,7 +1950,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _path = __webpack_require__(20);
+  var _path = __webpack_require__(21);
   
   var _express = __webpack_require__(5);
   
@@ -1910,14 +2052,14 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
   
   var express = __webpack_require__(5);
-  var controller = __webpack_require__(27);
-  var auth = __webpack_require__(11);
+  var controller = __webpack_require__(28);
+  var auth = __webpack_require__(12);
   
   var router = express.Router();
   
@@ -1931,14 +2073,14 @@ module.exports =
   module.exports = router;
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
   
-  var User = __webpack_require__(10);
+  var User = __webpack_require__(11);
   var passport = __webpack_require__(4);
-  var jwt = __webpack_require__(19);
+  var jwt = __webpack_require__(20);
   
   var validationError = function validationError(res, err) {
     return res.json(422, err);
@@ -1961,7 +2103,8 @@ module.exports =
   exports.create = function (req, res, next) {
     var newUser = new User(req.body);
     newUser.provider = 'local';
-    if (!req.body.role) newUser.role = 'user';
+    //if (!req.body.role)
+    newUser.role = 'user';
     newUser.save(function (err, user) {
       if (err) return validationError(res, err);
       var token = jwt.sign({ _id: user._id }, 'GetmeAllTHEshoesVoilahaha', { expiresInMinutes: 60 * 5 });
@@ -2037,13 +2180,13 @@ module.exports =
   };
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
   
   var express = __webpack_require__(5);
-  var controller = __webpack_require__(29);
+  var controller = __webpack_require__(30);
   
   var router = express.Router();
   
@@ -2057,13 +2200,13 @@ module.exports =
   module.exports = router;
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
   
   var _ = __webpack_require__(110);
-  var Wishlist = __webpack_require__(30);
+  var Wishlist = __webpack_require__(31);
   
   // Get list of wishlists
   exports.index = function (req, res) {
@@ -2143,7 +2286,7 @@ module.exports =
   }
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2160,14 +2303,14 @@ module.exports =
   module.exports = mongoose.model('Wishlist', WishlistSchema);
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
   
   var express = __webpack_require__(5);
   var passport = __webpack_require__(4);
-  var auth = __webpack_require__(11);
+  var auth = __webpack_require__(12);
   
   var router = express.Router();
   
@@ -2183,7 +2326,7 @@ module.exports =
   module.exports = router;
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2224,31 +2367,6 @@ module.exports =
   };
 
 /***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  var express = __webpack_require__(5);
-  var passport = __webpack_require__(4);
-  var User = __webpack_require__(10);
-  
-  // Passport Configuration
-  __webpack_require__(35).setup(User);
-  __webpack_require__(32).setup(User, { facebook: {
-  		clientID: process.env.FACEBOOK_ID || '1609283866014176',
-  		clientSecret: process.env.FACEBOOK_SECRET || '2692b42e963fc6cb30b5cfe2b06f3a13',
-  		callbackURL: (process.env.DOMAIN || '') + '/auth/facebook/callback'
-  	} });
-  
-  var router = express.Router();
-  
-  router.use('/local', __webpack_require__(34));
-  router.use('/facebook', __webpack_require__(31));
-  
-  module.exports = router;
-
-/***/ },
 /* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2256,7 +2374,32 @@ module.exports =
   
   var express = __webpack_require__(5);
   var passport = __webpack_require__(4);
-  var auth = __webpack_require__(11);
+  var User = __webpack_require__(11);
+  
+  // Passport Configuration
+  __webpack_require__(36).setup(User);
+  __webpack_require__(33).setup(User, { facebook: {
+  		clientID: process.env.FACEBOOK_ID || '1609283866014176',
+  		clientSecret: process.env.FACEBOOK_SECRET || '2692b42e963fc6cb30b5cfe2b06f3a13',
+  		callbackURL: (process.env.DOMAIN || '') + '/auth/facebook/callback'
+  	} });
+  
+  var router = express.Router();
+  
+  router.use('/local', __webpack_require__(35));
+  router.use('/facebook', __webpack_require__(32));
+  
+  module.exports = router;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+  
+  var express = __webpack_require__(5);
+  var passport = __webpack_require__(4);
+  var auth = __webpack_require__(12);
   
   var router = express.Router();
   
@@ -2274,7 +2417,7 @@ module.exports =
   module.exports = router;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2304,7 +2447,7 @@ module.exports =
   };
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2333,7 +2476,7 @@ module.exports =
   
   var _AppCss2 = _interopRequireDefault(_AppCss);
   
-  var _decoratorsWithContext = __webpack_require__(58);
+  var _decoratorsWithContext = __webpack_require__(59);
   
   var _decoratorsWithContext2 = _interopRequireDefault(_decoratorsWithContext);
   
@@ -2341,15 +2484,15 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Header = __webpack_require__(43);
+  var _Header = __webpack_require__(44);
   
   var _Header2 = _interopRequireDefault(_Header);
   
-  var _Feedback = __webpack_require__(41);
+  var _Feedback = __webpack_require__(42);
   
   var _Feedback2 = _interopRequireDefault(_Feedback);
   
-  var _Footer = __webpack_require__(42);
+  var _Footer = __webpack_require__(43);
   
   var _Footer2 = _interopRequireDefault(_Footer);
   
@@ -2393,7 +2536,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2500,7 +2643,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2586,7 +2729,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -2705,7 +2848,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2785,7 +2928,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2865,7 +3008,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -2894,7 +3037,7 @@ module.exports =
   
   var _FooterCss2 = _interopRequireDefault(_FooterCss);
   
-  var _decoratorsWithViewport = __webpack_require__(59);
+  var _decoratorsWithViewport = __webpack_require__(60);
   
   var _decoratorsWithViewport2 = _interopRequireDefault(_decoratorsWithViewport);
   
@@ -2997,7 +3140,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3034,7 +3177,7 @@ module.exports =
   
   var _Link2 = _interopRequireDefault(_Link);
   
-  var _Navigation = __webpack_require__(46);
+  var _Navigation = __webpack_require__(47);
   
   var _Navigation2 = _interopRequireDefault(_Navigation);
   
@@ -3095,7 +3238,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3120,7 +3263,7 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _config = __webpack_require__(56);
+  var _config = __webpack_require__(57);
   
   var Html = (function (_Component) {
     _inherits(Html, _Component);
@@ -3201,7 +3344,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3238,7 +3381,7 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _utilsAuthService = __webpack_require__(18);
+  var _utilsAuthService = __webpack_require__(19);
   
   var _utilsAuthService2 = _interopRequireDefault(_utilsAuthService);
   
@@ -3382,7 +3525,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3423,7 +3566,7 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _actionsLoginActions = __webpack_require__(13);
+  var _actionsLoginActions = __webpack_require__(10);
   
   var _actionsLoginActions2 = _interopRequireDefault(_actionsLoginActions);
   
@@ -3515,7 +3658,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -3611,7 +3754,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3642,11 +3785,11 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _ProductImage = __webpack_require__(50);
+  var _ProductImage = __webpack_require__(51);
   
   var _ProductImage2 = _interopRequireDefault(_ProductImage);
   
-  var _ProductDescription = __webpack_require__(49);
+  var _ProductDescription = __webpack_require__(50);
   
   var _ProductDescription2 = _interopRequireDefault(_ProductDescription);
   
@@ -3690,7 +3833,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3721,15 +3864,15 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Tutorial = __webpack_require__(12);
+  var _Tutorial = __webpack_require__(13);
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
-  var _ProductInfo = __webpack_require__(51);
+  var _ProductInfo = __webpack_require__(52);
   
   var _ProductInfo2 = _interopRequireDefault(_ProductInfo);
   
-  var _ProductLike = __webpack_require__(52);
+  var _ProductLike = __webpack_require__(53);
   
   var _ProductLike2 = _interopRequireDefault(_ProductLike);
   
@@ -3763,7 +3906,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3794,7 +3937,7 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Tutorial = __webpack_require__(12);
+  var _Tutorial = __webpack_require__(13);
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
@@ -3829,7 +3972,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3921,7 +4064,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -3994,7 +4137,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -4031,7 +4174,7 @@ module.exports =
   
   var _RegisterPageCss2 = _interopRequireDefault(_RegisterPageCss);
   
-  var _utilsAuthService = __webpack_require__(18);
+  var _utilsAuthService = __webpack_require__(19);
   
   var _utilsAuthService2 = _interopRequireDefault(_utilsAuthService);
   
@@ -4168,7 +4311,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4284,7 +4427,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4319,21 +4462,25 @@ module.exports =
   
   var _decoratorsWithStyles2 = _interopRequireDefault(_decoratorsWithStyles);
   
-  var _Tutorial = __webpack_require__(12);
+  var _Tutorial = __webpack_require__(13);
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
-  var _SearchBox = __webpack_require__(14);
+  var _SearchBox = __webpack_require__(15);
   
   var _SearchBox2 = _interopRequireDefault(_SearchBox);
   
-  var _SearchResults = __webpack_require__(15);
+  var _SearchResults = __webpack_require__(16);
   
   var _SearchResults2 = _interopRequireDefault(_SearchResults);
   
   var _jquery = __webpack_require__(108);
   
   var _jquery2 = _interopRequireDefault(_jquery);
+  
+  var _storesLoginStore = __webpack_require__(14);
+  
+  var _storesLoginStore2 = _interopRequireDefault(_storesLoginStore);
   
   /*
   	Search Box <<
@@ -4519,10 +4666,17 @@ module.exports =
   					)
   				);
   			}
+  			var welcome = this.props.userLoggedIn ? _react2['default'].createElement(
+  				'h3',
+  				{ className: 'welcome-message' },
+  				' Happy shopping, ',
+  				this.props.userName,
+  				'!'
+  			) : '';
   			return _react2['default'].createElement(
   				'div',
   				{ className: 'VisualSearch container' },
-  				this.props.user,
+  				welcome,
   				_react2['default'].createElement(_Tutorial2['default'], { uploadTutorial: this.state.uploadTutorial }),
   				_react2['default'].createElement(_SearchBox2['default'], { setCropped: this.setCropped, setImageBlob: this.setImageBlob, fetchProducts: this.fetchProducts })
   			);
@@ -4539,7 +4693,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -4555,7 +4709,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -4606,7 +4760,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -4701,7 +4855,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -4802,7 +4956,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
   /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
@@ -4821,43 +4975,43 @@ module.exports =
   
   var _react2 = _interopRequireDefault(_react);
   
-  var _reactRoutingSrcRouter = __webpack_require__(24);
+  var _reactRoutingSrcRouter = __webpack_require__(25);
   
   var _reactRoutingSrcRouter2 = _interopRequireDefault(_reactRoutingSrcRouter);
   
-  var _coreHttpClient = __webpack_require__(57);
+  var _coreHttpClient = __webpack_require__(58);
   
   var _coreHttpClient2 = _interopRequireDefault(_coreHttpClient);
   
-  var _componentsApp = __webpack_require__(36);
+  var _componentsApp = __webpack_require__(37);
   
   var _componentsApp2 = _interopRequireDefault(_componentsApp);
   
-  var _componentsContentPage = __webpack_require__(38);
+  var _componentsContentPage = __webpack_require__(39);
   
   var _componentsContentPage2 = _interopRequireDefault(_componentsContentPage);
   
-  var _componentsContactPage = __webpack_require__(37);
+  var _componentsContactPage = __webpack_require__(38);
   
   var _componentsContactPage2 = _interopRequireDefault(_componentsContactPage);
   
-  var _componentsLoginPage = __webpack_require__(45);
+  var _componentsLoginPage = __webpack_require__(46);
   
   var _componentsLoginPage2 = _interopRequireDefault(_componentsLoginPage);
   
-  var _componentsRegisterPage = __webpack_require__(53);
+  var _componentsRegisterPage = __webpack_require__(54);
   
   var _componentsRegisterPage2 = _interopRequireDefault(_componentsRegisterPage);
   
-  var _componentsNotFoundPage = __webpack_require__(47);
+  var _componentsNotFoundPage = __webpack_require__(48);
   
   var _componentsNotFoundPage2 = _interopRequireDefault(_componentsNotFoundPage);
   
-  var _componentsErrorPage = __webpack_require__(40);
+  var _componentsErrorPage = __webpack_require__(41);
   
   var _componentsErrorPage2 = _interopRequireDefault(_componentsErrorPage);
   
-  var _componentsVisualSearch = __webpack_require__(55);
+  var _componentsVisualSearch = __webpack_require__(56);
   
   var _componentsVisualSearch2 = _interopRequireDefault(_componentsVisualSearch);
   
@@ -4973,7 +5127,7 @@ module.exports =
   module.exports = exports['default'];
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -4994,7 +5148,7 @@ module.exports =
   
   var _events = __webpack_require__(97);
   
-  var _coreDispatcher = __webpack_require__(16);
+  var _coreDispatcher = __webpack_require__(17);
   
   var _coreDispatcher2 = _interopRequireDefault(_coreDispatcher);
   
@@ -5038,87 +5192,6 @@ module.exports =
   })(_events.EventEmitter);
   
   exports['default'] = BaseStore;
-  module.exports = exports['default'];
-
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-  'use strict';
-  
-  Object.defineProperty(exports, '__esModule', {
-    value: true
-  });
-  
-  var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-  
-  var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-  
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-  
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-  
-  function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-  
-  var _BaseStore2 = __webpack_require__(61);
-  
-  var _BaseStore3 = _interopRequireDefault(_BaseStore2);
-  
-  var _jwtDecode = __webpack_require__(109);
-  
-  var _jwtDecode2 = _interopRequireDefault(_jwtDecode);
-  
-  var _reqwest = __webpack_require__(21);
-  
-  var _reqwest2 = _interopRequireDefault(_reqwest);
-  
-  var LoginStore = (function (_BaseStore) {
-    _inherits(LoginStore, _BaseStore);
-  
-    function LoginStore() {
-      var _this = this;
-  
-      _classCallCheck(this, LoginStore);
-  
-      _get(Object.getPrototypeOf(LoginStore.prototype), 'constructor', this).call(this);
-      this.subscribe(function () {
-        return _this._registerToActions.bind(_this);
-      });
-      this._jwt = null;
-    }
-  
-    _createClass(LoginStore, [{
-      key: '_registerToActions',
-      value: function _registerToActions(action) {
-        switch (action.actionType) {
-          case 'LOGIN_USER':
-            this._jwt = action.jwt;
-            this.emitChange();
-            break;
-          case 'LOGOUT_USER':
-            this._user = null;
-            this.emitChange();
-            break;
-          default:
-            break;
-        };
-      }
-    }, {
-      key: 'isLoggedIn',
-      value: function isLoggedIn() {
-        return !!this._jwt;
-      }
-    }, {
-      key: 'jwt',
-      get: function get() {
-        return this._jwt;
-      }
-    }]);
-  
-    return LoginStore;
-  })(_BaseStore3['default']);
-  
-  exports['default'] = new LoginStore();
   module.exports = exports['default'];
 
 /***/ },
@@ -5463,7 +5536,7 @@ module.exports =
   
   
   // module
-  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n\ninput {\n  -webkit-transition: all 0.2s ease-in-out;\n          transition: all 0.2s ease-in-out;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.6);\n  padding: 10px 10px;\n  color: #783E98;\n  border: none;\n}\n\n\ninput::-webkit-input-placeholder {\n  color: #783E98;\n\n}\n\n\ninput::-moz-placeholder {\n  color: #783E98;\n\n}\n\n\ninput:-ms-input-placeholder {\n  color: #783E98;\n\n}\n\n\ninput::placeholder {\n  color: #783E98;\n\n}\n\n\ninput:focus{\n  box-shadow: 0px 2px 22px -4px rgba(0,0,0,0.75);\n  outline: none;\n\n}\n\nbutton {\n  -webkit-transition: all 0.2s ease-in-out;\n          transition: all 0.2s ease-in-out;\n  padding: 10px;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.6);\n  color: #783E98;\n  border: none;\n}\n\nbutton:focus {\n  outline: none;\n\n}\n\nbutton:hover {\n  box-shadow: 0px 2px 22px -4px rgba(0,0,0,0.75);\n\n}\n.loadingGif {\n\twidth: 100vw;\n\tmin-height: 300px;\n\ttext-align: center;\n\toverflow: hidden;\n}\n.loadingGif .loadingImage {\n  margin-top: 30px;\n  max-width: 99%;\n\n}\n.loadingGif p {\n  color: white;\n  font-size: 1.25em;\n  margin-bottom: 50px;\n  line-height: 20px;\n\n}", ""]);
+  exports.push([module.id, "/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */\n\n:root {\n\n  /*\n   * Colors\n   * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */\n\n  /*\n   * Typography\n   * ======================================================================== */\n\n  /*\n   * Layout\n   * ======================================================================== */\n\n  /*\n   * Media queries breakpoints\n   * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */\n\n  /*\n   * Animations\n   * ======================================================================== */\n\n}\n\n.members {\n  list-style: none;\n  text-align: center;\n}\n\n.member {\n  display: inline-block;\n  width: 200px;\n  height: 215px;\n  overflow: hidden;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.5);\n  padding: 20px;\n  margin: 10px;\n  box-shadow: inset 0px 2px 5px 0px rgba(0,0,0,0.75);\n}\n\n.member img{\n  width: 120px;\n  height: 120px;\n  border-radius: 110px;\n  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);\n\n}\n\n.member .name {\n  font-size: 18px;\n  margin-bottom: 0px;\n\n}\n\n.member .position {\n  color: #783E98;\n  font-size: 20px;\n  margin: 0;\n\n}\n\n.member .positionContainer {\n  display: table;\n  height: 100px;\n  width: 100%;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n\n\ninput {\n  -webkit-transition: all 0.2s ease-in-out;\n          transition: all 0.2s ease-in-out;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.6);\n  padding: 10px 10px;\n  color: #783E98;\n  border: none;\n}\n\n\ninput::-webkit-input-placeholder {\n  color: #783E98;\n\n}\n\n\ninput::-moz-placeholder {\n  color: #783E98;\n\n}\n\n\ninput:-ms-input-placeholder {\n  color: #783E98;\n\n}\n\n\ninput::placeholder {\n  color: #783E98;\n\n}\n\n\ninput:focus{\n  box-shadow: 0px 2px 22px -4px rgba(0,0,0,0.75);\n  outline: none;\n\n}\n\nbutton {\n  -webkit-transition: all 0.2s ease-in-out;\n          transition: all 0.2s ease-in-out;\n  padding: 10px;\n  background-color: #FFFFFF;\n  background-color: rgba(255,255,255,.6);\n  color: #783E98;\n  border: none;\n}\n\nbutton:focus {\n  outline: none;\n\n}\n\nbutton:hover {\n  box-shadow: 0px 2px 22px -4px rgba(0,0,0,0.75);\n\n}\n.loadingGif {\n\twidth: 100vw;\n\tmin-height: 300px;\n\ttext-align: center;\n\toverflow: hidden;\n}\n.loadingGif .loadingImage {\n  margin-top: 30px;\n  max-width: 99%;\n\n}\n.loadingGif p {\n  color: white;\n  font-size: 1.25em;\n  margin-bottom: 50px;\n  line-height: 20px;\n\n}\n.welcome-message {\n\tcolor: #FFFFFF;\n\tcolor: rgba(255,255,255,.7);\n\tfont-weight: 500;\n\ttext-align: center;\n}", ""]);
   
   // exports
 

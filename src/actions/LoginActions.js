@@ -1,5 +1,7 @@
 import AppDispatcher from '../core/Dispatcher.js';
 import Location from '../core/Location';
+import request from 'reqwest';
+import LoginStore from '../stores/LoginStore.js';
 
 export default {
   loginUser: (jwt) => {
@@ -14,6 +16,24 @@ export default {
       Location.pushState({}, '/');
       localStorage.setItem('jwt', jwt);
     }
+  },
+  getUserInfo: (jwt) => {
+    request({
+      url: '/api/users/me/',
+      method: 'GET',
+      crossOrigin: true,
+      headers: {
+        'Authorization': 'Bearer ' + LoginStore.jwt
+      }
+    }).then((res) => {
+      AppDispatcher.dispatch({
+        actionType: 'USER_INFO_RECEIVED',
+        name: res.name,
+        email: res.email,
+        role: res.role,
+        id: res._id
+      });
+    });
   },
   logoutUser: () => {
     localStorage.removeItem('jwt');

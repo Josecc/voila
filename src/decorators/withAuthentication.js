@@ -21,7 +21,10 @@ function withAuthentication(ComposedComponent) {
     _getLoginState() {
       return {
         userLoggedIn: LoginStore.isLoggedIn(),
-        user: LoginStore.user,
+        user: LoginStore.name,
+        email: LoginStore.email,
+        id: LoginStore.id,
+        role: LoginStore.role,
         jwt: LoginStore.jwt
       }
     }
@@ -40,7 +43,7 @@ function withAuthentication(ComposedComponent) {
     }
 
     render() {
-      return <ComposedComponent {...this.props} jwt={this.state.jwt} userLoggedIn={this.state.userLoggedIn} />;
+      return <ComposedComponent {...this.props} jwt={this.state.jwt} userLoggedIn={this.state.userLoggedIn} userName={this.state.user} userEmail={this.state.email} userId={this.state.id} userRole={this.state.role} />;
     }
 
   };

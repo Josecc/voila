@@ -63,7 +63,7 @@ UserSchema
   .validate(function(name) {
     if (authTypes.indexOf(this.provider) !== -1) return true;
     return name.length;
-  }, 'Email cannot be blank');
+  }, 'Name cannot be blank');
 
 // Validate empty email
 UserSchema

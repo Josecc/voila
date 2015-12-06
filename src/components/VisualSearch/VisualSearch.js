@@ -6,6 +6,7 @@ import Tutorial from '../Tutorial';
 import SearchBox from '../SearchBox';
 import SearchResults from '../SearchResults';
 import jQuery from 'jquery';
+import LoginStore from '../../stores/LoginStore';
 
 /*
 	Search Box <<
@@ -183,9 +184,10 @@ class VisualSearch extends Component {
 				</div>
 			);
 		} 
+		let welcome = this.props.userLoggedIn ? <h3 className="welcome-message"> Happy shopping, {this.props.userName}!</h3> : '';
 		return (
 			<div className="VisualSearch container">
-				{this.props.user}
+				{welcome}
 				<Tutorial uploadTutorial={this.state.uploadTutorial}/>
 				<SearchBox setCropped={this.setCropped} setImageBlob={this.setImageBlob} fetchProducts={this.fetchProducts}/>
 			</div>

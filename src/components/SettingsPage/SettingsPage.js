@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './SettingsPage.css';
+import KeyManager from '../KeyManager';
 import withStyles from '../../decorators/withStyles';
 import withAuthentication from '../../decorators/withAuthentication';
+import SideLabel from '../SideLabel';
 import request from 'reqwest';
 
 @withStyles(styles)
@@ -89,24 +91,28 @@ class SettingsPage extends Component {
     const title = 'Settings';
     this.context.onSetTitle(title);
     let error = this.state.wrongCredentials ? <p>{this.state.wrongCredentials}</p> : '';
+    let keys = this.props.userRole == "admin" ? <div><p>Keys</p><KeyManager /></div> : '';
     return (
       <div className="SettingsPage">
         <div className="SettingsPage-container">
           <h1>{title}</h1>
-          <p>Change Password</p>
+          <p>Password</p>
           {error}
-          <form role="form">
-            <div className="form-group">
-              <input type="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} id="password" placeholder="Old password" />
-            </div>
-            <div className="form-group">
-              <input type="password" value={this.state.newPassword} onChange={this.handleNewPasswordChange.bind(this)} id="newPassword" placeholder="New password" />
-            </div>
-            <div className="form-group">
-              <input type="password" value={this.state.newPasswordRepeat} onChange={this.handleNewPasswordRepeatChange.bind(this)} id="newPasswordRepeat" placeholder="Retype new password" />
-            </div>
-            <button type="submit" className="btn btn-default" onClick={this.changePassword.bind(this)}>Submit</button>
-          </form>
+          <SideLabel label="Change">
+            <form role="form">
+              <div className="form-group">
+                <input type="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} id="password" placeholder="Old password" />
+              </div>
+              <div className="form-group">
+                <input type="password" value={this.state.newPassword} onChange={this.handleNewPasswordChange.bind(this)} id="newPassword" placeholder="New password" />
+              </div>
+              <div className="form-group">
+                <input type="password" value={this.state.newPasswordRepeat} onChange={this.handleNewPasswordRepeatChange.bind(this)} id="newPasswordRepeat" placeholder="Retype new password" />
+              </div>
+              <button type="submit" className="btn btn-default" onClick={this.changePassword.bind(this)}>Submit</button>
+            </form>
+          </SideLabel>
+          {keys}
         </div>
       </div>
     );

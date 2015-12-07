@@ -31,6 +31,7 @@ server.use(passport.initialize());
 server.use('/api/content', require('./api/content'));
 server.use('/api/wishlist', require('./api/wishlist'));
 server.use('/api/users', require('./api/user'));
+server.use('/api/search', require('./api/search'));
 server.use('/auth', require('./auth'));
 server.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {

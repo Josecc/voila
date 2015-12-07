@@ -6,6 +6,7 @@ import withAuthentication from '../../decorators/withAuthentication';
 import withStyles from '../../decorators/withStyles';
 import Auth from '../../utils/AuthService';
 import ReactMixin from 'react-mixin';
+import SideLabel from '../SideLabel';
 
 @withStyles(styles)
 @withAuthentication
@@ -64,17 +65,18 @@ class LoginPage extends React.Component {
       return (
         <div className="LoginPage">
           <div className="LoginPage-container">
-            <h1>{title}</h1>
             {wrongCredentials}
-            <form role="form">
-              <div className="form-group">
-                <input type="text" value={this.state.email} onChange={this.handleEmailChange.bind(this)} id="username" placeholder="Username" />
-              </div>
-              <div className="form-group">
-                <input type="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} id="password" ref="password" placeholder="Password" />
-              </div>
-              <button type="submit" className="btn btn-default" onClick={this.login.bind(this)}>Submit</button>
-            </form>
+            <SideLabel label="Log In">
+              <form role="form">
+                <div className="form-group">
+                  <input type="text" value={this.state.email} onChange={this.handleEmailChange.bind(this)} id="username" placeholder="Username" />
+                </div>
+                <div className="form-group">
+                  <input type="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} id="password" ref="password" placeholder="Password" />
+                </div>
+                <button type="submit" className="btn btn-default" onClick={this.login.bind(this)}>Submit</button>
+              </form>
+            </SideLabel>
           </div>
         </div>
       );

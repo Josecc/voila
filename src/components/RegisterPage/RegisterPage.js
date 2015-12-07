@@ -5,6 +5,7 @@ import withStyles from '../../decorators/withStyles';
 import withAuthentication from '../../decorators/withAuthentication';
 import styles from './RegisterPage.css';
 import Auth from '../../utils/AuthService';
+import SideLabel from '../SideLabel';
 
 @withStyles(styles)
 @withAuthentication
@@ -68,25 +69,26 @@ class RegisterPage extends Component {
     return (
       <div className="RegisterPage">
         <div className="RegisterPage-container">
-          <h1>{title}</h1>
           {this.state.errors ? Object.keys(this.state.errors).forEach((key) => {
             errs.push(this.state.errors[key].message);
           }) : null}
           {errs.map((err)=> {
             return ( <p className="signupt-error" >{err}</p> );
           })}
-          <form role="form">
-            <div className="form-group">
-              <input type="text" value={this.state.name} onChange={this.nameChange.bind(this)} id="name" placeholder="Name" />
-            </div>
-            <div className="form-group">
-              <input type="email" value={this.state.email} onChange={this.emailChange.bind(this)} id="email" ref="email" placeholder="Email" />
-            </div>
-            <div className="form-group">
-              <input type="password" value={this.state.password} onChange={this.passwordChange.bind(this)} id="password" ref="password" placeholder="Password" />
-            </div>
-            <button type="submit" className="btn btn-default" onClick={this.signup.bind(this)}>Submit</button>
-          </form>
+          <SideLabel label="Register">
+            <form role="form">
+              <div className="form-group">
+                <input type="text" value={this.state.name} onChange={this.nameChange.bind(this)} id="name" placeholder="Name" />
+              </div>
+              <div className="form-group">
+                <input type="email" value={this.state.email} onChange={this.emailChange.bind(this)} id="email" ref="email" placeholder="Email" />
+              </div>
+              <div className="form-group">
+                <input type="password" value={this.state.password} onChange={this.passwordChange.bind(this)} id="password" ref="password" placeholder="Password" />
+              </div>
+              <button type="submit" className="btn btn-default" onClick={this.signup.bind(this)}>Submit</button>
+            </form>
+          </SideLabel>
         </div>
       </div>
     );

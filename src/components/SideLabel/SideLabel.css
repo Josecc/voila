@@ -1,0 +1,31 @@
+.SideLabel {
+	position: relative;
+	&-label {
+		position: absolute;
+		display: block;
+		left: 0;
+		cursor: default;
+		user-select: none;
+		height: 100%;
+		line-height: 26px;
+		width: 32px;
+		color: rgba(255, 255, 255, .6);
+		font-size: 24px;
+		text-align: center;
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+		border-left: 1px solid rgba(255, 255, 255, .6);
+		z-index: -1;
+		box-shadow: -15px 0px 35px -10px rgba(0,0,0,0.75);
+		span {
+			white-space: nowrap;
+			width: 100%;                   
+			overflow: hidden;
+			text-overflow: "…";
+		}
+
+	}
+	&-container{
+		padding-left: 46px;
+	}
+}

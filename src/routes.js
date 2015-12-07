@@ -12,6 +12,7 @@ import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 import VisualSearch from './components/VisualSearch';
 import SettingsPage from './components/SettingsPage';
+import SearchPage from './components/SearchPage';
 
 const router = new Router(on => {
   on('*', async (state, next) => {
@@ -27,7 +28,9 @@ const router = new Router(on => {
 
   on('/settings', async () => <SettingsPage />);
 
-  on('/', async () => <VisualSearch />);
+  on('/search', async () => <SearchPage />)
+
+  on('/', async () => <VisualSearch tutorial="true"/>);
 
   on('*', async (state) => {
     const content = await http.get(`/api/content?path=${state.path}`);

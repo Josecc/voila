@@ -187,7 +187,7 @@ class VisualSearch extends Component {
 		return (
 			<div className="VisualSearch container">
 				{welcome}
-				<Tutorial uploadTutorial={this.state.uploadTutorial}/>
+				{this.props.tutorial ? <Tutorial uploadTutorial={this.state.uploadTutorial}/> : ''}
 				<SearchBox setCropped={this.setCropped} setImageBlob={this.setImageBlob} fetchProducts={this.fetchProducts}/>
 			</div>
 		);

@@ -86,7 +86,7 @@ class SettingsPage extends Component {
   }
 
   render() {
-    const title = 'Contact Us';
+    const title = 'Settings';
     this.context.onSetTitle(title);
     let error = this.state.wrongCredentials ? <p>{this.state.wrongCredentials}</p> : '';
     return (

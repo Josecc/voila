@@ -19,9 +19,9 @@ class Navigation extends Component {
   render() {
     var loginOut = this.props.userLoggedIn ? 
       <span>
-        <a className="Navigation-link" href="/" onClick={LoginActions.logoutUser}>Log out</a>
-        <span className="Navigation-spacer">or</span>
         <a className="Navigation-link Navigation-link" href="/settings" onClick={Link.handleClick}>Change settings</a>
+        <span className="Navigation-spacer">or</span>
+        <a className="Navigation-link" href="/" onClick={LoginActions.logoutUser}>Log out</a>
       </span>
        : 
       <span>
@@ -33,6 +33,7 @@ class Navigation extends Component {
       <div className={classNames(this.props.className, 'Navigation')} role="navigation">
         <a className="Navigation-link" href="/about" onClick={Link.handleClick}>About</a>
         <a className="Navigation-link" href="/contact" onClick={Link.handleClick}>Contact</a>
+        <a className="Navigation-link" href="/search" onClick={Link.handleClick}>Search</a>
         <span className="Navigation-spacer"> | </span>
         {loginOut}
         <span className="Navigation-spacer"> | </span>

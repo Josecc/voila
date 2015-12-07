@@ -59,7 +59,7 @@ class LoginStore extends BaseStore {
   }
 
   isLoggedIn() {
-    return !!this._jwt;
+    return !!this._userName;
   }
 }
 

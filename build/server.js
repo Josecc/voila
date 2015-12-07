@@ -1160,7 +1160,7 @@ module.exports =
     }, {
       key: 'isLoggedIn',
       value: function isLoggedIn() {
-        return !!this._jwt;
+        return !!this._userName;
       }
     }, {
       key: 'jwt',
@@ -3893,7 +3893,7 @@ module.exports =
               'span',
               { className: 'Footer-text Footer-text--muted' },
               _react2['default'].createElement('i', { className: 'fa fa-globe' }),
-              ' v 1.5 '
+              ' v 1.7 '
             )
           )
         );

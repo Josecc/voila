@@ -1,0 +1,6 @@
+{
+  "name": "MemberManager",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./MemberManager.js"
+}

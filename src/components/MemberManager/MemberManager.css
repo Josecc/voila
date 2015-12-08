@@ -1,0 +1,82 @@
+.MemberManager {
+	position: relative;
+	&-member {
+		padding: 10px;
+		position: relative;
+		overflow: hidden;
+		&::before {
+			content: '';
+			z-index: -1;
+			margin-left: -10px;
+			margin-top: -10px;
+			position: absolute;
+			background-color: rgba(51, 51, 51,.6);
+			height: 100%;
+			width: 100%;
+		}
+		&-name {
+			color: rgb(255, 255, 255);
+			margin: 2px 0;
+		}
+		&-details {
+			margin-top: 8px;
+			display: inline-block;
+		}
+		&-email {
+			color: rgba(255,255,255,.8);
+			padding-left: 25px;
+			font-size: 14px;
+			margin: 2px 0;
+			user-select: none;
+			cursor: default;
+			&::before {
+				content: "Email";
+				margin-top: -12px;
+				font-size: 12px;
+				position: absolute;
+				color: rgba(255,255,255,.5);
+			}
+		}
+		&-role {
+			color: rgba(255,255,255,.8);
+			padding-left: 25px;
+			font-size: 14px;
+			margin: 2px 0;
+			user-select: none;
+			cursor: default;
+			&::before {
+				content: "Role";
+				margin-top: -12px;
+				font-size: 12px;
+				position: absolute;
+				color: rgba(255,255,255,.5);
+			}
+		}
+		&-antiRole {
+			background-color: rgba(255,255,255,.8);
+			color: rgba(51, 51, 51,1);
+			cursor: pointer;
+			padding: 4px 8px 5px;
+			margin-left: 25px;
+			font-size: 12px;
+			user-select: none;
+			line-height: 12px;
+			border-radius: 20px;
+			transition: all .2s ease-in-out;
+			&:hover{
+				background-color: #DD2476;
+			}
+		}
+		&-close {
+			float: right;
+			color: rgba(255, 255, 255, .8);
+			cursor: pointer;
+			font-size: 20px;
+			line-height: 20px;
+			transition: all .2s ease-in-out;
+			&:hover{
+				color: #DD2476;
+			}
+		}
+	}
+}

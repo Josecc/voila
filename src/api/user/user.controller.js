@@ -1,10 +1,11 @@
 'use strict';
 
-var User = require('./user.model');
-var passport = require('passport');
-var jwt = require('jsonwebtoken');
+import User from './user.model';
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+import _ from 'lodash';
 
-var validationError = function(res, err) {
+let validationError = function(res, err) {
   return res.json(422, err);
 };
 
@@ -35,6 +36,23 @@ exports.create = function (req, res, next) {
 };
 
 /**
+ * Updates a user
+ * restriction: 'admin'
+ */
+exports.update = function(req, res) {
+  if(req.body._id) { delete req.body._id; }
+  User.findById(req.params.id, function (err, officer) {
+    if (err) { return handleError(res, err); }
+    if(!officer) { return res.send(404); }
+    var updated = _.merge(officer, req.body);
+    updated.save(function (err) {
+      if (err) { return handleError(res, err); }
+      return res.status(200).json(officer);
+    });
+  });
+};
+
+/**
  * Get a single user
  */
 exports.show = function (req, res, next) {
@@ -54,7 +72,7 @@ exports.show = function (req, res, next) {
 exports.destroy = function(req, res) {
   User.findByIdAndRemove(req.params.id, function(err, user) {
     if(err) return res.send(500, err);
-    return res.json(204);
+    return res.status(200).json(req.params.id);
   });
 };
 

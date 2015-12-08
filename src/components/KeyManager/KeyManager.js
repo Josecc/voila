@@ -96,13 +96,6 @@ class KeyManager extends Component {
       </div>
     );
   }
-  /*
-  <div>
-            <p>{this.props.keys[key].application}</p>
-            <p>{this.props.keys[key].access}</p>
-            <p>{this.props.keys[key].secret}</p>
-          </div>
-  */
 
 }
 

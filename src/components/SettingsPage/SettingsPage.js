@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import styles from './SettingsPage.css';
 import KeyManager from '../KeyManager';
+import MemberManager from '../MemberManager';
 import withStyles from '../../decorators/withStyles';
 import withAuthentication from '../../decorators/withAuthentication';
 import SideLabel from '../SideLabel';
@@ -92,6 +93,7 @@ class SettingsPage extends Component {
     this.context.onSetTitle(title);
     let error = this.state.wrongCredentials ? <p>{this.state.wrongCredentials}</p> : '';
     let keys = this.props.userRole == "admin" ? <div><p>Keys</p><KeyManager /></div> : '';
+    let members = this.props.userRole == "admin" ? <div><p>Members</p><MemberManager /></div> : '';
     return (
       <div className="SettingsPage">
         <div className="SettingsPage-container">
@@ -113,6 +115,7 @@ class SettingsPage extends Component {
             </form>
           </SideLabel>
           {keys}
+          {members}
         </div>
       </div>
     );

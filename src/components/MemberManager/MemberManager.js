@@ -28,21 +28,47 @@ class MemberManager extends Component {
   render() {
     return (
       <div className="MemberManager">
-        <SideLabel label="All">
+        <SideLabel label="Admins">
         {this.props.members[0] ? this.props.members.map((member) =>{
-            let antiRole = member.role == 'admin' ? 'demote (user)' : 'promote (admin)';
-            let direction = member.role == 'admin' ? 'fa fa-angle-double-down' : 'fa fa-angle-double-up';
-            return(
-            <div className="MemberManager-member" key={member._id}>
-              <p className="MemberManager-member-name">{member.name}<i className="fa fa-times-circle MemberManager-member-close" onClick={this.deleteMember.bind(this)}><i style={{display: "none"}} >{member._id}</i></i></p>
-              <div className="MemberManager-member-details">
-                <p className="MemberManager-member-email">{member.email}</p>
-              </div>
-              <div className="MemberManager-member-details">
-                <p className="MemberManager-member-role">{member.role}</p>
-              </div>
-              <span className="MemberManager-member-antiRole" onClick={this.changeRole.bind(this)}><i className={direction}></i> {antiRole}</span>
-            </div>);
+            if(member.role == 'admin'){
+              let antiRole ='demote (user)';
+              let direction = 'fa fa-angle-double-down';
+              return(
+              <div className="MemberManager-member" key={member._id}>
+                <p className="MemberManager-member-name">{member.name}<i className="fa fa-times-circle MemberManager-member-close" onClick={this.deleteMember.bind(this)}><i style={{display: "none"}} >{member._id}</i></i></p>
+                <div className="MemberManager-member-details">
+                  <p className="MemberManager-member-email">{member.email}</p>
+                </div>
+                <div className="MemberManager-member-details">
+                  <p className="MemberManager-member-role">{member.role}</p>
+                </div>
+                <span className="MemberManager-member-antiRole" onClick={this.changeRole.bind(this)}><i className={direction}></i> {antiRole}</span>
+              </div>);
+            } else {
+              return '';
+            }
+          }) : <p>no members...</p>}
+        </SideLabel>
+        <br />
+        <SideLabel label="Users">
+        {this.props.members[0] ? this.props.members.map((member) =>{
+            if(member.role == 'user'){
+              let antiRole = 'promote (admin)';
+              let direction = 'fa fa-angle-double-up';
+              return(
+              <div className="MemberManager-member" key={member._id}>
+                <p className="MemberManager-member-name">{member.name}<i className="fa fa-times-circle MemberManager-member-close" onClick={this.deleteMember.bind(this)}><i style={{display: "none"}} >{member._id}</i></i></p>
+                <div className="MemberManager-member-details">
+                  <p className="MemberManager-member-email">{member.email}</p>
+                </div>
+                <div className="MemberManager-member-details">
+                  <p className="MemberManager-member-role">{member.role}</p>
+                </div>
+                <span className="MemberManager-member-antiRole" onClick={this.changeRole.bind(this)}><i className={direction}></i> {antiRole}</span>
+              </div>);
+            } else {
+              return '';
+            }
           }) : <p>no members...</p>}
         </SideLabel>
       </div>

@@ -4703,53 +4703,117 @@ module.exports =
           { className: 'MemberManager' },
           _react2['default'].createElement(
             _SideLabel2['default'],
-            { label: 'All' },
+            { label: 'Admins' },
             this.props.members[0] ? this.props.members.map(function (member) {
-              var antiRole = member.role == 'admin' ? 'demote (user)' : 'promote (admin)';
-              var direction = member.role == 'admin' ? 'fa fa-angle-double-down' : 'fa fa-angle-double-up';
-              return _react2['default'].createElement(
-                'div',
-                { className: 'MemberManager-member', key: member._id },
-                _react2['default'].createElement(
-                  'p',
-                  { className: 'MemberManager-member-name' },
-                  member.name,
+              if (member.role == 'admin') {
+                var antiRole = 'demote (user)';
+                var direction = 'fa fa-angle-double-down';
+                return _react2['default'].createElement(
+                  'div',
+                  { className: 'MemberManager-member', key: member._id },
                   _react2['default'].createElement(
-                    'i',
-                    { className: 'fa fa-times-circle MemberManager-member-close', onClick: _this.deleteMember.bind(_this) },
+                    'p',
+                    { className: 'MemberManager-member-name' },
+                    member.name,
                     _react2['default'].createElement(
                       'i',
-                      { style: { display: "none" } },
-                      member._id
+                      { className: 'fa fa-times-circle MemberManager-member-close', onClick: _this.deleteMember.bind(_this) },
+                      _react2['default'].createElement(
+                        'i',
+                        { style: { display: "none" } },
+                        member._id
+                      )
                     )
+                  ),
+                  _react2['default'].createElement(
+                    'div',
+                    { className: 'MemberManager-member-details' },
+                    _react2['default'].createElement(
+                      'p',
+                      { className: 'MemberManager-member-email' },
+                      member.email
+                    )
+                  ),
+                  _react2['default'].createElement(
+                    'div',
+                    { className: 'MemberManager-member-details' },
+                    _react2['default'].createElement(
+                      'p',
+                      { className: 'MemberManager-member-role' },
+                      member.role
+                    )
+                  ),
+                  _react2['default'].createElement(
+                    'span',
+                    { className: 'MemberManager-member-antiRole', onClick: _this.changeRole.bind(_this) },
+                    _react2['default'].createElement('i', { className: direction }),
+                    ' ',
+                    antiRole
                   )
-                ),
-                _react2['default'].createElement(
+                );
+              } else {
+                return '';
+              }
+            }) : _react2['default'].createElement(
+              'p',
+              null,
+              'no members...'
+            )
+          ),
+          _react2['default'].createElement('br', null),
+          _react2['default'].createElement(
+            _SideLabel2['default'],
+            { label: 'Users' },
+            this.props.members[0] ? this.props.members.map(function (member) {
+              if (member.role == 'user') {
+                var antiRole = 'promote (admin)';
+                var direction = 'fa fa-angle-double-up';
+                return _react2['default'].createElement(
                   'div',
-                  { className: 'MemberManager-member-details' },
+                  { className: 'MemberManager-member', key: member._id },
                   _react2['default'].createElement(
                     'p',
-                    { className: 'MemberManager-member-email' },
-                    member.email
-                  )
-                ),
-                _react2['default'].createElement(
-                  'div',
-                  { className: 'MemberManager-member-details' },
+                    { className: 'MemberManager-member-name' },
+                    member.name,
+                    _react2['default'].createElement(
+                      'i',
+                      { className: 'fa fa-times-circle MemberManager-member-close', onClick: _this.deleteMember.bind(_this) },
+                      _react2['default'].createElement(
+                        'i',
+                        { style: { display: "none" } },
+                        member._id
+                      )
+                    )
+                  ),
                   _react2['default'].createElement(
-                    'p',
-                    { className: 'MemberManager-member-role' },
-                    member.role
+                    'div',
+                    { className: 'MemberManager-member-details' },
+                    _react2['default'].createElement(
+                      'p',
+                      { className: 'MemberManager-member-email' },
+                      member.email
+                    )
+                  ),
+                  _react2['default'].createElement(
+                    'div',
+                    { className: 'MemberManager-member-details' },
+                    _react2['default'].createElement(
+                      'p',
+                      { className: 'MemberManager-member-role' },
+                      member.role
+                    )
+                  ),
+                  _react2['default'].createElement(
+                    'span',
+                    { className: 'MemberManager-member-antiRole', onClick: _this.changeRole.bind(_this) },
+                    _react2['default'].createElement('i', { className: direction }),
+                    ' ',
+                    antiRole
                   )
-                ),
-                _react2['default'].createElement(
-                  'span',
-                  { className: 'MemberManager-member-antiRole', onClick: _this.changeRole.bind(_this) },
-                  _react2['default'].createElement('i', { className: direction }),
-                  ' ',
-                  antiRole
-                )
-              );
+                );
+              } else {
+                return '';
+              }
             }) : _react2['default'].createElement(
               'p',
               null,

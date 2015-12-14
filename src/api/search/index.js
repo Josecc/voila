@@ -9,7 +9,7 @@ router.get('/keys/', auth.hasRole('admin'), controller.indexKeys);
 router.get('/keys/:application', auth.hasRole('admin'), controller.showKey);
 router.delete('/keys/:application', auth.hasRole('admin'), controller.destroyKey);
 router.post('/keys/', auth.hasRole('admin'), controller.createKey);
-router.post('/image/:application/:page/', controller.search);
 router.post('/image/:application/:page/:limit/', controller.search);
+router.get('/image/:application/:page/:limit/:name', controller.searchName);
 
 module.exports = router;

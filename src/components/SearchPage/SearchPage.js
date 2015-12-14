@@ -18,7 +18,7 @@ class SearchPage extends Component {
     return (
       <div className="SearchPage">
         <div className="SearchPage-container">
-          <VisualSearch />
+          <VisualSearch search="true" />
         </div>
       </div>
     );

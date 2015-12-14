@@ -30,7 +30,7 @@ const router = new Router(on => {
 
   on('/search', async () => <SearchPage />)
 
-  on('/', async () => <VisualSearch tutorial="true"/>);
+  on('/', async () => <VisualSearch />);
 
   on('*', async (state) => {
     const content = await http.get(`/api/content?path=${state.path}`);

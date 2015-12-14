@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import styles from './VisualSearch.css';
 import withAuthentication from '../../decorators/withAuthentication';
 import withStyles from '../../decorators/withStyles';
+import withSearch from '../../decorators/withSearch';
 import Tutorial from '../Tutorial';
+import SideLabel from '../SideLabel'
 import SearchBox from '../SearchBox';
 import SearchResults from '../SearchResults';
+import Product from '../Product';
 import jQuery from 'jquery';
 
 /*
@@ -20,10 +23,11 @@ import jQuery from 'jquery';
 
 @withStyles(styles)
 @withAuthentication
+@withSearch
 class VisualSearch extends Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.fetchVoila = this.fetchVoila.bind(this);
 		this.fetchProducts = this.fetchProducts.bind(this);
 		this.setImageBlob = this.setImageBlob.bind(this);
@@ -38,6 +42,19 @@ class VisualSearch extends Component {
 			uploadTutorial: true
 		};
 	}
+
+	componentDidMount(){
+		if(!this.props.search )
+			this.props.searchFeaturedImages("Featured-1", 3, "PeakBeta");
+	}
+
+	getImageSet(id) {
+      return this.props.imageSets.map( (imageSet) => {
+        if (imageSet){
+          if( imageSet.id == id ) return imageSet.data; 
+        }
+      });
+    }
 
 	setImageBlob(image) {
 		this.setState({
@@ -187,7 +204,25 @@ class VisualSearch extends Component {
 		return (
 			<div className="VisualSearch container">
 				{welcome}
-				{this.props.tutorial ? <Tutorial uploadTutorial={this.state.uploadTutorial}/> : ''}
+				<div className={this.getImageSet("Featured-1")[0] && !this.props.search ? "featured" : "hidden"}>
+					<SideLabel label="Featured Products">
+						{this.getImageSet("Featured-1")[0] && !this.props.search ? this.getImageSet("Featured-1")[0].map((product) => {
+							if(!product.value_map.sm_im_url)
+								return '';
+	    					let product_url = product.value_map.product_url;
+	    					if(product_url.indexOf("http://") > -1){
+								let name = product.value_map.product_name;
+								let price = product.value_map.price;
+								let image = product.value_map.sm_im_url;
+								return (
+									<Product key={product_url + Math.random()} name={name} price={price} image={image} product_url={product_url} fetchVoila={this.fetchVoila}></Product>
+								);
+							} else { return null }
+						}) : ''}
+					</SideLabel>
+				</div>
+				{this.props.search ? <Tutorial uploadTutorial={this.state.uploadTutorial}/> : ''}
+
 				<SearchBox setCropped={this.setCropped} setImageBlob={this.setImageBlob} fetchProducts={this.fetchProducts}/>
 			</div>
 		);

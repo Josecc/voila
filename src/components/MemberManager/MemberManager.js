@@ -34,12 +34,12 @@ class MemberManager extends Component {
               let antiRole ='demote (user)';
               let direction = 'fa fa-angle-double-down';
               return(
-              <div className="MemberManager-member" key={member._id}>
+              <div className="MemberManager-member row--no-gutter" key={member._id}>
                 <p className="MemberManager-member-name">{member.name}<i className="fa fa-times-circle MemberManager-member-close" onClick={this.deleteMember.bind(this)}><i style={{display: "none"}} >{member._id}</i></i></p>
-                <div className="MemberManager-member-details">
+                <div className="MemberManager-member-details col--1-of-4">
                   <p className="MemberManager-member-email">{member.email}</p>
                 </div>
-                <div className="MemberManager-member-details">
+                <div className="MemberManager-member-details col--1-of-4">
                   <p className="MemberManager-member-role">{member.role}</p>
                 </div>
                 <span className="MemberManager-member-antiRole" onClick={this.changeRole.bind(this)}><i className={direction}></i> {antiRole}</span>
@@ -56,12 +56,12 @@ class MemberManager extends Component {
               let antiRole = 'promote (admin)';
               let direction = 'fa fa-angle-double-up';
               return(
-              <div className="MemberManager-member" key={member._id}>
+              <div className="MemberManager-member row--no-gutter" key={member._id}>
                 <p className="MemberManager-member-name">{member.name}<i className="fa fa-times-circle MemberManager-member-close" onClick={this.deleteMember.bind(this)}><i style={{display: "none"}} >{member._id}</i></i></p>
-                <div className="MemberManager-member-details">
+                <div className="MemberManager-member-details col--1-of-4">
                   <p className="MemberManager-member-email">{member.email}</p>
                 </div>
-                <div className="MemberManager-member-details">
+                <div className="MemberManager-member-details col--1-of-4">
                   <p className="MemberManager-member-role">{member.role}</p>
                 </div>
                 <span className="MemberManager-member-antiRole" onClick={this.changeRole.bind(this)}><i className={direction}></i> {antiRole}</span>

@@ -1,7 +1,6 @@
 import request from 'reqwest';
 import AppDispatcher from '../core/Dispatcher';
 import LoginStore from '../stores/LoginStore';
-import KeyStore from '../stores/KeyStore';
 import _ from 'lodash';
 
 export default {
@@ -28,19 +27,21 @@ export default {
     });
   },
   getKeys: () => {
-    request({
-      url: '/api/search/keys/',
-      method: 'GET',
-      crossOrigin: true,
-      headers: {
-        'Authorization': 'Bearer ' + LoginStore.jwt
-      }
-    }).then((res) => {
-      AppDispatcher.dispatch({
-        actionType: 'KEYS_RECEIVED',
-        keys: res
+    if(LoginStore.isLoggedIn) {
+      request({
+        url: '/api/search/keys/',
+        method: 'GET',
+        crossOrigin: true,
+        headers: {
+          'Authorization': 'Bearer ' + LoginStore.jwt
+        }
+      }).then((res) => {
+        AppDispatcher.dispatch({
+          actionType: 'KEYS_RECEIVED',
+          keys: res
+        });
       });
-    });
+    }
   },
   deleteKey: (application) => {
     request({

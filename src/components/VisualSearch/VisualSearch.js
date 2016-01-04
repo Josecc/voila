@@ -185,6 +185,51 @@ class VisualSearch extends Component {
 		});
 	}
 
+	fetchMenProducts() {
+		if(this.state.imageBlob == ""){
+			console.err("Image Blob must be set.");
+		}
+		let formData = new FormData();
+		formData.append('image', this.state.imageBlob, 'upload.jpg');
+		formData.append('limit','12');
+		formData.append('page', this.state.page);
+		formData.append('fl', 'product_name');
+		formData.append('fl', 'price');
+		formData.append('fl', 'sm_im_url');
+		formData.append('fl', 'product_url');
+		jQuery.ajax({
+			url: "/api/search/image/MenShoes",
+			type: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false ,
+			success: function(data) {
+				if (data.result !== undefined){
+					this.setState({
+						resultsReceived: true,
+						searching: false,
+						productList: data.result
+					});
+					mixpanel.track(
+					"Searched Images",
+						{"Result Set": data.result}
+					);
+				} else {
+					this.setState({
+						searching: false
+					});
+				}
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.err(this.props.url, status, err.toString());
+			}.bind(this)
+		});
+		this.setState({
+			searching: true,
+			resultsReceived: false
+		});
+	}
+
 	render() {
 		if(this.state.resultsReceived){
 			return (
@@ -223,7 +268,7 @@ class VisualSearch extends Component {
 				</div>
 				{this.props.search ? <Tutorial uploadTutorial={this.state.uploadTutorial}/> : ''}
 
-				<SearchBox setCropped={this.setCropped} setImageBlob={this.setImageBlob} fetchProducts={this.fetchProducts}/>
+				<SearchBox setCropped={this.setCropped} setImageBlob={this.setImageBlob} fetchProducts={this.fetchProducts} fetchMenProducts={this.fetchMenProducts}/>
 			</div>
 		);
 	}

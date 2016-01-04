@@ -1632,15 +1632,24 @@ module.exports =
       }
     }, {
       key: 'cropped',
-      value: function cropped() {
+      value: function cropped(men) {
         var _this = this;
   
-        new Promise(function (resolve, reject) {
-          _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
-          resolve("image blob updated.");
-        }).then(function () {
-          return _this.props.fetchProducts();
-        });
+        if (men) {
+          new Promise(function (resolve, reject) {
+            _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
+            resolve("image blob updated.");
+          }).then(function () {
+            return _this.props.fetchMenProducts();
+          });
+        } else {
+          new Promise(function (resolve, reject) {
+            _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
+            resolve("image blob updated.");
+          }).then(function () {
+            return _this.props.fetchProducts();
+          });
+        }
       }
     }, {
       key: 'rotate',
@@ -1679,7 +1688,7 @@ module.exports =
           'div',
           { className: 'SearchBox' },
           _react2['default'].createElement('img', { src: this.state.uploadedImage, style: { maxHeight: "300px", maxWidth: "500px" } }),
-          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate, rotateRightIncrement: this.rotateRightIncrement, rotateLeftIncrement: this.rotateLeftIncrement })
+          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate, rotateRightIncrement: this.rotateRightIncrement, rotateLeftIncrement: this.rotateLeftIncrement, searchMen: this.cropped })
         );
       }
     }]);
@@ -2029,6 +2038,49 @@ module.exports =
   			});
   		}
   	}, {
+  		key: 'fetchMenProducts',
+  		value: function fetchMenProducts() {
+  			if (this.state.imageBlob == "") {
+  				console.err("Image Blob must be set.");
+  			}
+  			var formData = new FormData();
+  			formData.append('image', this.state.imageBlob, 'upload.jpg');
+  			formData.append('limit', '12');
+  			formData.append('page', this.state.page);
+  			formData.append('fl', 'product_name');
+  			formData.append('fl', 'price');
+  			formData.append('fl', 'sm_im_url');
+  			formData.append('fl', 'product_url');
+  			_jquery2['default'].ajax({
+  				url: "/api/search/image/MenShoes",
+  				type: 'POST',
+  				data: formData,
+  				processData: false,
+  				contentType: false,
+  				success: (function (data) {
+  					if (data.result !== undefined) {
+  						this.setState({
+  							resultsReceived: true,
+  							searching: false,
+  							productList: data.result
+  						});
+  						mixpanel.track("Searched Images", { "Result Set": data.result });
+  					} else {
+  						this.setState({
+  							searching: false
+  						});
+  					}
+  				}).bind(this),
+  				error: (function (xhr, status, err) {
+  					console.err(this.props.url, status, err.toString());
+  				}).bind(this)
+  			});
+  			this.setState({
+  				searching: true,
+  				resultsReceived: false
+  			});
+  		}
+  	}, {
   		key: 'render',
   		value: function render() {
   			var _this = this;
@@ -2083,7 +2135,7 @@ module.exports =
   					)
   				),
   				this.props.search ? _react2['default'].createElement(_Tutorial2['default'], { uploadTutorial: this.state.uploadTutorial }) : '',
-  				_react2['default'].createElement(_SearchBox2['default'], { setCropped: this.setCropped, setImageBlob: this.setImageBlob, fetchProducts: this.fetchProducts })
+  				_react2['default'].createElement(_SearchBox2['default'], { setCropped: this.setCropped, setImageBlob: this.setImageBlob, fetchProducts: this.fetchProducts, fetchMenProducts: this.fetchMenProducts })
   			);
   		}
   	}]);
@@ -3072,9 +3124,6 @@ module.exports =
       if (req.body.url) {
         //If its an image url sealrch
         formData.append('im_url', req.body.url);
-      } else if (req.body.im_name) {
-        //If its an image name search
-        formData.append();
       } else {
         //If its an image upload search
         formData.append('image', req.body.imageBlob, 'upload.jpg');
@@ -3895,6 +3944,8 @@ module.exports =
     _createClass(CropControls, [{
       key: 'render',
       value: function render() {
+        var _this = this;
+  
         return _react2['default'].createElement(
           'div',
           { className: 'crop-controls' },
@@ -3954,7 +4005,23 @@ module.exports =
               _react2['default'].createElement(
                 'p',
                 { className: 'search-text' },
-                'Search'
+                'Search Women\'s Shoes'
+              )
+            ),
+            _react2['default'].createElement(
+              'div',
+              { className: 'search-button', onClick: function () {
+                  return _this.props.crop(true);
+                } },
+              _react2['default'].createElement(
+                'span',
+                { className: 'search-icon' },
+                _react2['default'].createElement('i', { className: 'fa fa-search' })
+              ),
+              _react2['default'].createElement(
+                'p',
+                { className: 'search-text' },
+                'Search Mens\'s Shoes'
               )
             )
           )

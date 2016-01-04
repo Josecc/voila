@@ -27,7 +27,11 @@ class CropControls extends Component {
         <div className="search-container" >
           <div className="search-button" onClick={this.props.crop}>
             <span className="search-icon"><i className="fa fa-search"></i></span>
-            <p className="search-text">Search</p>
+            <p className="search-text">Search Women's Shoes</p>
+          </div>
+          <div className="search-button" onClick={() => this.props.crop(true)}>
+            <span className="search-icon"><i className="fa fa-search"></i></span>
+            <p className="search-text">Search Mens's Shoes</p>
           </div>
         </div>
       </div>

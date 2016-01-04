@@ -66,12 +66,20 @@ class SearchBox extends Component {
     global.Cropper = require('cropperjs');
   }
 
-  cropped() {
-    new Promise((resolve, reject) => {
-      this.props.setImageBlob(this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
-      resolve("image blob updated.");
-    })
-    .then( () => this.props.fetchProducts() );
+  cropped(men) {
+    if (men) {
+      new Promise((resolve, reject) => {
+        this.props.setImageBlob(this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
+        resolve("image blob updated.");
+      })
+      .then( () => this.props.fetchMenProducts() );
+    } else {
+      new Promise((resolve, reject) => {
+        this.props.setImageBlob(this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
+        resolve("image blob updated.");
+      })
+      .then( () => this.props.fetchProducts() );
+    }
   }
 
   rotate() {
@@ -99,7 +107,7 @@ class SearchBox extends Component {
     return (
       <div className="SearchBox" >
         <img src={this.state.uploadedImage} style={{maxHeight: "300px", maxWidth: "500px"}} ></img>
-        <CropControls crop={this.cropped} rotate={this.rotate} rotateRightIncrement={this.rotateRightIncrement} rotateLeftIncrement={this.rotateLeftIncrement}/>
+        <CropControls crop={this.cropped} rotate={this.rotate} rotateRightIncrement={this.rotateRightIncrement} rotateLeftIncrement={this.rotateLeftIncrement} searchMen={this.cropped}/>
       </div>
 		);
   }

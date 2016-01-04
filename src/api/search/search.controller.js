@@ -70,8 +70,6 @@ exports.search = (req, res) => {
     formData.append('fl', 'product_url');
     if(req.body.url){ //If its an image url sealrch
       formData.append('im_url', req.body.url);
-    } else if (req.body.im_name) { //If its an image name search
-      formData.append();
     } else { //If its an image upload search
       formData.append('image', req.body.imageBlob, 'upload.jpg');
     }

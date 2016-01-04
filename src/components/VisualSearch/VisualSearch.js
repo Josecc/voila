@@ -150,11 +150,8 @@ class VisualSearch extends Component {
 		formData.append('fl', 'sm_im_url');
 		formData.append('fl', 'product_url');
 		jQuery.ajax({
-			url: "http://visearch.visenze.com/uploadsearch",
+			url: "/api/search/images/WomenShoes/",
 			type: 'POST',
-			beforeSend: function(req) {
-				req.setRequestHeader('Authorization', 'Basic ' + btoa('c020d19b9872438002393de4d68b141b:4b7182bf60c3f6870361db3add002523'));
-			},
 			data: formData,
 			processData: false,
 			contentType: false ,

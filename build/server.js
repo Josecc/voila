@@ -1632,24 +1632,27 @@ module.exports =
       }
     }, {
       key: 'cropped',
-      value: function cropped(men) {
+      value: function cropped() {
         var _this = this;
   
-        if (men) {
-          new Promise(function (resolve, reject) {
-            _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
-            resolve("image blob updated.");
-          }).then(function () {
-            return _this.props.fetchMenProducts();
-          });
-        } else {
-          new Promise(function (resolve, reject) {
-            _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
-            resolve("image blob updated.");
-          }).then(function () {
-            return _this.props.fetchProducts();
-          });
-        }
+        new Promise(function (resolve, reject) {
+          _this.props.setImageBlob(_this.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
+          resolve("image blob updated.");
+        }).then(function () {
+          return _this.props.fetchProducts();
+        });
+      }
+    }, {
+      key: 'cropMen',
+      value: function cropMen() {
+        var _this2 = this;
+  
+        new Promise(function (resolve, reject) {
+          _this2.props.setImageBlob(_this2.dataURLtoBlob(cropper.getCroppedCanvas().toDataURL('image/jpeg')));
+          resolve("image blob updated.");
+        }).then(function () {
+          return _this2.props.fetchMenProducts();
+        });
       }
     }, {
       key: 'rotate',
@@ -1688,7 +1691,7 @@ module.exports =
           'div',
           { className: 'SearchBox' },
           _react2['default'].createElement('img', { src: this.state.uploadedImage, style: { maxHeight: "300px", maxWidth: "500px" } }),
-          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate, rotateRightIncrement: this.rotateRightIncrement, rotateLeftIncrement: this.rotateLeftIncrement, searchMen: this.cropped })
+          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate, rotateRightIncrement: this.rotateRightIncrement, rotateLeftIncrement: this.rotateLeftIncrement, searchMen: this.cropMen })
         );
       }
     }]);
@@ -3944,8 +3947,6 @@ module.exports =
     _createClass(CropControls, [{
       key: 'render',
       value: function render() {
-        var _this = this;
-  
         return _react2['default'].createElement(
           'div',
           { className: 'crop-controls' },
@@ -4010,9 +4011,7 @@ module.exports =
             ),
             _react2['default'].createElement(
               'div',
-              { className: 'search-button', onClick: function () {
-                  return _this.props.crop(true);
-                } },
+              { className: 'search-button', onClick: this.props.cropMen },
               _react2['default'].createElement(
                 'span',
                 { className: 'search-icon' },

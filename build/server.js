@@ -412,6 +412,12 @@ module.exports =
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+  module.exports = require("reqwest");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
   'use strict';
@@ -484,12 +490,6 @@ module.exports =
   
   exports['default'] = SideLabel;
   module.exports = exports['default'];
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-  module.exports = require("reqwest");
 
 /***/ },
 /* 9 */
@@ -1005,7 +1005,7 @@ module.exports =
   
   var _coreLocation2 = _interopRequireDefault(_coreLocation);
   
-  var _reqwest = __webpack_require__(8);
+  var _reqwest = __webpack_require__(7);
   
   var _reqwest2 = _interopRequireDefault(_reqwest);
   
@@ -1275,7 +1275,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _reqwest = __webpack_require__(8);
+  var _reqwest = __webpack_require__(7);
   
   var _reqwest2 = _interopRequireDefault(_reqwest);
   
@@ -1361,7 +1361,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _reqwest = __webpack_require__(8);
+  var _reqwest = __webpack_require__(7);
   
   var _reqwest2 = _interopRequireDefault(_reqwest);
   
@@ -1571,6 +1571,7 @@ module.exports =
       this.rotate = this.rotate.bind(this);
       this.dataURLtoBlob = this.dataURLtoBlob.bind(this);
       this.uploadOnTouch = this.uploadOnTouch.bind(this);
+      this.cropMen = this.cropMen.bind(this);
       this.state = {
         uploadedImage: ""
       };
@@ -1691,7 +1692,7 @@ module.exports =
           'div',
           { className: 'SearchBox' },
           _react2['default'].createElement('img', { src: this.state.uploadedImage, style: { maxHeight: "300px", maxWidth: "500px" } }),
-          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate, rotateRightIncrement: this.rotateRightIncrement, rotateLeftIncrement: this.rotateLeftIncrement, searchMen: this.cropMen })
+          _react2['default'].createElement(_CropControls2['default'], { crop: this.cropped, rotate: this.rotate, rotateRightIncrement: this.rotateRightIncrement, rotateLeftIncrement: this.rotateLeftIncrement, cropMen: this.cropMen })
         );
       }
     }]);
@@ -1843,7 +1844,7 @@ module.exports =
   
   var _Tutorial2 = _interopRequireDefault(_Tutorial);
   
-  var _SideLabel = __webpack_require__(7);
+  var _SideLabel = __webpack_require__(8);
   
   var _SideLabel2 = _interopRequireDefault(_SideLabel);
   
@@ -1862,6 +1863,10 @@ module.exports =
   var _jquery = __webpack_require__(131);
   
   var _jquery2 = _interopRequireDefault(_jquery);
+  
+  var _reqwest = __webpack_require__(7);
+  
+  var _reqwest2 = _interopRequireDefault(_reqwest);
   
   /*
   	Search Box <<
@@ -1886,6 +1891,7 @@ module.exports =
   		this.setImageBlob = this.setImageBlob.bind(this);
   		this.setPage = this.setPage.bind(this);
   		this.setCropped = this.setCropped.bind(this);
+  		this.fetchMenProducts = this.fetchMenProducts.bind(this);
   		this.state = {
   			resultsReceived: false,
   			searching: false,
@@ -1997,40 +2003,31 @@ module.exports =
   	}, {
   		key: 'fetchProducts',
   		value: function fetchProducts() {
-  			if (this.state.imageBlob == "") {
+  			var _this = this;
+  
+  			if (this.state.imageBlob == undefined) {
   				console.err("Image Blob must be set.");
   			}
-  			var formData = new FormData();
-  			formData.append('image', this.state.imageBlob, 'upload.jpg');
-  			formData.append('limit', '12');
-  			formData.append('page', this.state.page);
-  			formData.append('fl', 'product_name');
-  			formData.append('fl', 'price');
-  			formData.append('fl', 'sm_im_url');
-  			formData.append('fl', 'product_url');
-  			_jquery2['default'].ajax({
-  				url: "/api/search/images/WomenShoes/",
-  				type: 'POST',
-  				data: formData,
-  				processData: false,
-  				contentType: false,
-  				success: (function (data) {
-  					if (data.result !== undefined) {
-  						this.setState({
-  							resultsReceived: true,
-  							searching: false,
-  							productList: data.result
-  						});
-  						mixpanel.track("Searched Images", { "Result Set": data.result });
-  					} else {
-  						this.setState({
-  							searching: false
-  						});
-  					}
-  				}).bind(this),
-  				error: (function (xhr, status, err) {
-  					console.err(this.props.url, status, err.toString());
-  				}).bind(this)
+  			var filename = 'upload.jpg';
+  			var img = this.state.imageBlob;
+  			(0, _reqwest2['default'])({
+  				url: '/api/search/image/WomenShoes/1/12/',
+  				method: 'POST',
+  				data: { filename: filename, file: img }
+  			}).then(function (res) {
+  				console.log(res);
+  				if (res.result !== undefined) {
+  					_this.setState({
+  						resultsReceived: true,
+  						searching: false,
+  						productList: res.result
+  					});
+  					mixpanel.track("Searched Images", { "Result Set": res.result });
+  				} else {
+  					_this.setState({
+  						searching: false
+  					});
+  				}
   			});
   			this.setState({
   				searching: true,
@@ -2040,40 +2037,31 @@ module.exports =
   	}, {
   		key: 'fetchMenProducts',
   		value: function fetchMenProducts() {
-  			if (this.state.imageBlob == "") {
+  			var _this2 = this;
+  
+  			if (this.state.imageBlob == undefined) {
   				console.err("Image Blob must be set.");
   			}
-  			var formData = new FormData();
-  			formData.append('image', this.state.imageBlob, 'upload.jpg');
-  			formData.append('limit', '12');
-  			formData.append('page', this.state.page);
-  			formData.append('fl', 'product_name');
-  			formData.append('fl', 'price');
-  			formData.append('fl', 'sm_im_url');
-  			formData.append('fl', 'product_url');
-  			_jquery2['default'].ajax({
-  				url: "/api/search/image/MenShoes",
-  				type: 'POST',
-  				data: formData,
-  				processData: false,
-  				contentType: false,
-  				success: (function (data) {
-  					if (data.result !== undefined) {
-  						this.setState({
-  							resultsReceived: true,
-  							searching: false,
-  							productList: data.result
-  						});
-  						mixpanel.track("Searched Images", { "Result Set": data.result });
-  					} else {
-  						this.setState({
-  							searching: false
-  						});
-  					}
-  				}).bind(this),
-  				error: (function (xhr, status, err) {
-  					console.err(this.props.url, status, err.toString());
-  				}).bind(this)
+  			var filename = 'upload.jpg';
+  			var img = this.state.imageBlob;
+  			(0, _reqwest2['default'])({
+  				url: '/api/search/image/MenShoes/1/12/',
+  				method: 'POST',
+  				data: { filename: filename, file: img }
+  			}).then(function (res) {
+  				console.log(res);
+  				if (res.result !== undefined) {
+  					_this2.setState({
+  						resultsReceived: true,
+  						searching: false,
+  						productList: res.result
+  					});
+  					mixpanel.track("Searched Images", { "Result Set": res.result });
+  				} else {
+  					_this2.setState({
+  						searching: false
+  					});
+  				}
   			});
   			this.setState({
   				searching: true,
@@ -2083,7 +2071,7 @@ module.exports =
   	}, {
   		key: 'render',
   		value: function render() {
-  			var _this = this;
+  			var _this3 = this;
   
   			if (this.state.resultsReceived) {
   				return _react2['default'].createElement(
@@ -2127,7 +2115,7 @@ module.exports =
   								var _name = product.value_map.product_name;
   								var price = product.value_map.price;
   								var image = product.value_map.sm_im_url;
-  								return _react2['default'].createElement(_Product2['default'], { key: product_url + Math.random(), name: _name, price: price, image: image, product_url: product_url, fetchVoila: _this.fetchVoila });
+  								return _react2['default'].createElement(_Product2['default'], { key: product_url + Math.random(), name: _name, price: price, image: image, product_url: product_url, fetchVoila: _this3.fetchVoila });
   							} else {
   								return null;
   							}
@@ -2293,7 +2281,7 @@ module.exports =
   
   function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
   
-  var _reqwest = __webpack_require__(8);
+  var _reqwest = __webpack_require__(7);
   
   var _reqwest2 = _interopRequireDefault(_reqwest);
   
@@ -2805,7 +2793,7 @@ module.exports =
   
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
   
-  var _reqwest = __webpack_require__(8);
+  var _reqwest = __webpack_require__(7);
   
   var _reqwest2 = _interopRequireDefault(_reqwest);
   
@@ -3100,35 +3088,55 @@ module.exports =
   //Searches an image based on an image upload
   //Parameters: res.body.imageBlobl or req.body.url
   exports.search = function (req, res) {
-    if (!req.body.imageBlob || req.body.url || req.body.im_name) res.status(404).send("Please provide a url or image to search for.");
-    _searchModel2['default'].findOne({ application: req.params.application }, function (err, key) {
-      if (err) {
-        return handleError(res, err);
-      }
-      if (!key) {
-        return res.status(404).send("Sorry, add application keys from ViSenze first before searching.");
-      }
-      //Setting up request
-      var r = _request2['default'].post('http://visearch.visenze.com/uploadsearch', function (err, resopnse, body) {
-        res.status(200).json(body);
-      }).auth(key.access, key.secret);
-  
-      //Set up data for request https://developers.visenze.com/http/#Data-API
-      var formData = r.form();
-      formData.append('limit', req.params.limit);
-      formData.append('page', req.params.page);
-      formData.append('fl', 'product_name');
-      formData.append('fl', 'price');
-      formData.append('fl', 'sm_im_url');
-      formData.append('fl', 'product_url');
-      if (req.body.url) {
-        //If its an image url sealrch
-        formData.append('im_url', req.body.url);
-      } else {
-        //If its an image upload search
-        formData.append('image', req.body.imageBlob, 'upload.jpg');
-      }
-    });
+    if (!(req.body || req.body.url || req.body.im_name)) {
+      res.status(404).send("Please provide a url or image to search for.");
+    } else {
+      _searchModel2['default'].findOne({ application: req.params.application }, function (err, key) {
+        if (err) {
+          return handleError(res, err);
+        }
+        if (!key) {
+          return res.status(404).send("Sorry, add application keys from ViSenze first before searching.");
+        }
+        //Setting up request
+        console.log("sending");
+        var r = (0, _request2['default'])({
+          url: 'http://visearch.visenze.com/uploadsearch',
+          method: 'POST',
+          data: f
+        }, function (error, response, body) {
+          res.status(200).json(body);
+        }).auth(key.access, key.secret);
+        var f = r.form();
+        f.append('limit', req.params.limit);
+        f.append('page', req.params.page);
+        f.append('fl', 'product_name');
+        f.append('fl', 'price');
+        f.append('fl', 'sm_im_url');
+        f.append('fl', 'product_url');
+        if (req.body.url) {
+          //If its an image url sealrch
+          f.append('im_url', req.body.url);
+        } else {
+          //If its an image upload search
+          f.append('image', req.body.file, req.body.filename);
+        }
+        console.log('waiting....');
+        //Set up data for request https://developers.visenze.com/http/#Data-API
+        // let formData = r.form();
+        // formData.append('limit', req.params.limit);
+        // formData.append('page', req.params.page);
+        // formData.append('fl', 'product_name');
+        // formData.append('fl', 'price');
+        // formData.append('fl', 'sm_im_url');
+        // formData.append('fl', 'product_url');
+        // if(req.body.url){ //If its an image url sealrch
+        //   formData.append('im_url', req.body.url);
+        // } else { //If its an image upload search
+        //   formData.append('image', req.body.imageBlob, 'upload.jpg');
+        // }
+      });
+    }
   };
   
   //Searches an image based on an image upload
@@ -4569,7 +4577,7 @@ module.exports =
   
   var _actionsKeysActions2 = _interopRequireDefault(_actionsKeysActions);
   
-  var _SideLabel = __webpack_require__(7);
+  var _SideLabel = __webpack_require__(8);
   
   var _SideLabel2 = _interopRequireDefault(_SideLabel);
   
@@ -4775,7 +4783,7 @@ module.exports =
   
   var _reactMixin2 = _interopRequireDefault(_reactMixin);
   
-  var _SideLabel = __webpack_require__(7);
+  var _SideLabel = __webpack_require__(8);
   
   var _SideLabel2 = _interopRequireDefault(_SideLabel);
   
@@ -4949,7 +4957,7 @@ module.exports =
   
   var _decoratorsWithMembers2 = _interopRequireDefault(_decoratorsWithMembers);
   
-  var _SideLabel = __webpack_require__(7);
+  var _SideLabel = __webpack_require__(8);
   
   var _SideLabel2 = _interopRequireDefault(_SideLabel);
   
@@ -5716,7 +5724,7 @@ module.exports =
   
   var _utilsAuthService2 = _interopRequireDefault(_utilsAuthService);
   
-  var _SideLabel = __webpack_require__(7);
+  var _SideLabel = __webpack_require__(8);
   
   var _SideLabel2 = _interopRequireDefault(_SideLabel);
   
@@ -6089,11 +6097,11 @@ module.exports =
   
   var _decoratorsWithAuthentication2 = _interopRequireDefault(_decoratorsWithAuthentication);
   
-  var _SideLabel = __webpack_require__(7);
+  var _SideLabel = __webpack_require__(8);
   
   var _SideLabel2 = _interopRequireDefault(_SideLabel);
   
-  var _reqwest = __webpack_require__(8);
+  var _reqwest = __webpack_require__(7);
   
   var _reqwest2 = _interopRequireDefault(_reqwest);
   

@@ -15,6 +15,7 @@ class SearchBox extends Component {
     this.rotate = this.rotate.bind(this);
     this.dataURLtoBlob = this.dataURLtoBlob.bind(this);
     this.uploadOnTouch = this.uploadOnTouch.bind(this);
+    this.cropMen = this.cropMen.bind(this);
     this.state = {
       uploadedImage: ""
     };
@@ -107,7 +108,7 @@ class SearchBox extends Component {
     return (
       <div className="SearchBox" >
         <img src={this.state.uploadedImage} style={{maxHeight: "300px", maxWidth: "500px"}} ></img>
-        <CropControls crop={this.cropped} rotate={this.rotate} rotateRightIncrement={this.rotateRightIncrement} rotateLeftIncrement={this.rotateLeftIncrement} searchMen={this.cropMen}/>
+        <CropControls crop={this.cropped} rotate={this.rotate} rotateRightIncrement={this.rotateRightIncrement} rotateLeftIncrement={this.rotateLeftIncrement} cropMen={this.cropMen}/>
       </div>
 		);
   }

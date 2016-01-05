@@ -9,6 +9,7 @@ import SearchBox from '../SearchBox';
 import SearchResults from '../SearchResults';
 import Product from '../Product';
 import jQuery from 'jquery';
+import request from 'reqwest';
 
 /*
 	Search Box <<
@@ -33,6 +34,7 @@ class VisualSearch extends Component {
 		this.setImageBlob = this.setImageBlob.bind(this);
 		this.setPage = this.setPage.bind(this);
 		this.setCropped = this.setCropped.bind(this);
+		this.fetchMenProducts = this.fetchMenProducts.bind(this);
 		this.state = {
 			resultsReceived: false,
 			searching: false,
@@ -138,43 +140,32 @@ class VisualSearch extends Component {
 		productList - The list of products that are returned by the ViSenze API.
 	*/
 	fetchProducts() {
-		if(this.state.imageBlob == ""){
+		if(this.state.imageBlob == undefined){
 			console.err("Image Blob must be set.");
 		}
-		let formData = new FormData();
-		formData.append('image', this.state.imageBlob, 'upload.jpg');
-		formData.append('limit','12');
-		formData.append('page', this.state.page);
-		formData.append('fl', 'product_name');
-		formData.append('fl', 'price');
-		formData.append('fl', 'sm_im_url');
-		formData.append('fl', 'product_url');
-		jQuery.ajax({
-			url: "/api/search/images/WomenShoes/",
-			type: 'POST',
-			data: formData,
-			processData: false,
-			contentType: false ,
-			success: function(data) {
-				if (data.result !== undefined){
-					this.setState({
-						resultsReceived: true,
-						searching: false,
-						productList: data.result
-					});
-					mixpanel.track(
-					"Searched Images",
-						{"Result Set": data.result}
-					);
-				} else {
-					this.setState({
-						searching: false
-					});
-				}
-			}.bind(this),
-			error: function(xhr, status, err) {
-				console.err(this.props.url, status, err.toString());
-			}.bind(this)
+		let filename = 'upload.jpg';
+		let img = this.state.imageBlob;
+		request({
+			url: '/api/search/image/WomenShoes/1/12/',
+			method: 'POST',
+			data: { filename: filename, file: img },
+		}).then((res) => {
+			console.log(res);
+			if (res.result !== undefined){
+				this.setState({
+					resultsReceived: true,
+					searching: false,
+					productList: res.result
+				});
+				mixpanel.track(
+				"Searched Images",
+					{"Result Set": res.result}
+				);
+			} else {
+				this.setState({
+					searching: false
+				});
+			}
 		});
 		this.setState({
 			searching: true,
@@ -183,43 +174,32 @@ class VisualSearch extends Component {
 	}
 
 	fetchMenProducts() {
-		if(this.state.imageBlob == ""){
+		if(this.state.imageBlob == undefined){
 			console.err("Image Blob must be set.");
 		}
-		let formData = new FormData();
-		formData.append('image', this.state.imageBlob, 'upload.jpg');
-		formData.append('limit','12');
-		formData.append('page', this.state.page);
-		formData.append('fl', 'product_name');
-		formData.append('fl', 'price');
-		formData.append('fl', 'sm_im_url');
-		formData.append('fl', 'product_url');
-		jQuery.ajax({
-			url: "/api/search/image/MenShoes",
-			type: 'POST',
-			data: formData,
-			processData: false,
-			contentType: false ,
-			success: function(data) {
-				if (data.result !== undefined){
-					this.setState({
-						resultsReceived: true,
-						searching: false,
-						productList: data.result
-					});
-					mixpanel.track(
-					"Searched Images",
-						{"Result Set": data.result}
-					);
-				} else {
-					this.setState({
-						searching: false
-					});
-				}
-			}.bind(this),
-			error: function(xhr, status, err) {
-				console.err(this.props.url, status, err.toString());
-			}.bind(this)
+		let filename = 'upload.jpg';
+		let img = this.state.imageBlob;
+		request({
+			url: '/api/search/image/MenShoes/1/12/',
+			method: 'POST',
+			data: { filename: filename, file: img },
+		}).then((res) => {
+			console.log(res);
+			if (res.result !== undefined){
+				this.setState({
+					resultsReceived: true,
+					searching: false,
+					productList: res.result
+				});
+				mixpanel.track(
+				"Searched Images",
+					{"Result Set": res.result}
+				);
+			} else {
+				this.setState({
+					searching: false
+				});
+			}
 		});
 		this.setState({
 			searching: true,

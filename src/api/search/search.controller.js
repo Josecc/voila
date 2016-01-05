@@ -50,30 +50,49 @@ exports.destroyKey = (req, res) => {
 //Searches an image based on an image upload
 //Parameters: res.body.imageBlobl or req.body.url
 exports.search = (req, res) => {
-  if(! req.body.imageBlob || req.body.url || req.body.im_name)
+  if(! (req.body || req.body.url || req.body.im_name)) {
     res.status(404).send("Please provide a url or image to search for.");
-  SearchKeys.findOne({application: req.params.application}, (err, key) => {
-    if(err) { return handleError(res, err); }
-    if(!key) { return res.status(404).send("Sorry, add application keys from ViSenze first before searching."); }
-    //Setting up request
-    let r = request.post('http://visearch.visenze.com/uploadsearch', (err, resopnse, body) => {
-      res.status(200).json(body);
-    }).auth(key.access, key.secret);
-
-    //Set up data for request https://developers.visenze.com/http/#Data-API
-    let formData = r.form();
-    formData.append('limit', req.params.limit);
-    formData.append('page', req.params.page);
-    formData.append('fl', 'product_name');
-    formData.append('fl', 'price');
-    formData.append('fl', 'sm_im_url');
-    formData.append('fl', 'product_url');
-    if(req.body.url){ //If its an image url sealrch
-      formData.append('im_url', req.body.url);
-    } else { //If its an image upload search
-      formData.append('image', req.body.imageBlob, 'upload.jpg');
-    }
-  });
+  } else {
+    SearchKeys.findOne({application: req.params.application}, (err, key) => {
+      if(err) { return handleError(res, err); }
+      if(!key) { return res.status(404).send("Sorry, add application keys from ViSenze first before searching."); }
+      //Setting up request
+      console.log("sending");
+      let r = request({
+        url: 'http://visearch.visenze.com/uploadsearch',
+        method: 'POST',
+        data: f
+      }, (error, response, body) => {
+        res.status(200).json(body);
+      }).auth(key.access, key.secret);
+      let f = r.form();
+      f.append('limit', req.params.limit);
+      f.append('page', req.params.page);
+      f.append('fl', 'product_name');
+      f.append('fl', 'price');
+      f.append('fl', 'sm_im_url');
+      f.append('fl', 'product_url');
+      if(req.body.url){ //If its an image url sealrch
+        f.append('im_url', req.body.url);
+      } else { //If its an image upload search
+        f.append('image', req.body.file, req.body.filename);
+      }
+      console.log('waiting....');
+      //Set up data for request https://developers.visenze.com/http/#Data-API
+      // let formData = r.form();
+      // formData.append('limit', req.params.limit);
+      // formData.append('page', req.params.page);
+      // formData.append('fl', 'product_name');
+      // formData.append('fl', 'price');
+      // formData.append('fl', 'sm_im_url');
+      // formData.append('fl', 'product_url');
+      // if(req.body.url){ //If its an image url sealrch
+      //   formData.append('im_url', req.body.url);
+      // } else { //If its an image upload search
+      //   formData.append('image', req.body.imageBlob, 'upload.jpg');
+      // }
+    });
+  }
 }
 
 //Searches an image based on an image upload

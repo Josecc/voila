@@ -63,6 +63,8 @@ exports.search = (req, res) => {
         method: 'POST',
         data: f
       }, (error, response, body) => {
+        console.log(response);
+        console.log(body);
         res.status(200).json(body);
       }).auth(key.access, key.secret);
       let f = r.form();

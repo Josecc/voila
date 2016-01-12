@@ -58,22 +58,29 @@ exports.search = (req, res) => {
       if(!key) { return res.status(404).send("Sorry, add application keys from ViSenze first before searching."); }
       //Setting up request
       console.log("sending");
+      var formData = {
+        limit: req.params.limit,
+        page: req.params.page,
+        fl: 'product_name',
+        fl: 'price',
+        fl: 'sm_im_url',
+        fl: 'product_url',
+        image: {
+          value:  req.body.file,
+          options: {
+            filename: 'upload.jpg',
+            contentType: 'image/jpg'
+          }
+        }
+      };
       let r = request({
         url: 'http://visearch.visenze.com/uploadsearch',
         method: 'POST',
 
-        data: f
+        data: formData
       }, (error, response, body) => {
         res.status(200).json(body);
       }).auth(key.access, key.secret);
-      let f = r.form();
-      f.append('limit', req.params.limit);
-      f.append('page', req.params.page);
-      f.append('fl', 'product_name');
-      f.append('fl', 'price');
-      f.append('fl', 'sm_im_url');
-      f.append('fl', 'product_url');
-      f.append('image', req.body.file, {filename: "upload.jpg"});
       // if(req.body.url){ //If its an image url sealrch
       //   f.append('im_url', req.body.url);
       // } else { //If its an image upload search

@@ -3103,10 +3103,9 @@ module.exports =
         var r = (0, _request2['default'])({
           url: 'http://visearch.visenze.com/uploadsearch',
           method: 'POST',
+  
           data: f
         }, function (error, response, body) {
-          console.log(response);
-          console.log(body);
           res.status(200).json(body);
         }).auth(key.access, key.secret);
         var f = r.form();
@@ -3116,14 +3115,13 @@ module.exports =
         f.append('fl', 'price');
         f.append('fl', 'sm_im_url');
         f.append('fl', 'product_url');
-        if (req.body.url) {
-          //If its an image url sealrch
-          f.append('im_url', req.body.url);
-        } else {
-          //If its an image upload search
-          f.append('image', req.body.file, req.body.filename);
-        }
-        console.log('waiting....');
+        f.append('image', req.body.file, { filename: "upload.jpg" });
+        // if(req.body.url){ //If its an image url sealrch
+        //   f.append('im_url', req.body.url);
+        // } else { //If its an image upload search
+        //   f.append('image', req.body.file, "upload.jpg");
+        // }
+        // console.log('waiting....');
         //Set up data for request https://developers.visenze.com/http/#Data-API
         // let formData = r.form();
         // formData.append('limit', req.params.limit);

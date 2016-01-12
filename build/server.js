@@ -3105,6 +3105,8 @@ module.exports =
           method: 'POST',
           data: f
         }, function (error, response, body) {
+          console.log(response);
+          console.log(body);
           res.status(200).json(body);
         }).auth(key.access, key.secret);
         var f = r.form();

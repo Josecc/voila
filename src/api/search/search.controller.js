@@ -65,13 +65,7 @@ exports.search = (req, res) => {
         fl: 'price',
         fl: 'sm_im_url',
         fl: 'product_url',
-        image: {
-          value:  req.body.file,
-          options: {
-            filename: 'upload.jpg',
-            contentType: 'image/jpg'
-          }
-        }
+        image: req.body.file
       };
       let r = request({
         url: 'http://visearch.visenze.com/uploadsearch',

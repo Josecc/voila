@@ -3559,8 +3559,8 @@ module.exports =
   // Passport Configuration
   __webpack_require__(48).setup(User);
   __webpack_require__(45).setup(User, { facebook: {
-  		clientID: process.env.FACEBOOK_ID || '1609283866014176',
-  		clientSecret: process.env.FACEBOOK_SECRET || '2692b42e963fc6cb30b5cfe2b06f3a13',
+  		clientID: process.env.FACEBOOK_ID,
+  		clientSecret: process.env.FACEBOOK_SECRET,
   		callbackURL: (process.env.DOMAIN || '') + '/auth/facebook/callback'
   	} });
   
